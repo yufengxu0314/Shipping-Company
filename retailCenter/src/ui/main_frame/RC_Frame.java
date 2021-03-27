@@ -6,6 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.Arrays;
+
+import static utility.My_Color.*;
 
 
 public class RC_Frame extends JFrame implements WindowListener, ActionListener {
@@ -29,6 +32,16 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
         setup();
         attach_items();
         set_frame();
+        set_color();
+    }
+
+    private void set_color(){
+        this.setBackground(MAIN_FRAME_GREY);
+        for (JButton button: Arrays.asList(add_customer_button, search_customer_button,create_order_button,search_order_button)){
+            button.setBackground(GREEN);
+            button.setBorderPainted(false);
+            button.setForeground(WHITE);
+        }
     }
 
     private void attach_items() {
@@ -45,10 +58,10 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
         this.add(search_customer_panel);
         this.add(create_order_panel);
         this.add(search_order_panel);
-        add_customer_panel.setBounds(0, height/4, width, 3* height/4 );
-        search_customer_panel.setBounds(0, height/4, width, 3* height/4 );
-        create_order_panel.setBounds(0, height/4, width, 3* height/4 );
-        search_order_panel.setBounds(0, height/4, width, 3* height/4 );
+        add_customer_panel.setBounds(width/40, height/4, 38*width/40, 3* height/4 );
+        search_customer_panel.setBounds(width/40, height/4, 38*width/40, 3* height/4 );
+        create_order_panel.setBounds(width/40, height/4, 38*width/40, 3* height/4 );
+        search_order_panel.setBounds(width/40, height/4, 38*width/40, 3* height/4 );
         add_customer_panel.setVisible(false);
         search_customer_panel.setVisible(false);
         create_order_panel.setVisible(false);
@@ -103,24 +116,40 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
             create_order_panel.setVisible(false);
             search_order_panel.setVisible(false);
             add_customer_panel.setVisible(true);
+            search_customer_button.setBackground(GREEN);
+            create_order_button.setBackground(GREEN);
+            search_order_button.setBackground(GREEN);
+            add_customer_button.setBackground(VIP_GREEN);
         }
-        if (button == search_customer_button) {
+        else if (button == search_customer_button) {
             add_customer_panel.setVisible(false);
             create_order_panel.setVisible(false);
             search_order_panel.setVisible(false);
             search_customer_panel.setVisible(true);
+            add_customer_button.setBackground(GREEN);
+            create_order_button.setBackground(GREEN);
+            search_order_button.setBackground(GREEN);
+            search_customer_button.setBackground(VIP_GREEN);
         }
-        if (button == create_order_button) {
+        else if (button == create_order_button) {
             search_order_panel.setVisible(false);
             add_customer_panel.setVisible(false);
             search_customer_panel.setVisible(false);
             create_order_panel.setVisible(true);
+            add_customer_button.setBackground(GREEN);
+            search_customer_button.setBackground(GREEN);
+            search_order_button.setBackground(GREEN);
+            create_order_button.setBackground(VIP_GREEN);
         }
-        if (button == search_order_button) {
+        else if (button == search_order_button) {
             add_customer_panel.setVisible(false);
             search_customer_panel.setVisible(false);
             create_order_panel.setVisible(false);
             search_order_panel.setVisible(true);
+            add_customer_button.setBackground(GREEN);
+            add_customer_button.setBackground(GREEN);
+            create_order_button.setBackground(GREEN);
+            search_order_button.setBackground(VIP_GREEN);
         }
 
     }
@@ -159,4 +188,6 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
     public void windowDeactivated(WindowEvent e) {
 
     }
+
+
 }

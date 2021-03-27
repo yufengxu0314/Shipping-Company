@@ -1,5 +1,7 @@
 package ui.main_frame;
 
+import utility.My_Color;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
@@ -26,6 +28,11 @@ public class Search_Order_Panel extends JPanel {
         set_panel();
         setup();
         attach_items();
+        set_color();
+    }
+
+    private void set_color(){
+        this.setBackground(My_Color.PANEL_BACKGROUND);
     }
 
     private void attach_items() {
@@ -38,22 +45,22 @@ public class Search_Order_Panel extends JPanel {
         this.add(search_button);
 
         //set bounds
-        id_label.setBounds(width/6, height/8, width/4, height/6);
-        id_field.setBounds(2*width/6, height/8, width/3, height/6);
+        id_label.setBounds(width/6, height/8, width/4, height/8);
+        id_field.setBounds(2*width/6, height/8, width/3, height/8);
 
 
-        created_after_label.setBounds(width/14, 2*height/5, 2*width/13, height/6);
+        created_after_label.setBounds(width/14, 2*height/5, 2*width/13, height/8);
 
-        year_label.setBounds(4*width/14, 2*height/5, width/13, height/6);
-        year_field.setBounds(5*width/14, 2*height/5, width/13, height/6);
+        year_label.setBounds(4*width/14, 2*height/5, width/13, height/8);
+        year_field.setBounds(5*width/14, 2*height/5, width/13, height/8);
 
-        month_label.setBounds(7*width/14, 2*height/5, width/13, height/6);
-        month_field.setBounds(8*width/14, 2*height/5, width/13, height/6);
+        month_label.setBounds(7*width/14, 2*height/5, width/13, height/8);
+        month_field.setBounds(8*width/14, 2*height/5, width/13, height/8);
 
-        day_label.setBounds(10*width/14, 2*height/5, width/13, height/6);
-        day_field.setBounds(11*width/14, 2*height/5, width/13, height/6);
+        day_label.setBounds(10*width/14, 2*height/5, width/13, height/8);
+        day_field.setBounds(11*width/14, 2*height/5, width/13, height/8);
 
-        search_button.setBounds(5*width/12, 3*height/5, width/6, height/6);
+        search_button.setBounds(5*width/12, 3*height/5, width/6, height/8);
     }
 
     private void setup(){
