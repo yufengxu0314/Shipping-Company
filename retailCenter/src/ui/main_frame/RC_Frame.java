@@ -1,5 +1,7 @@
 package ui.main_frame;
 
+import utility.My_Color;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,7 +10,6 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Arrays;
 
-import static utility.My_Color.*;
 
 
 public class RC_Frame extends JFrame implements WindowListener, ActionListener {
@@ -36,11 +37,11 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
     }
 
     private void set_color(){
-        this.setBackground(MAIN_FRAME_GREY);
+        this.setBackground(My_Color.MAIN_FRAME_GREY);
         for (JButton button: Arrays.asList(add_customer_button, search_customer_button,create_order_button,search_order_button)){
-            button.setBackground(GREEN);
+            button.setBackground(My_Color.GREEN);
             button.setBorderPainted(false);
-            button.setForeground(WHITE);
+            button.setForeground(My_Color.WHITE);
         }
     }
 
@@ -116,40 +117,40 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
             create_order_panel.setVisible(false);
             search_order_panel.setVisible(false);
             add_customer_panel.setVisible(true);
-            search_customer_button.setBackground(GREEN);
-            create_order_button.setBackground(GREEN);
-            search_order_button.setBackground(GREEN);
-            add_customer_button.setBackground(VIP_GREEN);
+            search_customer_button.setBackground(My_Color.GREEN);
+            create_order_button.setBackground(My_Color.GREEN);
+            search_order_button.setBackground(My_Color.GREEN);
+            add_customer_button.setBackground(My_Color.VIP_GREEN);
         }
         else if (button == search_customer_button) {
             add_customer_panel.setVisible(false);
             create_order_panel.setVisible(false);
             search_order_panel.setVisible(false);
             search_customer_panel.setVisible(true);
-            add_customer_button.setBackground(GREEN);
-            create_order_button.setBackground(GREEN);
-            search_order_button.setBackground(GREEN);
-            search_customer_button.setBackground(VIP_GREEN);
+            add_customer_button.setBackground(My_Color.GREEN);
+            create_order_button.setBackground(My_Color.GREEN);
+            search_order_button.setBackground(My_Color.GREEN);
+            search_customer_button.setBackground(My_Color.VIP_GREEN);
         }
         else if (button == create_order_button) {
             search_order_panel.setVisible(false);
             add_customer_panel.setVisible(false);
             search_customer_panel.setVisible(false);
             create_order_panel.setVisible(true);
-            add_customer_button.setBackground(GREEN);
-            search_customer_button.setBackground(GREEN);
-            search_order_button.setBackground(GREEN);
-            create_order_button.setBackground(VIP_GREEN);
+            add_customer_button.setBackground(My_Color.GREEN);
+            search_customer_button.setBackground(My_Color.GREEN);
+            search_order_button.setBackground(My_Color.GREEN);
+            create_order_button.setBackground(My_Color.VIP_GREEN);
         }
         else if (button == search_order_button) {
             add_customer_panel.setVisible(false);
             search_customer_panel.setVisible(false);
             create_order_panel.setVisible(false);
             search_order_panel.setVisible(true);
-            add_customer_button.setBackground(GREEN);
-            add_customer_button.setBackground(GREEN);
-            create_order_button.setBackground(GREEN);
-            search_order_button.setBackground(VIP_GREEN);
+            add_customer_button.setBackground(My_Color.GREEN);
+            add_customer_button.setBackground(My_Color.GREEN);
+            create_order_button.setBackground(My_Color.GREEN);
+            search_order_button.setBackground(My_Color.VIP_GREEN);
         }
 
     }
