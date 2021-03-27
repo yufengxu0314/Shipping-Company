@@ -105,7 +105,7 @@ public class databaseHandler {
             ResultSet rs = stmt.executeQuery("SELECT * FROM Customer");
             while(rs.next()) {
                 Customer c = new Customer(rs.getString("PhoneNumber"), rs.getString("Name"),
-                        rs.getString("UserName"), rs.getString("Password"));
+                        rs.getString("UserName"), rs.getString("Password"), rs.getString("Address"));
                 customer.add(c);
             }
             rs.close();
@@ -116,6 +116,8 @@ public class databaseHandler {
         System.out.println(customer);
         return customer;
     }
+
+
 
 
         private void dropBranchTableIfExists() {
