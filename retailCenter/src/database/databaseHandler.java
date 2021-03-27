@@ -69,15 +69,6 @@ public class databaseHandler {
         }
 
         public void databaseSetup() {
-            dropBranchTableIfExists();
-
-            try {
-                Statement stmt = connection.createStatement();
-                stmt.executeUpdate("CREATE TABLE branch (branch_id integer PRIMARY KEY, branch_name varchar2(20) not null, branch_addr varchar2(50), branch_city varchar2(20) not null, branch_phone integer)");
-                stmt.close();
-            } catch (SQLException e) {
-                System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-            }
 
             getCustomer();
             getSender();
@@ -185,20 +176,54 @@ public class databaseHandler {
 
 
 
-    //Queries: SELECTION Operation
-    public void searchCustomer(String PhoneNumber, String Name, String UserName, String Password, String Address) throws exception {
+    //Queries: PROJECTION Operation
+    //return customer's Name, PhoneNumber and Address with given PhoneNumber
+    public ArrayList<String> searchCustomer(String PhoneNumber) throws exception {
+        ArrayList<String>  a = new ArrayList<>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT Name, PhoneNumber, Address FROM Customer WHERE PhoneNumber = " + PhoneNumber);
+            while(rs.next()) {
+                a.add(rs.getString("Name"));
+                a.add(rs.getString("PhoneNumber"));
+                a.add(rs.getString("Address"));
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
-        ArrayList<Customer> result = new ArrayList<>();
-
-
-
+        if (a.isEmpty()) {
+            throw new exception("Customer with given phone number is not found");
+        }
+        return a;
     }
 
     //Queries: SELECTION Operation
-    public void searchTracking(int TrackingID) {
-        ArrayList<ShippingOrder> result = new ArrayList<>();
+    //Return the full order info with the given TrackingID
+    public ShippingOrder searchTracking(int TrackingID) throws exception{
+        ShippingOrder s = null;
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM ShippingOrder WHERE TrackingID = " + TrackingID);
+            while(rs.next()) {
+                s = new ShippingOrder(rs.getInt("TrackingID"), rs.getString("ContentType"),
+                        rs.getString("OrderDate"), rs.getInt("Weight"),
+                        rs.getString("Size"), rs.getString("ShippingMethod"),rs.getInt("Price") );
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
+        if (s == null) {
+            throw new exception("Order with given tracking ID is not found");
+        }
+        return s;
     }
+
 
 
     public ArrayList<Customer> getCustomer() {
@@ -506,25 +531,6 @@ public class databaseHandler {
         System.out.println(parcel);
         return parcel;
     }
-
-    private void dropBranchTableIfExists(){
-            try {
-                Statement stmt = connection.createStatement();
-                ResultSet rs = stmt.executeQuery("select table_name from user_tables");
-
-                while(rs.next()) {
-                    if(rs.getString(1).toLowerCase().equals("branch")) {
-                        stmt.execute("DROP TABLE branch");
-                        break;
-                    }
-                }
-
-                rs.close();
-                stmt.close();
-            } catch (SQLException e) {
-                System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-            }
-        }
 
 
 
