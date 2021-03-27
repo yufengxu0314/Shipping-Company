@@ -1,5 +1,7 @@
 package ui.main_frame;
 
+import utility.My_Color;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
@@ -29,6 +31,11 @@ public class Create_Order_Panel extends JPanel {
         set_panel();
         setup();
         attach_items();
+        set_color();
+    }
+
+    private void set_color(){
+        this.setBackground(My_Color.PANEL_BACKGROUND);
     }
 
     private void attach_items() {
@@ -42,24 +49,24 @@ public class Create_Order_Panel extends JPanel {
 
         //set bounds
         // first column
-        type_label.setBounds(width/12, height/12, width/8, height/6);
-        weight_label.setBounds(width/12, 4*height/12, width/8, height/6);
-        sender_phone_label.setBounds(width/12, 7*height/12, width/8, height/6);
+        type_label.setBounds(width/12, height/12, width/8, height/8);
+        weight_label.setBounds(width/12, 4*height/12, width/8, height/8);
+        sender_phone_label.setBounds(width/12, 7*height/12, width/8, height/8);
 
-        type_field.setBounds(width/4, height/12, width/6, height/6);
-        weight_field.setBounds(width/4, 4*height/12, width/6, height/6);
-        sender_phone_field.setBounds(width/4, 7*height/12, width/6, height/6);
+        type_field.setBounds(width/4, height/12, width/6, height/8);
+        weight_field.setBounds(width/4, 4*height/12, width/6, height/8);
+        sender_phone_field.setBounds(width/4, 7*height/12, width/6, height/8);
         // second column
-        method_label.setBounds(11*width/24, height/12, width/8, height/6);
-        size_label.setBounds(11*width/24, 4*height/12, width/8, height/6);
-        receiver_phone_label.setBounds(11*width/24, 7*height/12, width/7, height/6);
+        method_label.setBounds(11*width/24, height/12, width/8, height/8);
+        size_label.setBounds(11*width/24, 4*height/12, width/8, height/8);
+        receiver_phone_label.setBounds(11*width/24, 7*height/12, width/7, height/8);
 
-        method_field.setBounds(15*width/24, height/12, width/6, height/6);
-        size_field.setBounds(15*width/24, 4*height/12, width/6, height/6);
-        receiver_phone_field.setBounds(15 *width/24, 7*height/12, width/6, height/6);
+        method_field.setBounds(15*width/24, height/12, width/6, height/8);
+        size_field.setBounds(15*width/24, 4*height/12, width/6, height/8);
+        receiver_phone_field.setBounds(15 *width/24, 7*height/12, width/6, height/8);
 
 
-        confirm_button.setBounds(10*width/12, 7*height/12, width/8, height/6);
+        confirm_button.setBounds(10*width/12, 7*height/12, width/8, height/8);
     }
 
     private void setup(){

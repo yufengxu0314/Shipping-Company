@@ -1,5 +1,7 @@
 package ui.main_frame;
 
+import utility.My_Color;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -17,6 +19,11 @@ public class Search_Customer_Panel extends JPanel {
         set_panel();
         setup();
         attach_items();
+        set_color();
+    }
+
+    private void set_color(){
+        this.setBackground(My_Color.PANEL_BACKGROUND);
     }
 
     private void attach_items() {

@@ -1,5 +1,7 @@
 package ui.main_frame;
 
+import utility.My_Color;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
@@ -23,6 +25,7 @@ public class Add_Customer_Panel extends JPanel{
         set_panel();
         setup();
         attach_items();
+        set_color();
     }
 
     private void attach_items() {
@@ -34,13 +37,13 @@ public class Add_Customer_Panel extends JPanel{
         this.add(phone_number_field);
         this.add(add_button);
         //set bounds
-        name_label.setBounds(width/6, height/12, width/6, height/6);
-        address_label.setBounds(width/6, 4*height/12, width/6, height/6);
-        phone_number_label.setBounds(width/6, 7*height/12, width/6, height/6);
-        name_field.setBounds(width/3, height/12, width/3, height/6);
-        address_field.setBounds(width/3, 4*height/12, width/3, height/6);
-        phone_number_field.setBounds(width/3, 7*height/12, width/3, height/6);
-        add_button.setBounds(9*width/12, 8*height/12, width/6, height/6);
+        name_label.setBounds(width/6, height/12, width/6, height/8);
+        address_label.setBounds(width/6, 4*height/12, width/6, height/8);
+        phone_number_label.setBounds(width/6, 7*height/12, width/6, height/8);
+        name_field.setBounds(width/3, height/12, width/3, height/8);
+        address_field.setBounds(width/3, 4*height/12, width/3, height/8);
+        phone_number_field.setBounds(width/3, 7*height/12, width/3, height/8);
+        add_button.setBounds(9*width/12, 7*height/12, width/6, height/8);
     }
 
     private void setup(){
@@ -64,6 +67,10 @@ public class Add_Customer_Panel extends JPanel{
 
     private void set_panel(){
         this.setLayout(null);
+    }
+
+    private void set_color(){
+        this.setBackground(My_Color.PANEL_BACKGROUND);
     }
 
 }
