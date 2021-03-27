@@ -9,7 +9,7 @@ DROP TABLE Insurance;
 DROP TABLE Offer;
 DROP TABLE ReceivedBy;
 DROP TABLE Schedule;
-DROP TABLE Courrier;
+DROP TABLE Courier;
 DROP TABLE Postman/Postwoman;
 DROP TABLE SortingCenter;
 DROP TABLE Transportation;
@@ -104,7 +104,7 @@ CREATE TABLE Insurance
     FOREIGN KEY (SenderPhoneNumber) REFERENCES Sender (PhoneNumber) ON DELETE SET DEFAULT
 );
 
-CREATE TABLE Courrier (
+CREATE TABLE Courier (
     StaffID			int		PRIMARY KEY
 );
 
@@ -142,7 +142,7 @@ CREATE TABLE Transportation
     BranchNumber int,
     StaffID      int,
     PRIMARY KEY (TrackingID, BranchNumber, StaffID),
-    FOREIGN KEY (StaffID) REFERENCES Courrier ON DELETE CASCADE,
+    FOREIGN KEY (StaffID) REFERENCES Courier ON DELETE CASCADE,
     FOREIGN KEY (BranchNumber) REFERENCES SortingCenter ON DELETE CASCADE,
     FOREIGN KEY (TrackingID) REFERENCES ShippingOrder ON DELETE CASCADE
 );
@@ -214,11 +214,11 @@ INSERT INTO ShippingOrder VALUES(1000000003, 'normal', '2021/02/28', 0.3, '4x15x
 INSERT INTO ShippingOrder VALUES(1000000004, 'normal', '2021/02/27', 0.9, '5x11x8', 'flight');
 INSERT INTO ShippingOrder VALUES(1000000005, 'liquid', '2021/02/26', 0.4,'12x10x10', 'flight');
 
-INSERT INTO Courrier VALUES (105);
-INSERT INTO Courrier VALUES (106);
-INSERT INTO Courrier VALUES (107);
-INSERT INTO Courrier VALUES (108);
-INSERT INTO Courrier VALUES (109);
+INSERT INTO Courier VALUES (105);
+INSERT INTO Courier VALUES (106);
+INSERT INTO Courier VALUES (107);
+INSERT INTO Courier VALUES (108);
+INSERT INTO Courier VALUES (109);
 
 INSERT INTO PostmanPostwoman VALUES (100, '778012345');
 INSERT INTO PostmanPostwoman VALUES (101, '778012346');

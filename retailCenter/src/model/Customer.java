@@ -2,11 +2,11 @@ package model;
 
 public class Customer {
 
-    public String PhoneNumber;
-    public String Name;
-    public String UserName;
-    public String Password;
-    public String Address;
+    private String PhoneNumber;
+    private String Name;
+    private String UserName;
+    private String Password;
+    private String Address;
 
     public Customer(String PhoneNumber, String Name, String UserName, String Password, String Address){
         this.PhoneNumber = PhoneNumber;
@@ -32,7 +32,7 @@ public class Customer {
         return Password;
     }
 
-
-
-
+    public String getAddress() {
+        return Address;
+    }
 }

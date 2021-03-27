@@ -4,11 +4,9 @@ import model.RetailCenter;
 public class Staff {
     public int StaffID;
     public int BranchNumber;
-    private RetailCenter retailCenter;
 
-    public Staff(int StaffID, RetailCenter retailCenter) {
-        this.retailCenter = retailCenter;
-        this.BranchNumber = retailCenter.getBranchNumber();
+    public Staff(int StaffID, int BranchNumber) {
+        this.BranchNumber = BranchNumber;
         this.StaffID = StaffID;
     }
 

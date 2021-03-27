@@ -203,7 +203,7 @@ public class databaseHandler {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM Staff");
             while(rs.next()) {
-                Staff s = new Staff(rs.getInt("StaffID"), (RetailCenter) rs.getObject("retailCenter"));
+                Staff s = new Staff(rs.getInt("StaffID"), rs.getInt("BranchNumber"));
                 staff.add(s);
             }
             rs.close();
