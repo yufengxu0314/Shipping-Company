@@ -31,9 +31,10 @@ CREATE TABLE ShippingOrder (
 	TrackingID		    int		    PRIMARY KEY,
 	ContentType		    char(50)	NOT NULL,
 	OrderDate		    char(50)	NOT NULL,
-	Weight			    int
-	Size			    char(50)
-	ShippingMethod	    char(20)
+	Weight			    int,
+	Size			    char(50),
+	ShippingMethod	    char(20),
+	Price               int,
 	FOREIGN KEY (Weight,Size,ShippingMethod) REFERENCES ShippingPrice ON DELETE SET DEFAULT
 );
 
