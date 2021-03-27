@@ -79,8 +79,8 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
         //create panels
         add_customer_panel = new Add_Customer_Panel( width, 3*height/4);
         search_customer_panel = new Search_Customer_Panel( width, 3*height/4);
-        create_order_panel = new Create_Order_Panel();
-        search_order_panel = new Search_Order_Panel();
+        create_order_panel = new Create_Order_Panel( width, 3*height/4);
+        search_order_panel = new Search_Order_Panel( width, 3*height/4);
     }
 
 
