@@ -296,24 +296,27 @@ public class databaseHandler {
     }
 
     //Queries: UPDATE Operation
-    public void updateCustomer(int PhoneNumber, String Name) {
+    public void updateCustomer(String Name, String PhoneNumber, String Address) {
         try {
-            PreparedStatement ps = connection.prepareStatement("UPDATE branch SET PhoneNumber = ? WHERE Name = ?");
-            ps.setString(1, Name);
-            ps.setInt(2, PhoneNumber);
+            getCustomer();
+            PreparedStatement ps = connection.prepareStatement("UPDATE Customer SET PhoneNumber = ?, Name = ? WHERE Address = ?");
+            ps.setString(1, PhoneNumber);
+            ps.setString(2, Name);
+            ps.setString(3, Address);
 
             int rowCount = ps.executeUpdate();
             if (rowCount == 0) {
-                System.out.println(WARNING_TAG + " Customer " + Name + " does not exist!");
+                System.out.println("ERROR" + " Customer with address " + Address + " does not exist!");
             }
-
             connection.commit();
             ps.close();
+            getCustomer();
         } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            System.out.println("ERROR");
             rollbackConnection();
         }
     }
+
 
 
     //
