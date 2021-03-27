@@ -233,7 +233,7 @@ public class databaseHandler {
         return parcel;
     }
 
-
+    //Queries: INSERT Operation
     public void addCustomer(String PhoneNumber, String Name, String UserName, String Password, String Address) {
         try {
             PreparedStatement ps = connection.prepareStatement("INSERT INTO Customer VALUES (?,?,?,?,?)");
@@ -253,7 +253,8 @@ public class databaseHandler {
         }
     }
 
-    public void createOrders(int TrackingID, String ContentType, String OrderDate,
+    //Queries: INSERT Operation
+    public void addOrders(int TrackingID, String ContentType, String OrderDate,
                              int Weight, String Size, String ShippingMethod, int Price) {
         try {
             PreparedStatement ps = connection.prepareStatement("INSERT INTO Customer VALUES (?,?,?,?,?,?,?)");
@@ -272,6 +273,55 @@ public class databaseHandler {
             System.out.println("ERROR");
             rollbackConnection();
         }
+    }
+
+    //Queries: DELETE Operation
+    public void deleteOrder(int TrackingID) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM ShippingOrder WHERE TrackingID = ?");
+            ps.setInt(1, TrackingID);
+
+            int rowCount = ps.executeUpdate();
+            if (rowCount == 0) {
+                System.out.println(WARNING_TAG + " Order " + TrackingID + " does not exist!");
+            }
+
+            connection.commit();
+
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+        }
+    }
+
+    //Queries: UPDATE Operation
+    public void updateCustomer(int PhoneNumber, String Name) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("UPDATE branch SET PhoneNumber = ? WHERE Name = ?");
+            ps.setString(1, Name);
+            ps.setInt(2, PhoneNumber);
+
+            int rowCount = ps.executeUpdate();
+            if (rowCount == 0) {
+                System.out.println(WARNING_TAG + " Customer " + Name + " does not exist!");
+            }
+
+            connection.commit();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+        }
+    }
+
+
+    //
+    public void searchCustomer(String PhoneNumber, String Name, String UserName, String Password, String Address) throws exception {
+
+        ArrayList<Customer> result = new ArrayList<Customer>();
+
+
     }
 
 
