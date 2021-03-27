@@ -80,21 +80,21 @@ public class databaseHandler {
             }
 
             getCustomer();
-            getSender();
-            getReceiver();
-            getParcel();
-            getRetailCenter();
-            getShippingOrder();
-            getStaff();
-            getInsurance();
-            getOffer();
-            getReceivedBy();
-            getSchedule();
-            getCourrier();
-            getPostman/Postwoman();
-            getSortingCenter();
-            getTransportation();
-            getAssign();
+//            getSender();
+//            getReceiver();
+//            getParcel();
+//            getRetailCenter();
+//            getShippingOrder();
+//            getStaff();
+//            getInsurance();
+//            getOffer();
+//            getReceivedBy();
+//            getSchedule();
+//            getCourrier();
+//            getPostman/Postwoman();
+//            getSortingCenter();
+//            getTransportation();
+//            getAssign();
 
         }
 
