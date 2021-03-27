@@ -28,18 +28,18 @@ CREATE TABLE Receiver(
 );
 
 CREATE TABLE ShippingOrder (
-	TrackingID		int		    PRIMARY KEY,
-	ContentType		char(50)	NOT NULL,
-	OrderDate		char(50)	NOT NULL,
-	Weight			int
-	Size			char(50)
-	ShippingMethod	char(20)
+	TrackingID		    int		    PRIMARY KEY,
+	ContentType		    char(50)	NOT NULL,
+	OrderDate		    char(50)	NOT NULL,
+	Weight			    int
+	Size			    char(50)
+	ShippingMethod	    char(20)
 	FOREIGN KEY (Weight,Size,ShippingMethod) REFERENCES ShippingPrice ON DELETE SET DEFAULT
 );
 
 CREATE TABLE Staff (
-    StaffID			int		PRIMARY KEY,
-    BranchNumber	int,
+    StaffID			    int		PRIMARY KEY,
+    BranchNumber	    int,
     FOREIGN KEY (BranchNumber) REFERENCES SortingCenter ON DELETE SET DEFAULT
 );
 
@@ -66,7 +66,7 @@ CREATE TABLE Sender
 CREATE TABLE Customer
 (
     PhoneNumber char(20)
-    Name        char(50)   NOT NULL,
+    Name        char(50)    NOT NULL,
     Username    char(50)    UNIQUE,
     Password    char(100)   NOT NULL,
     Address     char(100)
@@ -89,8 +89,8 @@ CREATE TABLE SortingCenter
 
 CREATE TABLE PostmanPostwoman
 (
-    StaffID     int,
-    PhoneNumber char(20) UNIQUE,
+    StaffID                 int,
+    PhoneNumber             char(20) UNIQUE,
     PRIMARY KEY (StaffID),
     FOREIGN KEY (StaffID) REFERENCES Staff (StaffID) ON DELETE CASCADE
 );
@@ -269,14 +269,7 @@ INSERT INTO Transportation VALUES(1000000003, 7003, 107);
 INSERT INTO Transportation VALUES(1000000004, 7002, 108);
 INSERT INTO Transportation VALUES(1000000005, 7001, 109);
 
-
-
-
-
-
-
-
-    commit work;
+commit work;
 
 
 

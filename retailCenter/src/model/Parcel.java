@@ -6,7 +6,8 @@ public class Parcel {
     public String ReceiveTime;
     public String SenderName;
 
-    public Parcel(String ReceiveTime) {
+    public Parcel(String ReceiveTime, Sender sender) {
+        this.sender = sender;
         this.ReceiveTime = ReceiveTime;
         this.SenderName = sender.getName();
         this.SenderPhoneNumber = sender.getPhoneNumber();

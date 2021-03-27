@@ -6,8 +6,9 @@ public class Staff {
     public int BranchNumber;
     private RetailCenter retailCenter;
 
-    public Staff(int StaffID) {
-        this.BranchNumber = retailCenter.BranchNumber;
+    public Staff(int StaffID, RetailCenter retailCenter) {
+        this.retailCenter = retailCenter;
+        this.BranchNumber = retailCenter.getBranchNumber();
         this.StaffID = StaffID;
     }
 
