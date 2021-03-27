@@ -10,7 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;import java.util.ArrayList;
+import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -86,15 +87,15 @@ public class databaseHandler {
             getRetailCenter();
             getShippingOrder();
             getStaff();
-            getInsurance();
-            getOffer();
-            getReceivedBy();
-            getSchedule();
-            getCourrier();
-            getPostman/Postwoman();
-            getSortingCenter();
-            getTransportation();
-            getAssign();
+//            getInsurance();
+//            getOffer();
+//            getReceivedBy();
+//            getSchedule();
+//            getCourrier();
+//            getPostman/Postwoman();
+//            getSortingCenter();
+//            getTransportation();
+//            getAssign();
 
         }
 
@@ -117,10 +118,165 @@ public class databaseHandler {
         return customer;
     }
 
+    public ArrayList<Sender> getSender() {
+        ArrayList<Sender> sender = new ArrayList<>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Sender");
+            while(rs.next()) {
+                Sender s = new Sender(rs.getString("PhoneNumber"), rs.getString("Name"),
+                        rs.getString("UserName"), rs.getString("Password"), rs.getString("Address"));
+                sender.add(s);
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println(sender);
+        return sender;
+    }
+
+    public ArrayList<Receiver> getReceiver() {
+        ArrayList<Receiver> receiver = new ArrayList<>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Receiver");
+            while(rs.next()) {
+                Receiver r = new Receiver(rs.getString("PhoneNumber"), rs.getString("Name"),
+                        rs.getString("UserName"), rs.getString("Password"), rs.getString("Address"));
+                receiver.add(r);
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println(receiver);
+        return receiver;
+    }
+
+    public ArrayList<ShippingOrder> getShippingOrder() {
+        ArrayList<ShippingOrder> shippingOrder = new ArrayList<>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM ShippingOrder");
+            while(rs.next()) {
+                ShippingOrder so = new ShippingOrder(rs.getInt("TrackingID"),
+                                                    rs.getString("ContentType"),
+                                                    rs.getString("OrderDate"),
+                                                    rs.getInt("Weight"),
+                                                    rs.getString("Size"),
+                                                    rs.getString("ShippingMethod"),
+                                                    rs.getInt("Price"));
+                shippingOrder.add(so);
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println(shippingOrder);
+        return shippingOrder;
+    }
+
+    public ArrayList<RetailCenter> getRetailCenter() {
+        ArrayList<RetailCenter> retailCenter = new ArrayList<>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM RetailCenter");
+            while(rs.next()) {
+                RetailCenter r = new RetailCenter( rs.getInt("BranchNumber"),rs.getString("Address"));
+                retailCenter.add(r);
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println(retailCenter);
+        return retailCenter;
+    }
+
+    public ArrayList<Staff> getStaff() {
+        ArrayList<Staff> staff = new ArrayList<>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Staff");
+            while(rs.next()) {
+                Staff s = new Staff(rs.getInt("StaffID"), (RetailCenter) rs.getObject("retailCenter"));
+                staff.add(s);
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println(staff);
+        return staff;
+    }
+
+    public ArrayList<Parcel> getParcel() {
+        ArrayList<Parcel> parcel = new ArrayList<>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Parcel");
+            while(rs.next()) {
+                Parcel p = new Parcel(rs.getString("ReceiveTime"), (Sender) rs.getObject("sender"));
+                parcel.add(p);
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println(parcel);
+        return parcel;
+    }
 
 
+    public void addCustomer(String PhoneNumber, String Name, String UserName, String Password, String Address) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO Customer VALUES (?,?,?,?,?)");
+            ps.setString(1, PhoneNumber);
+            ps.setString(2, Name);
+            ps.setString(3, UserName);
+            ps.setString(4, Password);
+            ps.setString(5, Address);
 
-        private void dropBranchTableIfExists() {
+            ps.executeUpdate();
+            connection.commit();
+            ps.close();
+            getCustomer();
+        } catch (SQLException e) {
+            System.out.println("ERROR");
+            rollbackConnection();
+        }
+    }
+
+    public void createOrders(int TrackingID, String ContentType, String OrderDate,
+                             int Weight, String Size, String ShippingMethod, int Price) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO Customer VALUES (?,?,?,?,?,?,?)");
+            ps.setInt(1, TrackingID);
+            ps.setString(2, ContentType);
+            ps.setString(3, OrderDate);
+            ps.setInt(4, Weight);
+            ps.setString(5, Size);
+            ps.setString(6, ShippingMethod);
+            ps.setInt(7, Price);
+            ps.executeUpdate();
+            connection.commit();
+            ps.close();
+            getCustomer();
+        } catch (SQLException e) {
+            System.out.println("ERROR");
+            rollbackConnection();
+        }
+    }
+
+
+    private void dropBranchTableIfExists(){
             try {
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery("select table_name from user_tables");
