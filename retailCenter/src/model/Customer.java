@@ -4,15 +4,11 @@ public class Customer {
 
     private String PhoneNumber;
     private String Name;
-    private String UserName;
-    private String Password;
     private String Address;
 
-    public Customer(String PhoneNumber, String Name, String UserName, String Password, String Address){
+    public Customer(String PhoneNumber, String Name, String Address){
         this.PhoneNumber = PhoneNumber;
         this.Name = Name;
-        this.UserName = UserName;
-        this.Password = Password;
         this.Address = Address;
     }
 
@@ -24,13 +20,6 @@ public class Customer {
         return Name;
     }
 
-    public String getUserName() {
-        return UserName;
-    }
-
-    public String getPassword() {
-        return Password;
-    }
 
     public String getAddress() {
         return Address;

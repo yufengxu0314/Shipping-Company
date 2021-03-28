@@ -3,13 +3,7 @@ package database;
 import exception.exception;
 import model.*;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -24,8 +18,6 @@ public class databaseHandler {
 
     public databaseHandler() {
         try {
-            // Load the Oracle JDBC driver
-            // Note that the path could change for new drivers
             DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
@@ -90,23 +82,30 @@ public class databaseHandler {
         }
 
     //Queries: INSERT Operation
-    public void addCustomer(String PhoneNumber, String Name, String UserName, String Password, String Address) {
+    public Customer addCustomer(String PhoneNumber, String Name, String Address) {
+        Customer c = null;
         try {
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO Customer VALUES (?,?,?,?,?)");
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO Customer VALUES (?,?,?)");
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("INSERT INTO Customer VALUES (?,?,?)");
             ps.setString(1, PhoneNumber);
             ps.setString(2, Name);
-            ps.setString(3, UserName);
-            ps.setString(4, Password);
-            ps.setString(5, Address);
+            ps.setString(3, Address);
+            while (rs.next()) {
+                c = new Customer(rs.getString("PhoneNumber"), rs.getString("Name"), rs.getString("Address"));
+            }
 
             ps.executeUpdate();
             connection.commit();
             ps.close();
+            rs.close();
+            stmt.close();
             getCustomer();
         } catch (SQLException e) {
             System.out.println("ERROR");
             rollbackConnection();
         }
+        return c;
     }
 
 
@@ -202,7 +201,7 @@ public class databaseHandler {
 
     //Queries: SELECTION Operation
     //Return the full order info with the given TrackingID
-    public ShippingOrder searchTracking(int TrackingID) throws exception{
+    public ShippingOrder searchTracking(int TrackingID) throws exception {
         ShippingOrder s = null;
         try {
             Statement stmt = connection.createStatement();
@@ -224,7 +223,41 @@ public class databaseHandler {
         return s;
     }
 
+    //Queries: JOIN Operation
 
+
+
+    //Queries: Aggregation with Group By
+
+
+    //Queries: Aggregation with Having
+
+
+    //Queries: Nested Aggregation with Group By
+
+
+    //Queries: Division
+
+
+
+
+    // return number of orders received today
+    public int countOrder() {
+        int i = 0;
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM ShippingOrder WHERE OrderDate LIKE '2021/03/02'");
+            while (rs.next()) {
+                i++;
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("The number of orders received today is " + i);
+        return i;
+    }
 
     public ArrayList<Customer> getCustomer() {
         ArrayList<Customer> customer = new ArrayList<>();
@@ -232,8 +265,7 @@ public class databaseHandler {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM Customer");
             while(rs.next()) {
-                Customer c = new Customer(rs.getString("PhoneNumber"), rs.getString("Name"),
-                        rs.getString("UserName"), rs.getString("Password"), rs.getString("Address"));
+                Customer c = new Customer(rs.getString("PhoneNumber"), rs.getString("Name"), rs.getString("Address"));
                 customer.add(c);
             }
             rs.close();
@@ -252,7 +284,7 @@ public class databaseHandler {
             ResultSet rs = stmt.executeQuery("SELECT * FROM Sender");
             while(rs.next()) {
                 Sender s = new Sender(rs.getString("PhoneNumber"), rs.getString("Name"),
-                        rs.getString("UserName"), rs.getString("Password"), rs.getString("Address"));
+                         rs.getString("Address"));
                 sender.add(s);
             }
             rs.close();
@@ -271,7 +303,7 @@ public class databaseHandler {
             ResultSet rs = stmt.executeQuery("SELECT * FROM Receiver");
             while(rs.next()) {
                 Receiver r = new Receiver(rs.getString("PhoneNumber"), rs.getString("Name"),
-                        rs.getString("UserName"), rs.getString("Password"), rs.getString("Address"));
+                        rs.getString("Address"));
                 receiver.add(r);
             }
             rs.close();

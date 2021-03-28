@@ -155,6 +155,11 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
 
     }
 
+    private void AddCustomerActionPerformed(java.awt.event.ActionEvent evt) {
+
+    }
+
+
 
     @Override
     public void windowOpened(WindowEvent e) {

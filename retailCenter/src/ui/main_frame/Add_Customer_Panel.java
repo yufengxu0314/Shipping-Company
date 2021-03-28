@@ -1,10 +1,13 @@
 package ui.main_frame;
 
+import model.Customer;
 import utility.My_Color;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
+
+
 
 public class Add_Customer_Panel extends JPanel{
     private int width;
@@ -26,6 +29,7 @@ public class Add_Customer_Panel extends JPanel{
         setup();
         attach_items();
         set_color();
+        this.setVisible(true);
     }
 
     private void attach_items() {
@@ -64,6 +68,7 @@ public class Add_Customer_Panel extends JPanel{
         add_button.setFont(new Font("Serif", Font.PLAIN, width /50));
         add_button.setFocusPainted(false);
     }
+
 
     private void set_panel(){
         this.setLayout(null);
