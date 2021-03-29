@@ -14,7 +14,8 @@ public class databaseHandler {
     private static final String EXCEPTION_TAG = "[EXCEPTION]";
     private static final String WARNING_TAG = "[WARNING]";
 
-    private Connection connection;
+    public Connection connection;
+    private PreparedStatement ps = null;
 
     public databaseHandler() {
         try {
@@ -34,16 +35,10 @@ public class databaseHandler {
         }
     }
 
-
         public boolean login (String username, String password) {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
-
                 connection = DriverManager.getConnection(ORACLE_URL, username, password);
-                connection.setAutoCommit(false);
-
+                //getCustomer();
                 System.out.println("\nConnected to Oracle!");
                 return true;
             } catch (SQLException e) {
@@ -51,6 +46,8 @@ public class databaseHandler {
                 return false;
             }
         }
+
+
 
         private void rollbackConnection() {
             try  {
@@ -60,35 +57,41 @@ public class databaseHandler {
             }
         }
 
-        public void databaseSetup() {
+
+
+    public void databaseSetup() {
 
             getCustomer();
-            getSender();
-            getReceiver();
-            getParcel();
-            getRetailCenter();
-            getShippingOrder();
-            getStaff();
-            getInsurance();
-            getOffer();
-            getReceivedBy();
-            getSchedule();
-            getCourier();
-            getPostmanPostwoman();
-            getSortingCenter();
-            getTransportation();
-            getAssign();
+//            getSender();
+//            getReceiver();
+//            getParcel();
+//            getRetailCenter();
+//            getShippingOrder();
+//            getStaff();
+//            getInsurance();
+//            getOffer();
+//            getReceivedBy();
+//            getSchedule();
+//            getCourier();
+//            getPostmanPostwoman();
+//            getSortingCenter();
+//            getTransportation();
+//            getAssign();
 
         }
 
     //Queries: INSERT Operation
-    public void addCustomer(String PhoneNumber, String Name, String Address) {
+    public void addCustomer(String PhoneNumber, String Name, String Address) throws SQLException {
+        if (connection.isClosed()) {
+            System.out.println("not connected");
+        }
         try {
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO customer VALUES (?,?,?)");
+            System.out.print("This line can run");
+            ps = connection.prepareStatement("INSERT INTO Customer VALUES ( ? , ? , ? )");
+            System.out.print("Success");
             ps.setString(1, PhoneNumber);
             ps.setString(2, Name);
             ps.setString(3, Address);
-
             ps.executeUpdate();
             connection.commit();
             ps.close();
@@ -290,7 +293,7 @@ public class databaseHandler {
         ArrayList<Receiver> receiver = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Receiver");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM receiver");
             while(rs.next()) {
                 Receiver r = new Receiver(rs.getString("PhoneNumber"), rs.getString("Name"),
                         rs.getString("Address"));
@@ -371,7 +374,7 @@ public class databaseHandler {
         ArrayList<Insurance> insurances = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Insurance");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM insurance");
             while(rs.next()) {
                 Insurance i = new Insurance(rs.getInt("TrackingID"), rs.getInt("Amount"), rs.getString("SenderPhoneNumber"));
                 insurances.add(i);
@@ -391,7 +394,7 @@ public class databaseHandler {
         ArrayList<Offer> offers = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Offer");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM offer");
             while(rs.next()) {
                 Offer o = new Offer(rs.getInt("BranchNumber"), rs.getInt("TrackingID"));
                 offers.add(o);
@@ -410,7 +413,7 @@ public class databaseHandler {
         ArrayList<ReceivedBy> receivedBy = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM ReceivedBy");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM receivedby");
             while(rs.next()) {
                 ReceivedBy r = new ReceivedBy(rs.getInt("BranchNumber"), rs.getString("ReceiveTime"), rs.getString("PhoneNumber"));
                 receivedBy.add(r);
@@ -429,7 +432,7 @@ public class databaseHandler {
         ArrayList<Schedule> schedules = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Schedule");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM schedule");
             while(rs.next()) {
                     Schedule s = new Schedule(rs.getInt("BranchNumber"), rs.getInt("TrackingID"));
                 schedules.add(s);
@@ -501,7 +504,7 @@ public class databaseHandler {
         ArrayList<Transportation> transportation = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Transportation");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM transportation");
             while(rs.next()) {
                 Transportation t = new Transportation(rs.getInt("BranchNumber"), rs.getInt("TrackingID"), rs.getInt("StaffID"));
                 transportation.add(t);
@@ -519,7 +522,7 @@ public class databaseHandler {
         ArrayList<Assign> assigns = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Assign");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM assign");
             while(rs.next()) {
                 Assign a = new Assign(rs.getInt("BranchNumber"), rs.getInt("TrackingID"), rs.getInt("StaffID"));
                 assigns.add(a);
@@ -540,7 +543,7 @@ public class databaseHandler {
         ArrayList<Parcel> parcel = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Parcel");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM parcel");
             while(rs.next()) {
                 Parcel p = new Parcel(rs.getString("ReceiveTime"), (Sender) rs.getObject("sender"));
                 parcel.add(p);

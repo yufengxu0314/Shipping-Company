@@ -7,6 +7,8 @@ import exception.exception;
 import model.ShippingOrder;
 import ui.main_frame.*;
 
+import java.sql.SQLException;
+
 public class Controller implements StartUpDelegate, LoginWindowDelegate {
     private databaseHandler databaseHandler;
     private LoginWindow loginWindow = null;
@@ -29,7 +31,7 @@ public class Controller implements StartUpDelegate, LoginWindowDelegate {
         boolean didConnect = databaseHandler.login(username, password);
         if (didConnect) {
             loginWindow.dispose();
-            databaseSetup();
+            databaseHandler.databaseSetup();
             RC_Frame rc_frame = new RC_Frame();
             rc_frame.set_frame();
         } else {
@@ -40,7 +42,7 @@ public class Controller implements StartUpDelegate, LoginWindowDelegate {
 
 
     @Override
-    public void addCustomer(String PhoneNumber, String Name, String Address) {
+    public void addCustomer(String PhoneNumber, String Name, String Address) throws SQLException {
         databaseHandler.addCustomer(PhoneNumber, Name, Address);
     }
 

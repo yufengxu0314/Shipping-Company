@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.Arrays;
 
 import static com.sun.java.accessibility.util.AWTEventMonitor.addActionListener;
@@ -99,7 +100,7 @@ public class Add_Customer_Panel extends JPanel{
             name_field = null;
             address_field = null;
             JOptionPane.showMessageDialog(null, "Successful");
-        } catch (exception exception) {
+        } catch (exception | SQLException exception) {
             exception.printStackTrace();
             JOptionPane.showMessageDialog(null,"Error");
         }

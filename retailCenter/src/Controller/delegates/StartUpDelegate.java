@@ -4,6 +4,8 @@ import exception.exception;
 import model.Customer;
 import model.ShippingOrder;
 
+import java.sql.SQLException;
+
 /**
  * This interface uses the delegation design pattern where instead of having
  * the TerminalTransactions class try to do everything, it will only
@@ -14,7 +16,7 @@ import model.ShippingOrder;
  * Bank is the actual class that will implement the methods.
  */
 public interface StartUpDelegate {
-	public void addCustomer(String PhoneNumber, String Name, String Address);
+	public void addCustomer(String PhoneNumber, String Name, String Address) throws SQLException;
 	public void addOrders(int TrackingID, String ContentType, String OrderDate,
 						  int Weight, String Size, String ShippingMethod, int Price);
 	public void deleteOrder(int TrackingID);

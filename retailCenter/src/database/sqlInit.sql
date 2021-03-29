@@ -1,91 +1,92 @@
-DROP TABLE Customer;
-DROP TABLE Sender;
-DROP TABLE Receiver;
-DROP TABLE Parcel;
-DROP TABLE RetailCenter;
-DROP TABLE ShippingOrder;
-DROP TABLE Staff;
-DROP TABLE Insurance;
-DROP TABLE Offer;
-DROP TABLE ReceivedBy;
-DROP TABLE Schedule;
-DROP TABLE Courier;
-DROP TABLE Postman/Postwoman;
-DROP TABLE SortingCenter;
-DROP TABLE Transportation;
-DROP TABLE Assign;
-
-CREATE TABLE Receiver(
-    Name				char(50),
-    PhoneNumber			char(20),
-    Address			    char(100)		NOT NULL,
-    Postman_PostwomenID	int,
-    PRIMARY KEY (Name, PhoneNumber,Postman/PostwomanStaffID),
-    FOREIGN KEY (Name) REFERENCES Customer ON DELETE CASCADE,
-    FOREIGN KEY (Address) REFERENCES Customer ON DELETE CASCADE,
-    FOREIGN KEY (PhoneNumber) REFERENCES Customer ON DELETE CASCADE,
-    FOREIGN KEY (Postman/PostwomanStaffID) REFERENCES Postman/Postwoman(StaffID) ON DELETE CASCADE
-);
-
-CREATE TABLE ShippingOrder (
-	TrackingID		    int		    PRIMARY KEY,
-	ContentType		    char(50)	NOT NULL,
-	OrderDate		    char(50)	NOT NULL,
-	Weight			    int,
-	Size			    char(50),
-	ShippingMethod	    char(20),
-	Price               int,
-	FOREIGN KEY (Weight,Size,ShippingMethod) REFERENCES ShippingPrice ON DELETE SET DEFAULT
-);
-
-CREATE TABLE Staff (
-    StaffID			    int		PRIMARY KEY,
-    BranchNumber	    int,
-    FOREIGN KEY (BranchNumber) REFERENCES SortingCenter ON DELETE SET DEFAULT
-);
-
-CREATE TABLE Parcel (
-    SenderPhoneNumber   char(20),
-    ReceivedTime        char(50) 		NOT NULL,
-    SenderName			char(50)		NOT NULL,
-    FOREIGN KEY (SenderPhoneNumber) REFERENCES Sender(PhoneNumber) ON DELETE SET DEFAULT,
-    FOREIGN KEY (SenderName) REFERENCES Sender(Name) ON DELETE SET DEFAULT,
-    PRIMARY KEY (SenderPhoneNumber, ReceivedTime)
-);
-
-CREATE TABLE Sender
-(
-    PhoneNumber char(20)    UNIQUE,
-    Name        char(50),
-    Address     char(100),
-    PRIMARY KEY (Name, PhoneNumber),
-    FOREIGN KEY (Name) REFERENCES Customer ON DELETE CASCADE,
-    FOREIGN KEY (PhoneNumber) REFERENCES Customer ON DELETE CASCADE
-    FOREIGN KEY (Address) REFERENCES Customer ON DELETE CASCADE
-);
-
-CREATE TABLE Customer
+CREATE TABLE customer
 (
     PhoneNumber char(20),
-    Name        char(50)    NOT NULL,
+    Name       char(50)    NOT NULL,
     Address     char(100),
     PRIMARY KEY (PhoneNumber, Name)
 );
 
+INSERT INTO customer (PhoneNumber,Name,Address) VALUES ('7783211111', 'Eddie', 'No.3 road, Mars');
+INSERT INTO customer (PhoneNumber,Name,Address) VALUES ('7783212222', 'FAN', 'No.4 road, Mars');
+INSERT INTO customer (PhoneNumber,Name,Address) VALUES ('7783213333', 'Doris', 'No.5 road, Mars');
+INSERT INTO customer (PhoneNumber,Name,Address) VALUES ('7783214444', 'Yonas','No.6 road, Mars');
+INSERT INTO customer (PhoneNumber,Name,Address) VALUES ('7783215555', 'Alex', 'No.7 road, Mars');
 
-CREATE TABLE RetailCenter
-(
-    BranchNumber int        PRIMARY KEY,
-    Address      char(100)  NOT NULL
+
+
+CREATE TABLE shippingorder (
+                               TrackingID	    int,
+                               ContentType		    char(50)	NOT NULL,
+                               OrderDate		    char(50)	NOT NULL,
+                               Weight			    int,
+                               PacelSize			    char(50),
+                               ShippingMethod	    char(20),
+                               Price             int,
+                               PRIMARY KEY (TrackingID)
 );
 
-CREATE TABLE SortingCenter
+INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price) VALUES(1000000001, 'normal', '2021/03/02', 0.5, '2x10x6', 'flight', 10);
+INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price) VALUES(1000000002, 'electronic',  '2021/03/01',0.2, '5x12x8', 'flight', 10);
+INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price) VALUES(1000000003, 'normal', '2021/02/28', 0.3, '4x15x2', 'flight', 10);
+INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price) VALUES(1000000004, 'normal', '2021/02/27', 0.9, '5x11x8', 'flight', 10);
+INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price) VALUES(1000000005, 'liquid', '2021/02/26', 0.4,'12x10x10', 'flight',10);
+
+
+CREATE TABLE retailcenter
+(
+    BranchNumber int PRIMARY KEY,
+    Address      char(100) NOT NULL
+);
+
+CREATE TABLE sortingcenter
 (
     BranchNumber int PRIMARY KEY,
     Address      char(100)
 );
 
-CREATE TABLE PostmanPostwoman
+INSERT INTO retailcenter (BranchNumber, Address) VALUES (8001, '118 No.3 Rd, Richmod, BC');
+INSERT INTO retailcenter (BranchNumber, Address) VALUES (8002, '107 4th street, Vancouver, BC');
+INSERT INTO retailcenter (BranchNumber, Address) VALUES (8003, '888 Ontario Street, Vancouver, BC');
+INSERT INTO retailcenter (BranchNumber, Address) VALUES (8004, '222 Westbrook Mall, Vancouver, BC');
+INSERT INTO retailcenter (BranchNumber, Address) VALUES (8005, '333 Wood street, New Westminster, BC');
+
+
+INSERT INTO sortingcenter (BranchNumber, Address) VALUES (7005, '123 Carter street, New Westminster, BC');
+INSERT INTO sortingcenter (BranchNumber, Address) VALUES (7004, '100 Nelson street, New Westminster, BC');
+INSERT INTO sortingcenter (BranchNumber, Address) VALUES (7003, '88 8th Ave, Vancouver, BC');
+INSERT INTO sortingcenter (BranchNumber, Address) VALUES (7002, '120 16th Ave, Vancouver, BC');
+INSERT INTO sortingcenter (BranchNumber, Address) VALUES (7001, '128 Water street, Vancouver, BC');
+
+CREATE TABLE courier (
+    StaffID			int		PRIMARY KEY
+);
+
+INSERT INTO courier (StaffID) VALUES (105);
+INSERT INTO courier (StaffID) VALUES (106);
+INSERT INTO courier (StaffID) VALUES (107);
+INSERT INTO courier (StaffID) VALUES (108);
+INSERT INTO courier (StaffID) VALUES (109);
+
+
+CREATE TABLE staff (
+                       StaffID			    int		PRIMARY KEY,
+                       BranchNumber	    int,
+                       FOREIGN KEY (BranchNumber) REFERENCES SortingCenter(BranchNumber)
+);
+
+
+INSERT INTO staff (StaffID, BranchNumber) VALUES (100, 7005);
+INSERT INTO staff (StaffID, BranchNumber) VALUES (101, 7005);
+INSERT INTO staff (StaffID, BranchNumber) VALUES (102, 7005);
+INSERT INTO staff (StaffID, BranchNumber) VALUES (103, 7005);
+INSERT INTO staff (StaffID, BranchNumber) VALUES (104, 7005);
+INSERT INTO staff (StaffID, BranchNumber) VALUES (105, 7005);
+INSERT INTO staff (StaffID, BranchNumber) VALUES (106, 7005);
+INSERT INTO staff (StaffID, BranchNumber) VALUES (107, 7005);
+INSERT INTO staff (StaffID, BranchNumber) VALUES (108, 7005);
+INSERT INTO staff (StaffID, BranchNumber) VALUES (109, 7005);
+
+CREATE TABLE postmanpostwoman
 (
     StaffID                 int,
     PhoneNumber             char(20) UNIQUE,
@@ -93,183 +94,158 @@ CREATE TABLE PostmanPostwoman
     FOREIGN KEY (StaffID) REFERENCES Staff (StaffID) ON DELETE CASCADE
 );
 
-CREATE TABLE Insurance
+
+INSERT INTO postmanpostwoman (StaffID, PhoneNumber) VALUES (100, '778012345');
+INSERT INTO postmanpostwoman (StaffID, PhoneNumber) VALUES (101, '778012346');
+INSERT INTO postmanpostwoman (StaffID, PhoneNumber) VALUES (102, '778012347');
+INSERT INTO postmanpostwoman (StaffID, PhoneNumber) VALUES (103, '778012348');
+INSERT INTO postmanpostwoman (StaffID, PhoneNumber) VALUES (104, '778012349');
+
+CREATE TABLE sender
+(
+    PhoneNumber char(20),
+    Name        char(50)    NOT NULL,
+    Address     char(100),
+    PRIMARY KEY (Name, PhoneNumber)
+);
+
+
+CREATE TABLE receiver
+(
+    PhoneNumber			char(20),
+    Name				char(50),
+    Address			    char(100)		NOT NULL,
+    PRIMARY KEY (Name, PhoneNumber)
+);
+
+INSERT INTO Sender (PhoneNumber,Name,Address) VALUES ('7783211111', 'Eddie', 'No.3 road, Mars');
+INSERT INTO Sender (PhoneNumber,Name,Address) VALUES ('7783212222', 'FAN', 'No.4 road, Mars');
+INSERT INTO Sender (PhoneNumber,Name,Address) VALUES ('7783213333', 'Doris', 'No.5 road, Mars');
+INSERT INTO Sender (PhoneNumber,Name,Address) VALUES ('7783214444', 'Yonas', 'No.6 road, Mars');
+INSERT INTO Sender (PhoneNumber,Name,Address) VALUES ('7783215555', 'Alex', 'No.7 road, Mars');
+
+
+INSERT INTO receiver (PhoneNumber,Name,Address) VALUES ('7783211111', 'Eddie', 'No.3 road, Mars');
+INSERT INTO receiver (PhoneNumber,Name,Address)  VALUES ('7783212222', 'FAN', 'No.4 road, Mars');
+INSERT INTO receiver (PhoneNumber,Name,Address)  VALUES ('7783213333', 'Doris', 'No.5 road, Mars');
+INSERT INTO receiver (PhoneNumber,Name,Address)  VALUES ('7783214444', 'Yonas', 'No.6 road, Mars');
+INSERT INTO receiver (PhoneNumber,Name,Address)  VALUES ('7783215555', 'Alex', 'No.7 road, Mars');
+
+CREATE TABLE parcel (
+                        SenderPhoneNumber   char(20),
+                        ReceivedTime        char(50),
+                        SenderName			char(50),
+                        PRIMARY KEY (SenderPhoneNumber, ReceivedTime)
+);
+
+INSERT INTO parcel (SenderPhoneNumber, ReceivedTime, SenderName) VALUES ('7783211111', '2021/03/02 14:37', 'Yonas');
+INSERT INTO parcel (SenderPhoneNumber, ReceivedTime, SenderName)  VALUES ('7783212222', '2021/03/01 14:37', 'Yonas');
+INSERT INTO parcel (SenderPhoneNumber, ReceivedTime, SenderName)  VALUES ('7783213333', '2021/02/28 15:37', 'Yonas');
+INSERT INTO parcel (SenderPhoneNumber, ReceivedTime, SenderName)  VALUES ('7783214444','2021/02/27 12:32', 'Yonas');
+INSERT INTO parcel (SenderPhoneNumber, ReceivedTime, SenderName)  VALUES ('7783215555','2021/02/26 17:37', 'Yonas');
+
+CREATE TABLE insurance
 (
     TrackingID        int PRIMARY KEY,
     Amount            int,
-    SenderPhoneNumber char(20),
-    FOREIGN KEY (SenderPhoneNumber) REFERENCES Sender (PhoneNumber) ON DELETE SET DEFAULT
+    SenderPhoneNumber char(20)
 );
+INSERT INTO insurance (TrackingID, Amount, SenderPhoneNumber) VALUES (12035478, 20, '7783211111');
+INSERT INTO insurance (TrackingID, Amount, SenderPhoneNumber)  VALUES (12032234, 100, '7783212222');
+INSERT INTO insurance (TrackingID, Amount, SenderPhoneNumber)  VALUES (12034578, 50, '7783213333');
+INSERT INTO insurance (TrackingID, Amount, SenderPhoneNumber)  VALUES (12036678, 10, '7783214444');
+INSERT INTO insurance (TrackingID, Amount, SenderPhoneNumber)  VALUES (12031000, 40, '7783215555');
 
-CREATE TABLE Courier (
-    StaffID			int		PRIMARY KEY
-);
-
-CREATE TABLE Offer
+CREATE TABLE offer
 (
     BranchNumber int,
     TrackingID   int,
-    PRIMARY KEY (BranchNumber, TrackingID),
-    FOREIGN KEY (BranchNumber) REFERENCES SortingCenter ON DELETE CASCADE,
-    FOREIGN KEY (TrackingID) REFERENCES Insurance ON DELETE CASCADE
+    PRIMARY KEY (BranchNumber, TrackingID)
 );
 
-CREATE TABLE Assign
+INSERT INTO offer (BranchNumber, TrackingID) VALUES(8001, 1000000001);
+INSERT INTO offer (BranchNumber, TrackingID)  VALUES(8002, 1000000002);
+INSERT INTO offer (BranchNumber, TrackingID)  VALUES(8003, 1000000003);
+INSERT INTO offer (BranchNumber, TrackingID)  VALUES(8004, 1000000004);
+INSERT INTO offer (BranchNumber, TrackingID)  VALUES(8005, 1000000005);
+
+CREATE TABLE assign
 (
     BranchNumber int,
     StaffID      int,
     TrackingID   int NOT NULL,
-    PRIMARY KEY (BranchNumber, StaffID),
-    FOREIGN KEY (StaffID) REFERENCES PostmanPostwoman ON DELETE CASCADE,
-    FOREIGN KEY (BranchNumber) REFERENCES SortingNumber ON DELETE CASCADE
+    PRIMARY KEY (BranchNumber, StaffID)
 );
 
-CREATE TABLE Schedule
+INSERT INTO assign (BranchNumber, StaffID, TrackingID) VALUES(7001, 1000000001, 100);
+INSERT INTO assign (BranchNumber, StaffID, TrackingID)  VALUES(7002, 1000000002, 101);
+INSERT INTO assign (BranchNumber, StaffID, TrackingID)  VALUES(7003, 1000000003, 102);
+INSERT INTO assign (BranchNumber, StaffID, TrackingID)  VALUES(7004, 1000000004, 103);
+INSERT INTO assign (BranchNumber, StaffID, TrackingID)  VALUES(7005, 1000000005, 104);
+
+CREATE TABLE schedule
 (
     BranchNumber int,
     TrackingID   int,
     PRIMARY KEY (BranchNumber, TrackingID),
-    FOREIGN KEY (TrackingID) REFERENCES ShippingOrder ON DELETE CASCADE,
-    FOREIGN KEY (BranchNumber) REFERENCES RetailCenter ON DELETE CASCADE
+    FOREIGN KEY (TrackingID) REFERENCES ShippingOrder(TrackingID) ON DELETE CASCADE,
+    FOREIGN KEY (BranchNumber) REFERENCES RetailCenter (BranchNumber) ON DELETE CASCADE
 );
 
-CREATE TABLE Transportation
+INSERT INTO schedule (BranchNumber, TrackingID) VALUES(8001,1000000001);
+INSERT INTO schedule (BranchNumber, TrackingID)  VALUES(8002,1000000002);
+INSERT INTO schedule (BranchNumber, TrackingID)  VALUES(8003,1000000003);
+INSERT INTO schedule (BranchNumber, TrackingID)  VALUES(8004,1000000004);
+INSERT INTO schedule (BranchNumber, TrackingID)  VALUES(8005,1000000005);
+
+CREATE TABLE transportation
 (
     TrackingID   int,
     BranchNumber int,
     StaffID      int,
     PRIMARY KEY (TrackingID, BranchNumber, StaffID),
-    FOREIGN KEY (StaffID) REFERENCES Courier ON DELETE CASCADE,
-    FOREIGN KEY (BranchNumber) REFERENCES SortingCenter ON DELETE CASCADE,
-    FOREIGN KEY (TrackingID) REFERENCES ShippingOrder ON DELETE CASCADE
+    FOREIGN KEY (StaffID) REFERENCES Courier (StaffID) ON DELETE CASCADE,
+    FOREIGN KEY (BranchNumber) REFERENCES SortingCenter (BranchNumber) ON DELETE CASCADE,
+    FOREIGN KEY (TrackingID) REFERENCES ShippingOrder (TrackingID) ON DELETE CASCADE
 );
 
-CREATE TABLE ReceivedBy
+INSERT INTO transportation (TrackingID, BranchNumber,StaffID) VALUES(1000000001, 7005, 105);
+INSERT INTO transportation (TrackingID, BranchNumber,StaffID)  VALUES(1000000002, 7004, 106);
+INSERT INTO transportation (TrackingID, BranchNumber,StaffID)  VALUES(1000000003, 7003, 107);
+INSERT INTO transportation (TrackingID, BranchNumber,StaffID)  VALUES(1000000004, 7002, 108);
+INSERT INTO transportation (TrackingID, BranchNumber,StaffID)  VALUES(1000000005, 7001, 109);
+
+CREATE TABLE receivedby
 (
     BranchNumber int,
     ReceiveTime  char(50),
     PhoneNumber  char(20),
-    PRIMARY KEY (PhoneNumber, ReceiveTime, PhoneNumber),
-    FOREIGN KEY (PhoneNumber) REFERENCES Parcel (SenderPhoneNumber) ON DELETE SET DEFAULT,
-    FOREIGN KEY (ReceiveTime) REFERENCES Parcel (ReceivedTime) ON DELETE SET DEFAULT,
-    FOREIGN KEY (BranchNumber) REFERENCES RetailCenter ON DELETE SET DEFAULT
+    PRIMARY KEY (BranchNumber, ReceiveTime, PhoneNumber)
 );
 
+INSERT INTO receivedby (BranchNumber, ReceiveTime, PhoneNumber) VALUES(8001,  '2021/03/02', '7783211111');
+INSERT INTO receivedby (BranchNumber, ReceiveTime, PhoneNumber)  VALUES(8002, '2021/03/01', '7783212222');
+INSERT INTO receivedby (BranchNumber, ReceiveTime, PhoneNumber)  VALUES(8003, '2021/02/28', '7783213333');
+INSERT INTO receivedby (BranchNumber, ReceiveTime, PhoneNumber)  VALUES(8004,  '2021/02/27', '7783214444');
+INSERT INTO receivedby (BranchNumber, ReceiveTime, PhoneNumber)  VALUES(8001, '2021/02/26', '7783215555');
 
 
-
-INSERT INTO Customer VALUES ('7783211111', 'Eddie', 'No.3 road, Mars');
-INSERT INTO Customer VALUES ('7783212222', 'FAN', 'No.4 road, Mars');
-INSERT INTO Customer VALUES ('7783213333', 'Doris', 'No.5 road, Mars');
-INSERT INTO Customer VALUES ('7783214444', 'Yonas','No.6 road, Mars');
-INSERT INTO Customer VALUES ('7783215555', 'Alex', 'No.7 road, Mars');
-
-INSERT INTO Staff VALUES (100);
-INSERT INTO Staff VALUES (101);
-INSERT INTO Staff VALUES (102);
-INSERT INTO Staff VALUES (103);
-INSERT INTO Staff VALUES (104);
-INSERT INTO Staff VALUES (105);
-INSERT INTO Staff VALUES (106);
-INSERT INTO Staff VALUES (107);
-INSERT INTO Staff VALUES (108);
-INSERT INTO Staff VALUES (109);
-
-
-INSERT INTO Parcel VALUES ('7783211111', '2021/03/02 14:37');
-INSERT INTO Parcel VALUES ('7783212222', '2021/03/01 14:37');
-INSERT INTO Parcel VALUES ('7783213333', '2021/02/28 15:37');
-INSERT INTO Parcel VALUES ('7783214444','2021/02/27 12:32');
-INSERT INTO Parcel VALUES ('7783215555','2021/02/26 17:37');
-
-
-
-
-INSERT INTO Sender VALUES ('7783211111', 'Eddie', 'No.3 road, Mars');
-INSERT INTO Sender VALUES ('7783212222', 'FAN', 'No.4 road, Mars');
-INSERT INTO Sender VALUES ('7783213333', 'Doris', 'No.5 road, Mars');
-INSERT INTO Sender VALUES ('7783214444', 'Yonas', 'No.6 road, Mars');
-INSERT INTO Sender VALUES ('7783215555', 'Alex', 'No.7 road, Mars');
-
-
-INSERT INTO Receiver VALUES ('7783211111', 'Eddie', 'No.3 road, Mars');
-INSERT INTO Receiver VALUES ('7783212222', 'FAN', 'No.4 road, Mars');
-INSERT INTO Receiver VALUES ('7783213333', 'Doris', 'No.5 road, Mars');
-INSERT INTO Receiver VALUES ('7783214444'', 'Yonas'', 'No.6 road, Mars');
-INSERT INTO Receiver VALUES ('7783215555', 'Alex', 'No.7 road, Mars');
-
-
-INSERT INTO RetailCenter VALUES (8001, '118 No.3 Rd, Richmod, BC');
-INSERT INTO RetailCenter VALUES (8002, '107 4th street, Vancouver, BC');
-INSERT INTO RetailCenter VALUES (8003, '888 Ontario Street, Vancouver, BC');
-INSERT INTO RetailCenter VALUES (8004, '222 Westbrook Mall, Vancouver, BC');
-INSERT INTO RetailCenter VALUES (8005, '333 Wood street, New Westminster, BC');
-
-INSERT INTO ShippingOrder VALUES(1000000001, 'normal', '2021/03/02', 0.5, '2x10x6', 'flight');
-INSERT INTO ShippingOrder VALUES(1000000002, 'electronic',  '2021/03/01',0.2, '5x12x8', 'flight');
-INSERT INTO ShippingOrder VALUES(1000000003, 'normal', '2021/02/28', 0.3, '4x15x2', 'flight');
-INSERT INTO ShippingOrder VALUES(1000000004, 'normal', '2021/02/27', 0.9, '5x11x8', 'flight');
-INSERT INTO ShippingOrder VALUES(1000000005, 'liquid', '2021/02/26', 0.4,'12x10x10', 'flight');
-
-INSERT INTO Courier VALUES (105);
-INSERT INTO Courier VALUES (106);
-INSERT INTO Courier VALUES (107);
-INSERT INTO Courier VALUES (108);
-INSERT INTO Courier VALUES (109);
-
-INSERT INTO PostmanPostwoman VALUES (100, '778012345');
-INSERT INTO PostmanPostwoman VALUES (101, '778012346');
-INSERT INTO PostmanPostwoman VALUES (102, '778012347');
-INSERT INTO PostmanPostwoman VALUES (103, '77801234');
-INSERT INTO PostmanPostwoman VALUES (104, '778012349');
-
-
-INSERT INTO Insurance VALUES (12035478, 20, '7783211111');
-INSERT INTO Insurance VALUES (12032234, 100, '7783212222');
-INSERT INTO Insurance VALUES (12034578, 50, '7783213333');
-INSERT INTO Insurance VALUES (12036678, 10, '7783214444');
-INSERT INTO Insurance VALUES (12031000, 40, '7783215555');
-
-INSERT INTO SortingCenter VALUES (7005, '123 Carter street, New Westminster, BC');
-INSERT INTO SortingCenter VALUES (7004, '100 Nelson street, New Westminster, BC');
-INSERT INTO SortingCenter VALUES (7003, '88 8th Ave, Vancouver, BC');
-INSERT INTO SortingCenter VALUES (7002, '120 16th Ave, Vancouver, BC');
-INSERT INTO SortingCenter VALUES (7001, '128 Water street, Vancouver, BC');
-
-INSERT INTO Offer VALUES(8001, 1000000001);
-INSERT INTO Offer VALUES(8002, 1000000002);
-INSERT INTO Offer VALUES(8003, 1000000003);
-INSERT INTO Offer VALUES(8004, 1000000004);
-INSERT INTO Offer VALUES(8005, 1000000005);
-
-INSERT INTO Assign VALUES(7001, 1000000001, 100);
-INSERT INTO Assign VALUES(7002, 1000000002, 101);
-INSERT INTO Assign VALUES(7003, 1000000003, 102);
-INSERT INTO Assign VALUES(7004, 1000000004, 103);
-INSERT INTO Assign VALUES(7005, 1000000005, 104);
-
-
-INSERT INTO ReceivedBy VALUES(8001,  '2021/03/02', '7783211111');
-INSERT INTO ReceivedBy VALUES(8002, '2021/03/01', '7783212222');
-INSERT INTO ReceivedBy VALUES(8003, '2021/02/28', '7783213333');
-INSERT INTO ReceivedBy VALUES(8004,  '2021/02/27', '7783214444');
-INSERT INTO ReceivedBy VALUES(8001, '2021/02/26', '7783215555');
-
-INSERT INTO Schedule VALUES(8001,1000000001);
-INSERT INTO Schedule VALUES(8002,1000000002);
-INSERT INTO Schedule VALUES(8003,1000000003);
-INSERT INTO Schedule VALUES(8004,1000000004);
-INSERT INTO Schedule VALUES(8005,1000000005);
-
-INSERT INTO Transportation VALUES(1000000001, 7005, 105);
-INSERT INTO Transportation VALUES(1000000002, 7004, 106);
-INSERT INTO Transportation VALUES(1000000003, 7003, 107);
-INSERT INTO Transportation VALUES(1000000004, 7002, 108);
-INSERT INTO Transportation VALUES(1000000005, 7001, 109);
-
-commit work;
-
-
+DROP TABLE customer;
+DROP TABLE sender;
+DROP TABLE receiver;
+DROP TABLE parcel;
+DROP TABLE retailcenter;
+DROP TABLE shippingorder;
+DROP TABLE staff;
+DROP TABLE insurance;
+DROP TABLE offer;
+DROP TABLE receivedby;
+DROP TABLE schedule;
+DROP TABLE courier;
+DROP TABLE postmanpostwoman;
+DROP TABLE sortingcenter;
+DROP TABLE transportation;
+DROP TABLE assign;
 
 
 

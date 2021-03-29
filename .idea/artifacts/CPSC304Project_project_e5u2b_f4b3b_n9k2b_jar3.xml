@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CPSC304Project_project_e5u2b_f4b3b_n9k2b:jar3">
+    <output-path>$PROJECT_DIR$/out/artifacts/CPSC304Project_project_e5u2b_f4b3b_n9k2b_jar3</output-path>
+    <root id="archive" name="CPSC304Project_project_e5u2b_f4b3b_n9k2b.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/retailCenter/src/Controller/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="retailCenter" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../ojdbc8.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
