@@ -14,7 +14,7 @@ public class databaseHandler {
     private static final String EXCEPTION_TAG = "[EXCEPTION]";
     private static final String WARNING_TAG = "[WARNING]";
 
-    private Connection connection = null;
+    private Connection connection;
 
     public databaseHandler() {
         try {
@@ -82,30 +82,20 @@ public class databaseHandler {
         }
 
     //Queries: INSERT Operation
-    public Customer addCustomer(String PhoneNumber, String Name, String Address) {
-        Customer c = null;
+    public void addCustomer(String PhoneNumber, String Name, String Address) {
         try {
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO Customer VALUES (?,?,?)");
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("INSERT INTO Customer VALUES (?,?,?)");
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO customer VALUES (?,?,?)");
             ps.setString(1, PhoneNumber);
             ps.setString(2, Name);
             ps.setString(3, Address);
-            while (rs.next()) {
-                c = new Customer(rs.getString("PhoneNumber"), rs.getString("Name"), rs.getString("Address"));
-            }
 
             ps.executeUpdate();
             connection.commit();
             ps.close();
-            rs.close();
-            stmt.close();
-            getCustomer();
         } catch (SQLException e) {
             System.out.println("ERROR");
             rollbackConnection();
         }
-        return c;
     }
 
 

@@ -66,13 +66,10 @@ CREATE TABLE Sender
 
 CREATE TABLE Customer
 (
-    PhoneNumber char(20)
+    PhoneNumber char(20),
     Name        char(50)    NOT NULL,
-    Username    char(50)    UNIQUE,
-    Password    char(100)   NOT NULL,
-    Address     char(100)
+    Address     char(100),
     PRIMARY KEY (PhoneNumber, Name)
-    FOREIGN KEY (Username) REFERENCES Account ON DELETE CASCADE,
 );
 
 
@@ -161,11 +158,11 @@ CREATE TABLE ReceivedBy
 
 
 
-INSERT INTO Customer VALUES ('7783211111', 'Eddie', 'eddie0912', 'rao912912');
-INSERT INTO Customer VALUES ('7783212222', 'FAN',  'realfanwu', 'realFan111');
-INSERT INTO Customer VALUES ('7783213333', 'Doris', 'DorisXXX', 'DX3333');
-INSERT INTO Customer VALUES ('7783214444', 'Yonas', 'Yoyo', 'YOYO123');
-INSERT INTO Customer VALUES ('7783215555', 'Alex', 'Alexaaaa', 'AlexIsGOOOd');
+INSERT INTO Customer VALUES ('7783211111', 'Eddie', 'No.3 road, Mars');
+INSERT INTO Customer VALUES ('7783212222', 'FAN', 'No.4 road, Mars');
+INSERT INTO Customer VALUES ('7783213333', 'Doris', 'No.5 road, Mars');
+INSERT INTO Customer VALUES ('7783214444', 'Yonas','No.6 road, Mars');
+INSERT INTO Customer VALUES ('7783215555', 'Alex', 'No.7 road, Mars');
 
 INSERT INTO Staff VALUES (100);
 INSERT INTO Staff VALUES (101);

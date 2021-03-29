@@ -1,12 +1,17 @@
 package ui.main_frame;
 
+import database.databaseHandler;
+import exception.exception;
 import model.Customer;
 import utility.My_Color;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 
+import static com.sun.java.accessibility.util.AWTEventMonitor.addActionListener;
 
 
 public class Add_Customer_Panel extends JPanel{
@@ -15,15 +20,20 @@ public class Add_Customer_Panel extends JPanel{
     private JLabel name_label;
     private JLabel address_label;
     private JLabel phone_number_label;
-    private JTextField name_field;
-    private JTextField address_field;
-    private JTextField phone_number_field;
+    public JTextField name_field;
+    public JTextField address_field;
+    public JTextField phone_number_field;
     private JButton add_button;
 
+    private databaseHandler database;
+    private String phoneNumber;
+    private String name;
+    private String address;
 
-    public Add_Customer_Panel(int width, int height){
+    public Add_Customer_Panel(int width, int height, databaseHandler db){
         this.width = width;
         this.height = height;
+        database = db;
 //        this.setBounds(x,y,width,height);
         set_panel();
         setup();
@@ -67,7 +77,31 @@ public class Add_Customer_Panel extends JPanel{
         }
         add_button.setFont(new Font("Serif", Font.PLAIN, width /50));
         add_button.setFocusPainted(false);
+        add_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                handleAddCustomer(e);
+            }
+        });
     }
+
+    public void handleAddCustomer(ActionEvent evt) {
+        try {
+            phoneNumber = phone_number_field.getText();
+            name = name_field.getText();
+            address = address_field.getText();
+            if (address.equals("")||name.equals("")||phoneNumber.equals("")) {
+                throw new exception("missing inputs!");
+            }
+            database.addCustomer(phoneNumber,name,address);
+            phone_number_field = null;
+            name_field = null;
+            address_field = null;
+        } catch (exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
 
 
     private void set_panel(){

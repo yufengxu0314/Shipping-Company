@@ -4,12 +4,11 @@ import Controller.delegates.LoginWindowDelegate;
 import Controller.delegates.StartUpDelegate;
 import database.databaseHandler;
 import exception.exception;
-import model.Customer;
 import model.ShippingOrder;
 import ui.main_frame.*;
 
 public class Controller implements StartUpDelegate, LoginWindowDelegate {
-    private databaseHandler databaseHandler = null;
+    private databaseHandler databaseHandler;
     private LoginWindow loginWindow = null;
 
 
@@ -26,15 +25,14 @@ public class Controller implements StartUpDelegate, LoginWindowDelegate {
 
     @Override
     public void login(String username, String password) {
+        databaseHandler.login(username, password);
         boolean didConnect = databaseHandler.login(username, password);
-
         if (didConnect) {
-            // Once connected, remove login window and start text transaction flow
             loginWindow.dispose();
+            databaseSetup();
             RC_Frame rc_frame = new RC_Frame();
             rc_frame.set_frame();
         } else {
-
             System.out.println("failed");
             System.exit(-1);
         }
@@ -42,8 +40,8 @@ public class Controller implements StartUpDelegate, LoginWindowDelegate {
 
 
     @Override
-    public Customer addCustomer(String PhoneNumber, String Name, String Address) {
-        return databaseHandler.addCustomer(PhoneNumber, Name, Address);
+    public void addCustomer(String PhoneNumber, String Name, String Address) {
+        databaseHandler.addCustomer(PhoneNumber, Name, Address);
     }
 
     @Override

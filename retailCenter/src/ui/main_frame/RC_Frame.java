@@ -1,5 +1,8 @@
 package ui.main_frame;
 
+import Controller.delegates.StartUpDelegate;
+import database.databaseHandler;
+import exception.exception;
 import utility.My_Color;
 
 import javax.swing.*;
@@ -8,7 +11,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.InputStreamReader;
 import java.util.Arrays;
+
+import java.io.BufferedReader;
+import Controller.*;
 
 
 
@@ -25,16 +32,18 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
     private JPanel search_customer_panel;
     private JPanel create_order_panel;
     private JPanel search_order_panel;
-
+    private database.databaseHandler database;
 
     public RC_Frame(){
         this.width = screenSize.width * 3/5;
         this.height = screenSize.height * 3/5;
+        database = new databaseHandler();
         setup();
         attach_items();
         set_frame();
         set_color();
     }
+
 
     private void set_color(){
         this.setBackground(My_Color.MAIN_FRAME_GREY);
@@ -74,6 +83,8 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
         search_order_button.addActionListener(this);
     }
 
+
+
     private void setup() {
         add_customer_button = new JButton("add customer");
         search_customer_button = new JButton("search customer");
@@ -91,7 +102,7 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
         search_order_button.setFocusPainted(false);
 
         //create panels
-        add_customer_panel = new Add_Customer_Panel( width, 3*height/4);
+        add_customer_panel = new Add_Customer_Panel( width, 3*height/4, database);
         search_customer_panel = new Search_Customer_Panel( width, 3*height/4);
         create_order_panel = new Create_Order_Panel( width, 3*height/4);
         search_order_panel = new Search_Order_Panel( width, 3*height/4);
@@ -152,10 +163,6 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
             create_order_button.setBackground(My_Color.GREEN);
             search_order_button.setBackground(My_Color.VIP_GREEN);
         }
-
-    }
-
-    private void AddCustomerActionPerformed(java.awt.event.ActionEvent evt) {
 
     }
 

@@ -9,7 +9,7 @@
       <jdbc-url>jdbc:oracle:thin:@dbhost.students.cs.ubc.ca:1522:stu</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="@localhost" uuid="18db5618-0274-4b18-932d-eb3cde965c04">
+    <data-source source="LOCAL" name="@localhost" group="sc304" uuid="18db5618-0274-4b18-932d-eb3cde965c04">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

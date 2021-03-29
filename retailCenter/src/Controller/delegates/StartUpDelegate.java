@@ -14,7 +14,7 @@ import model.ShippingOrder;
  * Bank is the actual class that will implement the methods.
  */
 public interface StartUpDelegate {
-	public Customer addCustomer(String PhoneNumber, String Name, String Address);
+	public void addCustomer(String PhoneNumber, String Name, String Address);
 	public void addOrders(int TrackingID, String ContentType, String OrderDate,
 						  int Weight, String Size, String ShippingMethod, int Price);
 	public void deleteOrder(int TrackingID);
