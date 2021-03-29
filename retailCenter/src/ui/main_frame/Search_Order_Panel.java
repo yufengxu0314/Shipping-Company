@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLOutput;
 import java.util.Arrays;
 
 public class Search_Order_Panel extends JPanel implements ActionListener {
@@ -80,6 +81,7 @@ public class Search_Order_Panel extends JPanel implements ActionListener {
         day_field = new JTextField();
 
         search_button = new JButton("confirm");
+        search_button.addActionListener(this);
         //set font
         for (JLabel jLabel : Arrays.asList(id_label, created_after_label, year_label, month_label, day_label)) {
             jLabel.setFont(new Font("Serif", Font.PLAIN, width /50));
@@ -97,18 +99,21 @@ public class Search_Order_Panel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == search_button) {
-            int trackingID = Integer.parseInt(id_field.getText());
-            String day = day_field.getText();
-            String month = month_field.getText();
-            String year = year_field.getText();
-            databaseHandler dbh = new databaseHandler();
-            try {
-                ShippingOrder order = dbh.searchTracking(trackingID);
-            } catch (exception err) {
-                System.out.println(err.getMessage());
-            }
+        JButton button = (JButton) e.getSource();
+        if (button == search_button) {
+//            int trackingID = Integer.parseInt(id_field.getText());
+//            String day = day_field.getText();
+//            String month = month_field.getText();
+//            String year = year_field.getText();
+//            databaseHandler dbh = new databaseHandler();
+//            try {
+//                ShippingOrder order = dbh.searchTracking(trackingID);
+//            } catch (exception err) {
+//                System.out.println(err.getMessage());
+//            }
+            new Order_List_Frame(width,height);
         }
+
     }
 
 }

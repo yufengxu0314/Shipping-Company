@@ -34,21 +34,7 @@ public class Order_Entry extends JPanel implements ActionListener, FocusListener
         set_panel();
     }
 
-    public void set_line (int line) {
-        this.from.setText("" + line);
-        reload();
-    }
 
-
-    public boolean selected ()
-    {
-        return this.is_focused;
-    }
-
-    private void reload() {
-        this.revalidate();
-        this.repaint();
-    }
 
     private void setup(ShippingOrder order) {
         this.id = new JLabel(String.valueOf(order.TrackingID));
