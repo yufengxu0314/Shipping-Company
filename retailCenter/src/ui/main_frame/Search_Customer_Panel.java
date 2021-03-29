@@ -1,16 +1,22 @@
 package ui.main_frame;
 
+import database.databaseHandler;
+import exception.exception;
 import utility.My_Color;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-public class Search_Customer_Panel extends JPanel {
+public class Search_Customer_Panel extends JPanel implements ActionListener {
     private int width;
     private int height;
     private JLabel phone_number_label;
     private JTextField phone_number_field;
     private JButton enter_button;
+    private ArrayList<String> customerList;
 
 
     public Search_Customer_Panel(int width, int height){
@@ -50,6 +56,20 @@ public class Search_Customer_Panel extends JPanel {
     private void set_panel(){
         this.setLayout(null);
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == enter_button) {
+            String phone_number = phone_number_field.getText();
+            databaseHandler dbh = new databaseHandler();
+            try {
+                this.customerList = dbh.searchCustomer(phone_number);
+            } catch (exception err) {
+                System.out.println(err.getMessage());
+            }
+        }
+    }
+
 
 }
 

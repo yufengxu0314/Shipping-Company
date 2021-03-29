@@ -1,12 +1,17 @@
 package ui.main_frame;
 
+import database.databaseHandler;
+import exception.exception;
+import model.ShippingOrder;
 import utility.My_Color;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 
-public class Search_Order_Panel extends JPanel {
+public class Search_Order_Panel extends JPanel implements ActionListener {
     private int width;
     private int height;
     private JLabel id_label;
@@ -88,6 +93,22 @@ public class Search_Order_Panel extends JPanel {
 
     private void set_panel(){
         this.setLayout(null);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == search_button) {
+            int trackingID = Integer.parseInt(id_field.getText());
+            String day = day_field.getText();
+            String month = month_field.getText();
+            String year = year_field.getText();
+            databaseHandler dbh = new databaseHandler();
+            try {
+                ShippingOrder order = dbh.searchTracking(trackingID);
+            } catch (exception err) {
+                System.out.println(err.getMessage());
+            }
+        }
     }
 
 }

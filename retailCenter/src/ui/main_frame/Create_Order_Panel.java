@@ -3,10 +3,16 @@ package ui.main_frame;
 import utility.My_Color;
 
 import javax.swing.*;
+
+import database.databaseHandler;
+import model.ShippingOrder;
+
 import java.awt.*;
 import java.util.Arrays;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Create_Order_Panel extends JPanel {
+public class Create_Order_Panel extends JPanel implements ActionListener{
     private int width;
     private int height;
     private JLabel type_label;
@@ -22,7 +28,7 @@ public class Create_Order_Panel extends JPanel {
     private JTextField size_field;
     private JTextField receiver_phone_field;
     private JButton confirm_button;
-
+    private static int trackingID = 10000;
 
     public Create_Order_Panel(int width, int height){
         this.width = width;
@@ -97,6 +103,24 @@ public class Create_Order_Panel extends JPanel {
 
     private void set_panel(){
         this.setLayout(null);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == confirm_button) {
+            String type = type_field.getText();
+            int weight = Integer.parseInt(weight_field.getText());
+            String sender_phone = sender_phone_field.getText();
+            String methodStr = method_field.getText();
+            String size = size_field.getText();
+            String receiver_phone = receiver_phone_field.getText();
+            String date = "2021/03/29";
+            
+            ShippingOrder newOrder = new ShippingOrder(trackingID,type,date,weight,size,methodStr,10);
+                databaseHandler dbh = new databaseHandler();
+                dbh.addOrders(trackingID,type,date,weight,size,methodStr,10);
+                trackingID++;
+        }
     }
 
 }
