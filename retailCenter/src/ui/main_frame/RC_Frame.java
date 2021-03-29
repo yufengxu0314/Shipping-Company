@@ -98,7 +98,7 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
     }
 
 
-    private void set_frame() {
+    public void set_frame() {
         this.setTitle("Retail Center");
         this.setBounds(screenSize.width / 5, screenSize.height / 5,width,height);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
