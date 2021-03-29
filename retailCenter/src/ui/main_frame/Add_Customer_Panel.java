@@ -94,11 +94,14 @@ public class Add_Customer_Panel extends JPanel{
                 throw new exception("missing inputs!");
             }
             database.addCustomer(phoneNumber,name,address);
+
             phone_number_field = null;
             name_field = null;
             address_field = null;
+            JOptionPane.showMessageDialog(null, "Successful");
         } catch (exception exception) {
             exception.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Error");
         }
     }
 

@@ -4,6 +4,6 @@ import javax.swing.*;
 
 public class RC_Main {
     public static void main(String args[]) {
-        JFrame frame = new RC_Frame();
+        new RC_Frame();
     }
 }
