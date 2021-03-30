@@ -230,23 +230,5 @@ INSERT INTO receivedby (BranchNumber, ReceiveTime, PhoneNumber)  VALUES(8004,  '
 INSERT INTO receivedby (BranchNumber, ReceiveTime, PhoneNumber)  VALUES(8001, '2021/02/26', '7783215555');
 
 
-DROP TABLE customer;
-DROP TABLE sender;
-DROP TABLE receiver;
-DROP TABLE parcel;
-DROP TABLE retailcenter;
-DROP TABLE shippingorder;
-DROP TABLE staff;
-DROP TABLE insurance;
-DROP TABLE offer;
-DROP TABLE receivedby;
-DROP TABLE schedule;
-DROP TABLE courier;
-DROP TABLE postmanpostwoman;
-DROP TABLE sortingcenter;
-DROP TABLE transportation;
-DROP TABLE assign;
-
-
 
 

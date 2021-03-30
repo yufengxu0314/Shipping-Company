@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class Controller implements StartUpDelegate, LoginWindowDelegate {
     private databaseHandler databaseHandler;
     private LoginWindow loginWindow = null;
-
+    public RC_Frame rc_frame;
 
     public Controller() {
         databaseHandler = new databaseHandler();
@@ -27,12 +27,11 @@ public class Controller implements StartUpDelegate, LoginWindowDelegate {
 
     @Override
     public void login(String username, String password) {
-        databaseHandler.login(username, password);
         boolean didConnect = databaseHandler.login(username, password);
         if (didConnect) {
             loginWindow.dispose();
-            databaseHandler.databaseSetup();
-            RC_Frame rc_frame = new RC_Frame();
+            rc_frame = new RC_Frame();
+            rc_frame.setupDatabase(this);
             rc_frame.set_frame();
         } else {
             System.out.println("failed");

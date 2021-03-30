@@ -14,8 +14,8 @@ public class databaseHandler {
     private static final String EXCEPTION_TAG = "[EXCEPTION]";
     private static final String WARNING_TAG = "[WARNING]";
 
-    public Connection connection;
-    private PreparedStatement ps = null;
+    public Connection connection = null;
+    public PreparedStatement ps = null;
 
     public databaseHandler() {
         try {
@@ -23,6 +23,7 @@ public class databaseHandler {
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
         }
+
     }
 
     public void close() {
@@ -38,7 +39,7 @@ public class databaseHandler {
         public boolean login (String username, String password) {
             try {
                 connection = DriverManager.getConnection(ORACLE_URL, username, password);
-                //getCustomer();
+                connection.setAutoCommit(false);
                 System.out.println("\nConnected to Oracle!");
                 return true;
             } catch (SQLException e) {
@@ -82,22 +83,21 @@ public class databaseHandler {
 
     //Queries: INSERT Operation
     public void addCustomer(String PhoneNumber, String Name, String Address) throws SQLException {
-        if (connection.isClosed()) {
-            System.out.println("not connected");
-        }
         try {
             System.out.print("This line can run");
-            ps = connection.prepareStatement("INSERT INTO Customer VALUES ( ? , ? , ? )");
-            System.out.print("Success");
+            ps = connection.prepareStatement("INSERT INTO customer VALUES (?,?,?)");
             ps.setString(1, PhoneNumber);
             ps.setString(2, Name);
             ps.setString(3, Address);
+            System.out.print("Success");
             ps.executeUpdate();
             connection.commit();
+            System.out.println("Commit successful");
             ps.close();
-        } catch (SQLException e) {
+        } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("ERROR");
-            rollbackConnection();
+//            rollbackConnection();
         }
     }
 
@@ -106,7 +106,7 @@ public class databaseHandler {
     public void addOrders(int TrackingID, String ContentType, String OrderDate,
                           int Weight, String Size, String ShippingMethod, int Price) {
         try {
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO Customer VALUES (?,?,?,?,?,?,?)");
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO shippingorder VALUES (?,?,?,?,?,?,?)");
             ps.setInt(1, TrackingID);
             ps.setString(2, ContentType);
             ps.setString(3, OrderDate);
@@ -127,7 +127,7 @@ public class databaseHandler {
     //Queries: DELETE Operation
     public void deleteOrder(int TrackingID) {
         try {
-            PreparedStatement ps = connection.prepareStatement("DELETE FROM ShippingOrder WHERE TrackingID = ?");
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM shippingorder WHERE TrackingID = ?");
             ps.setInt(1, TrackingID);
 
             int rowCount = ps.executeUpdate();
@@ -148,7 +148,7 @@ public class databaseHandler {
     public void updateCustomer(String Name, String PhoneNumber, String Address) {
         try {
             getCustomer();
-            PreparedStatement ps = connection.prepareStatement("UPDATE Customer SET PhoneNumber = ?, Name = ? WHERE Address = ?");
+            PreparedStatement ps = connection.prepareStatement("UPDATE customer SET PhoneNumber = ?, Name = ? WHERE Address = ?");
             ps.setString(1, PhoneNumber);
             ps.setString(2, Name);
             ps.setString(3, Address);
@@ -174,7 +174,7 @@ public class databaseHandler {
         ArrayList<String>  a = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT Name, PhoneNumber, Address FROM Customer WHERE PhoneNumber = " + PhoneNumber);
+            ResultSet rs = stmt.executeQuery("SELECT Name, PhoneNumber, Address FROM customer WHERE PhoneNumber = " + PhoneNumber);
             while(rs.next()) {
                 a.add(rs.getString("Name"));
                 a.add(rs.getString("PhoneNumber"));

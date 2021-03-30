@@ -32,16 +32,21 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
     private JPanel search_customer_panel;
     private JPanel create_order_panel;
     private JPanel search_order_panel;
-    private database.databaseHandler database;
+    public StartUpDelegate startUpDelegate = null;
+
 
     public RC_Frame(){
         this.width = screenSize.width * 3/5;
         this.height = screenSize.height * 3/5;
-        database = new databaseHandler();
         setup();
         attach_items();
         set_frame();
         set_color();
+    }
+
+    public void setupDatabase(StartUpDelegate start) {
+        start.databaseSetup();
+        this.startUpDelegate = start;
     }
 
 
@@ -102,7 +107,7 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
         search_order_button.setFocusPainted(false);
 
         //create panels
-        add_customer_panel = new Add_Customer_Panel( width, 3*height/4, database);
+        add_customer_panel = new Add_Customer_Panel( width, 3*height/4, startUpDelegate);
         search_customer_panel = new Search_Customer_Panel( width, 3*height/4);
         create_order_panel = new Create_Order_Panel( width, 3*height/4);
         search_order_panel = new Search_Order_Panel( width, 3*height/4);
