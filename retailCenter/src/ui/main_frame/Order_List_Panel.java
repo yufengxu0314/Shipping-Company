@@ -42,6 +42,8 @@ public class Order_List_Panel extends JPanel {
 
     public void add_entry (ShippingOrder order) {
         Order_Entry entry = new Order_Entry(width, height/10,order);
+        entries.add(entry);
+        this.add(entry);
         this.layout.putConstraint(SpringLayout.NORTH,entry,height * (entries.size() - 1)/ENTRIES_PER_VIEW,SpringLayout.NORTH,this);
         set_preferred_size(entries.size());
         reload();

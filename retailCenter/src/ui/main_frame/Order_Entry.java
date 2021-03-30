@@ -10,7 +10,6 @@ import java.awt.event.*;
 public class Order_Entry extends JPanel implements ActionListener, FocusListener {
     private int width;
     private int height;
-    private boolean is_focused;
     private Font font;
     private JLabel id;
     private JLabel from;
@@ -23,14 +22,11 @@ public class Order_Entry extends JPanel implements ActionListener, FocusListener
         this.font = new Font("Serif", Font.PLAIN, width / 45);
         this.width = width;
         this.height = height;
-        this.is_focused = false;
-        //this.font = font;
 
         setup(order);
         set_font();
-        set_color(My_Color.WHITE);
+        set_color(My_Color.RED);
         set_bounds();
-
         set_panel();
     }
 
@@ -38,20 +34,18 @@ public class Order_Entry extends JPanel implements ActionListener, FocusListener
 
     private void setup(ShippingOrder order) {
         this.id = new JLabel(String.valueOf(order.TrackingID));
-        this.from = new JLabel("null");
-        this.sender = new JLabel("null");
-        this.receiver = new JLabel("null");
-        this.to = new JLabel("null");
+        this.from = new JLabel("from");
+        this.sender = new JLabel("7764535756");
+        this.receiver = new JLabel("654654645");
+        this.to = new JLabel("to");
         this.status = new JLabel(String.format("unknown"));
-
-
 
         this.id.setHorizontalAlignment(JButton.CENTER);
         this.from.setHorizontalAlignment(JButton.CENTER);
-        this.sender.setHorizontalAlignment(JButton.LEFT);
-        this.receiver.setHorizontalAlignment(JButton.LEFT);
-        this.to.setHorizontalAlignment(JButton.LEFT);
-        this.status.setHorizontalAlignment(JButton.RIGHT);
+        this.sender.setHorizontalAlignment(JButton.CENTER);
+        this.receiver.setHorizontalAlignment(JButton.CENTER);
+        this.to.setHorizontalAlignment(JButton.CENTER);
+        this.status.setHorizontalAlignment(JButton.CENTER);
 
     }
 
@@ -88,17 +82,17 @@ public class Order_Entry extends JPanel implements ActionListener, FocusListener
 
 
     private void set_bounds() {
-        id.setBounds(0,height/10,width / 30, 8*height/10);
+        id.setBounds(0,height/10,width / 6, 8*height/10);
 
-        from.setBounds(width / 30,height/10,width * 2/30, 8*height/10);
+        from.setBounds(1*width / 6,height/10,width /6, 8*height/10);
 
-        sender.setBounds(width / 10, height/10 , width * 4/10, 8*height/10);
+        sender.setBounds(2*width / 6, height/10 , width/ 6, 8*height/10);
 
-        receiver.setBounds(width / 2, height/10, width / 12, 8*height/10);
+        receiver.setBounds(3*width / 6, height/10, width /6, 8*height/10);
 
-        to.setBounds(width * 5/8, height/10, width / 12, 8*height/10);
+        to.setBounds(4*width / 6, height/10, width / 6, 8*height/10);
 
-        status.setBounds(width * 6/8, height/10, width / 12, 8*height/10);
+        status.setBounds(5*width /6, height/10, width / 6, 8*height/10);
 
 
     }
@@ -114,11 +108,9 @@ public class Order_Entry extends JPanel implements ActionListener, FocusListener
         this.setBorder(null);
         this.setLayout(null);
         this.setPreferredSize(new Dimension(width,height));
+        this.addFocusListener(this);
     }
 
-    private void setup_enter(JTextField textField) {
-
-    }
 
 
     @Override
@@ -128,18 +120,14 @@ public class Order_Entry extends JPanel implements ActionListener, FocusListener
 
     @Override
     public void focusGained(FocusEvent e) {
-        //this.setBorder(BorderFactory.createDashedBorder(Color.black));
-        //this.setBorder(BorderFactory.createLineBorder(My_Color.GREEN,5));
-        this.is_focused = true;
-        this.setBackground(My_Color.DARK_GREEN);
+        set_color(My_Color.DARK_GREEN);
         set_foreground_color(My_Color.WHITE);
+        this.setBackground(My_Color.DARK_GREEN);
     }
 
     @Override
     public void focusLost(FocusEvent e) {
-//        this.setBorder(null);
-        this.is_focused = false;
-        this.setBackground(My_Color.PANEL_BACKGROUND);
+        setBackground(My_Color.PANEL_BACKGROUND);
         set_foreground_color(My_Color.LETTER_GREY);
         Object o = e.getSource();
     }
