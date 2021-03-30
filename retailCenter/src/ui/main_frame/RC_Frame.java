@@ -1,8 +1,6 @@
 package ui.main_frame;
 
 import Controller.delegates.StartUpDelegate;
-import database.databaseHandler;
-import exception.exception;
 import utility.My_Color;
 
 import javax.swing.*;
@@ -11,12 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.InputStreamReader;
 import java.util.Arrays;
-
-import java.io.BufferedReader;
-import Controller.*;
-
 
 
 public class RC_Frame extends JFrame implements WindowListener, ActionListener {
@@ -32,7 +25,7 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
     private JPanel search_customer_panel;
     private JPanel create_order_panel;
     private JPanel search_order_panel;
-    public StartUpDelegate startUpDelegate = null;
+    public StartUpDelegate start = null;
 
 
     public RC_Frame(){
@@ -42,11 +35,13 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
         attach_items();
         set_frame();
         set_color();
+//        this.startUpDelegate = start;
     }
 
     public void setupDatabase(StartUpDelegate start) {
-        start.databaseSetup();
-        this.startUpDelegate = start;
+        this.start = start;
+//        start.databaseSetup();
+
     }
 
 
@@ -107,7 +102,7 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
         search_order_button.setFocusPainted(false);
 
         //create panels
-        add_customer_panel = new Add_Customer_Panel( width, 3*height/4, startUpDelegate);
+        add_customer_panel = new Add_Customer_Panel( width, 3*height/4, this);
         search_customer_panel = new Search_Customer_Panel( width, 3*height/4);
         create_order_panel = new Create_Order_Panel( width, 3*height/4);
         search_order_panel = new Search_Order_Panel( width, 3*height/4);

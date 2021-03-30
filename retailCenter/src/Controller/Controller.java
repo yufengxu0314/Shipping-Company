@@ -2,24 +2,25 @@ package Controller;
 
 import Controller.delegates.LoginWindowDelegate;
 import Controller.delegates.StartUpDelegate;
-import database.databaseHandler;
+import database.DatabaseHandler;
 import exception.exception;
+import model.Customer;
 import model.ShippingOrder;
 import ui.main_frame.*;
 
 import java.sql.SQLException;
 
 public class Controller implements StartUpDelegate, LoginWindowDelegate {
-    private databaseHandler databaseHandler;
+    private DatabaseHandler databaseHandler;
     private LoginWindow loginWindow = null;
     public RC_Frame rc_frame;
 
     public Controller() {
-        databaseHandler = new databaseHandler();
+        databaseHandler = new DatabaseHandler();
     }
 
 
-    private void start() {
+    public void start() {
         loginWindow = new LoginWindow();
         loginWindow.showFrame(this);
     }
@@ -32,7 +33,12 @@ public class Controller implements StartUpDelegate, LoginWindowDelegate {
             loginWindow.dispose();
             rc_frame = new RC_Frame();
             rc_frame.setupDatabase(this);
-            rc_frame.set_frame();
+//            try {
+//                addCustomer("321312", "32131", "34123123");
+//                System.out.println("successful");
+//            } catch (Exception e) {
+//                System.out.println(e.getMessage());
+//            }
         } else {
             System.out.println("failed");
             System.exit(-1);
@@ -71,7 +77,7 @@ public class Controller implements StartUpDelegate, LoginWindowDelegate {
     }
 
     public void databaseSetup() {
-        databaseHandler.databaseSetup();;
+//        databaseHandler.databaseSetup();;
     }
 
     @Override

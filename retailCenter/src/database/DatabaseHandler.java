@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 
-public class databaseHandler {
+public class DatabaseHandler {
     private static final String ORACLE_URL = "jdbc:oracle:thin:@localhost:1522:stu";
     private static final String EXCEPTION_TAG = "[EXCEPTION]";
     private static final String WARNING_TAG = "[WARNING]";
@@ -17,7 +17,7 @@ public class databaseHandler {
     public Connection connection = null;
     public PreparedStatement ps = null;
 
-    public databaseHandler() {
+    public DatabaseHandler() {
         try {
             DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
         } catch (SQLException e) {
@@ -60,26 +60,26 @@ public class databaseHandler {
 
 
 
-    public void databaseSetup() {
-
-            getCustomer();
-//            getSender();
-//            getReceiver();
-//            getParcel();
-//            getRetailCenter();
-//            getShippingOrder();
-//            getStaff();
-//            getInsurance();
-//            getOffer();
-//            getReceivedBy();
-//            getSchedule();
-//            getCourier();
-//            getPostmanPostwoman();
-//            getSortingCenter();
-//            getTransportation();
-//            getAssign();
-
-        }
+//    public void databaseSetup() {
+//
+//            getCustomer();
+////            getSender();
+////            getReceiver();
+////            getParcel();
+////            getRetailCenter();
+////            getShippingOrder();
+////            getStaff();
+////            getInsurance();
+////            getOffer();
+////            getReceivedBy();
+////            getSchedule();
+////            getCourier();
+////            getPostmanPostwoman();
+////            getSortingCenter();
+////            getTransportation();
+////            getAssign();
+//
+//        }
 
     //Queries: INSERT Operation
     public void addCustomer(String PhoneNumber, String Name, String Address) throws SQLException {

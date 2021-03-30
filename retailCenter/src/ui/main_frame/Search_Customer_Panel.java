@@ -1,6 +1,6 @@
 package ui.main_frame;
 
-import database.databaseHandler;
+import database.DatabaseHandler;
 import exception.exception;
 import utility.My_Color;
 
@@ -61,7 +61,7 @@ public class Search_Customer_Panel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == enter_button) {
             String phone_number = phone_number_field.getText();
-            databaseHandler dbh = new databaseHandler();
+            DatabaseHandler dbh = new DatabaseHandler();
             try {
                 this.customerList = dbh.searchCustomer(phone_number);
             } catch (exception err) {

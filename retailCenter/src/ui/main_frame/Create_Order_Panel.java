@@ -4,7 +4,7 @@ import utility.My_Color;
 
 import javax.swing.*;
 
-import database.databaseHandler;
+import database.DatabaseHandler;
 import model.ShippingOrder;
 
 import java.awt.*;
@@ -117,7 +117,7 @@ public class Create_Order_Panel extends JPanel implements ActionListener{
             String date = "2021/03/29";
             
             ShippingOrder newOrder = new ShippingOrder(trackingID,type,date,weight,size,methodStr,10);
-                databaseHandler dbh = new databaseHandler();
+                DatabaseHandler dbh = new DatabaseHandler();
                 dbh.addOrders(trackingID,type,date,weight,size,methodStr,10);
                 trackingID++;
         }

@@ -1,20 +1,14 @@
 package ui.main_frame;
 
+import Controller.Controller;
 import Controller.delegates.StartUpDelegate;
-import database.databaseHandler;
-import exception.exception;
-import model.Customer;
 import utility.My_Color;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.Arrays;
-import ui.main_frame.RC_Frame;
-
-import static com.sun.java.accessibility.util.AWTEventMonitor.addActionListener;
 
 
 public class Add_Customer_Panel extends JPanel{
@@ -31,19 +25,19 @@ public class Add_Customer_Panel extends JPanel{
     private String phoneNumber;
     private String name;
     private String address;
-    private StartUpDelegate start;
+    private RC_Frame rc;
 
 
-    public Add_Customer_Panel(int width, int height, StartUpDelegate start){
+    public Add_Customer_Panel(int width, int height, RC_Frame rc){
         this.width = width;
         this.height = height;
-        this.start = start;
-//        this.setBounds(x,y,width,height);
+        this.rc = rc;
         set_panel();
         setup();
         attach_items();
         set_color();
         this.setVisible(true);
+
     }
 
     private void attach_items() {
@@ -94,7 +88,7 @@ public class Add_Customer_Panel extends JPanel{
             phoneNumber = phone_number_field.getText();
             name = name_field.getText();
             address = address_field.getText();
-            start.addCustomer(phoneNumber,name,address);
+            rc.start.addCustomer(phoneNumber,name,address);
             JOptionPane.showMessageDialog(null, "Successful");
         } catch (Exception exception) {
             exception.printStackTrace();

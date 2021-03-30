@@ -12,8 +12,6 @@ INSERT INTO customer (PhoneNumber,Name,Address) VALUES ('7783213333', 'Doris', '
 INSERT INTO customer (PhoneNumber,Name,Address) VALUES ('7783214444', 'Yonas','No.6 road, Mars');
 INSERT INTO customer (PhoneNumber,Name,Address) VALUES ('7783215555', 'Alex', 'No.7 road, Mars');
 
-
-
 CREATE TABLE shippingorder (
                                TrackingID	    int,
                                ContentType		    char(50)	NOT NULL,
@@ -30,7 +28,6 @@ INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize
 INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price) VALUES(1000000003, 'normal', '2021/02/28', 0.3, '4x15x2', 'flight', 10);
 INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price) VALUES(1000000004, 'normal', '2021/02/27', 0.9, '5x11x8', 'flight', 10);
 INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price) VALUES(1000000005, 'liquid', '2021/02/26', 0.4,'12x10x10', 'flight',10);
-
 
 CREATE TABLE retailcenter
 (

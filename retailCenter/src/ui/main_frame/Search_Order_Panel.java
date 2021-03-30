@@ -1,15 +1,11 @@
 package ui.main_frame;
 
-import database.databaseHandler;
-import exception.exception;
-import model.ShippingOrder;
 import utility.My_Color;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLOutput;
 import java.util.Arrays;
 
 public class Search_Order_Panel extends JPanel implements ActionListener {
