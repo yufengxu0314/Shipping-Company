@@ -123,7 +123,6 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton button = (JButton) e.getSource();
-//        this.is_focused = true;
         if (button == add_customer_button) {
             search_customer_panel.setVisible(false);
             create_order_panel.setVisible(false);

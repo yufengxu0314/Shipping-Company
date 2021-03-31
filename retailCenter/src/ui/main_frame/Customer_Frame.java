@@ -22,6 +22,7 @@ public class Customer_Frame extends JFrame implements WindowListener, ActionList
     private JLabel phone;
     private JLabel address;
     private JButton edit_button;
+    private JButton finish_button;
     private Font font;
 
 
@@ -36,23 +37,24 @@ public class Customer_Frame extends JFrame implements WindowListener, ActionList
         set_color();
     }
 
-    private void set_top() {
+    private void attach_items() {
         this.font = new Font("Serif", Font.PLAIN, width / 45);
 
-        this.name_label = new JLabel("Tracking ID");
-        this.phone_label = new JLabel("From");
-        this.address_label = new JLabel("Sender Phone");
-        this.name = new JLabel("Receiver Phone");
-        this.phone = new JLabel("To");
-        this.address = new JLabel("Status");
+        this.name_label = new JLabel("Name: ");
+        this.phone_label = new JLabel("Phone Number: ");
+        this.address_label = new JLabel("Address: ");
+        this.name = new JLabel("todo");
+        this.phone = new JLabel("todo");
+        this.address = new JLabel("todo");
         this.edit_button = new JButton("Edit");
+        this.finish_button = new JButton("FINISHED");
 
-        this.name_label.setHorizontalAlignment(JButton.LEFT);
-        this.phone_label.setHorizontalAlignment(JButton.LEFT);
-        this.address_label.setHorizontalAlignment(JButton.LEFT);
-        this.name.setHorizontalAlignment(JButton.RIGHT);
-        this.phone.setHorizontalAlignment(JButton.RIGHT);
-        this.address.setHorizontalAlignment(JButton.RIGHT);
+        this.name_label.setHorizontalAlignment(JButton.RIGHT);
+        this.phone_label.setHorizontalAlignment(JButton.RIGHT);
+        this.address_label.setHorizontalAlignment(JButton.RIGHT);
+        this.name.setHorizontalAlignment(JButton.LEFT);
+        this.phone.setHorizontalAlignment(JButton.LEFT);
+        this.address.setHorizontalAlignment(JButton.LEFT);
 
         this.name_label.setFont(font);
         this.phone_label.setFont(font);
@@ -61,15 +63,18 @@ public class Customer_Frame extends JFrame implements WindowListener, ActionList
         this.phone.setFont(font);
         this.address.setFont(font);
         this.edit_button.setFont(font);
+        this.finish_button.setFont(font);
 
 
-        name_label.setBounds(width / 9, 0, width / 4, height / 9);
-        phone_label.setBounds(3 * width / 9, 0, width / 4, height / 9);
-        address_label.setBounds(5 * width / 9, 0, width / 4, height / 9);
-        name.setBounds( width / 9, width / 4, width / 2, height / 9);
-        phone.setBounds(3 * width / 9, width / 4, width / 2, height / 9);
-        address.setBounds(5 * width / 9, width / 4, width / 2, height / 9);
-        edit_button.setBounds(5 * width / 9, 3*width / 4, width / 2, height / 9);
+        name_label.setBounds(0, height / 9, width / 5, height / 9);
+        phone_label.setBounds(0, 3*height / 9, width / 5, height / 9);
+        address_label.setBounds(0, 5*height / 9, width / 5, height / 9);
+        name.setBounds( width / 4, height / 9, width / 2, height / 9);
+        phone.setBounds(width / 4, 3*height / 9, width / 2, height / 9);
+        address.setBounds(width / 4, 5*height / 9, width / 2, height / 9);
+
+        edit_button.setBounds(3 * width / 4, 5*height / 9, width / 7, height / 9);
+        finish_button.setBounds(2 * width / 5, 7*height / 9, width / 5, height / 9);
 
         this.add(name_label);
         this.add(phone_label);
@@ -78,22 +83,11 @@ public class Customer_Frame extends JFrame implements WindowListener, ActionList
         this.add(phone);
         this.add(address);
         this.add(edit_button);
-
+        this.add(finish_button);
     }
 
     private void set_color() {
         this.setBackground(My_Color.PANEL_BACKGROUND);
-    }
-
-    private void attach_items() {
-//
-//        panel = new Order_List_Panel(width, 7 * height / 8);
-//
-//        scroll = new JScrollPane(panel);
-//        scroll.setBounds(0, height / 10, width, 9 * height / 10);
-//        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-//        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-//        this.add(scroll);
     }
 
 
@@ -108,7 +102,13 @@ public class Customer_Frame extends JFrame implements WindowListener, ActionList
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        JButton button = (JButton) e.getSource();
+        if (button == edit_button) {
 
+        }
+        if (button == finish_button) {
+
+        }
     }
 
     @Override
