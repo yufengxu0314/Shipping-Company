@@ -136,14 +136,8 @@ public class DatabaseHandler {
         try {
             PreparedStatement ps = connection.prepareStatement("DELETE FROM shippingorder WHERE TrackingID = ?");
             ps.setInt(1, TrackingID);
-
-            int rowCount = ps.executeUpdate();
-            if (rowCount == 0) {
-                System.out.println(WARNING_TAG + " Order " + TrackingID + " does not exist!");
-            }
-
+            ps.executeUpdate();
             connection.commit();
-
             ps.close();
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
@@ -161,13 +155,11 @@ public class DatabaseHandler {
             ps.executeUpdate();
             connection.commit();
             ps.close();
-            getCustomer();
         } catch (SQLException e) {
             System.out.println("ERROR");
             rollbackConnection();
         }
     }
-
 
 
     //Queries: PROJECTION Operation
@@ -215,18 +207,26 @@ public class DatabaseHandler {
 
 
     //Queries: JOIN Operation
+    // Find a customer who shipped on a given date
+
 
 
     //Queries: Aggregation with Group By
+    // Find number of orders created each day
+
 
 
     //Queries: Aggregation with Having
+    //Find the average number of parcels sent per customer
+
 
 
     //Queries: Nested Aggregation with Group By
+    //Count the number of orders received each day
 
 
     //Queries: Division
+    //Find a customer who used all types of shipping methods to ship
 
 
 
