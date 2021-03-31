@@ -206,21 +206,21 @@ public class DatabaseHandler {
 
 
 
-    //Queries: Aggregation with Group By
+    //Queries: Aggregation with Group By (show today's order count)
     // Find number of orders created each day
 
 
 
     //Queries: Aggregation with Having
-    //Find the average number of parcels sent per customer
+    //Find the orders created after a specific date.
 
 
 
     //Queries: Nested Aggregation with Group By
-    //Count the number of orders received each day
+    ///Find the orders created after a specific date.
 
 
-    //Queries: Division
+    //Queries: Division （loyalty customer button）
     //Find a customer who used all types of shipping methods to ship
 
 

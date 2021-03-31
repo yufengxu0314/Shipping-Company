@@ -115,6 +115,13 @@ INSERT INTO Sender (PhoneNumber,Name,Address) VALUES ('7783213333', 'Doris', 'No
 INSERT INTO Sender (PhoneNumber,Name,Address) VALUES ('7783214444', 'Yonas', 'No.6 road, Mars');
 INSERT INTO Sender (PhoneNumber,Name,Address) VALUES ('7783215555', 'Alex', 'No.7 road, Mars');
 
+CREATE TABLE receiver
+(
+    PhoneNumber char(20)  UNIQUE,
+    Name        char(50),
+    Address     char(100),
+    PRIMARY KEY (Name, PhoneNumber)
+);
 
 INSERT INTO receiver (PhoneNumber,Name,Address) VALUES ('7783211111', 'Eddie', 'No.3 road, Mars');
 INSERT INTO receiver (PhoneNumber,Name,Address)  VALUES ('7783212222', 'FAN', 'No.4 road, Mars');
