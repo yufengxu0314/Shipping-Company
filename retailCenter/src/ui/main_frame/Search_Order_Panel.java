@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Search_Order_Panel extends JPanel {
@@ -23,7 +25,7 @@ public class Search_Order_Panel extends JPanel {
     private JTextField day_field;
     private JButton search_button;
     private RC_Frame rc;
-    private ShippingOrder shippingOrder;
+    private ArrayList<ShippingOrder> orders ;
 
 
 
@@ -70,6 +72,7 @@ public class Search_Order_Panel extends JPanel {
     }
 
     private void setup(){
+        orders = new ArrayList<>();
         id_label = new JLabel("Enter Tracking ID:");
         created_after_label = new JLabel("Created After:");
         year_label = new JLabel("Year:");
@@ -123,11 +126,21 @@ public class Search_Order_Panel extends JPanel {
 //    }
 public void handleSearchOrder(ActionEvent evt) {
     try {
+        orders.clear();
+        // case 1
         int trackingID = Integer.parseInt(id_field.getText());
-            shippingOrder = rc.start.searchTracking(trackingID);
-            JOptionPane.showMessageDialog(null, "Order information: " + shippingOrder.getContentType() +
-                    " " + shippingOrder.getOrderDate() + " " + shippingOrder.getShippingMethod() + " " + shippingOrder.getSize()
-                    + " " + shippingOrder.getPrice() + " " + shippingOrder.getTrackingID() + " " + shippingOrder.getWeight() + " " + shippingOrder.getSenderPhoneNumber());
+        ShippingOrder shippingOrder = rc.start.searchTracking(trackingID);
+        orders.add(shippingOrder);
+            //case2
+
+
+
+
+
+        new Order_List_Frame(width, height, orders);
+//            JOptionPane.showMessageDialog(null, "Order information: " + shippingOrder.getContentType() +
+//                    " " + shippingOrder.getOrderDate() + " " + shippingOrder.getShippingMethod() + " " + shippingOrder.getSize()
+//                    + " " + shippingOrder.getPrice() + " " + shippingOrder.getTrackingID() + " " + shippingOrder.getWeight() + " " + shippingOrder.getSenderPhoneNumber());
     } catch (Exception exception) {
         exception.printStackTrace();
         JOptionPane.showMessageDialog(null,"Error");
