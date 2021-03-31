@@ -20,6 +20,9 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
     private JButton search_customer_button;
     private JButton create_order_button;
     private JButton search_order_button;
+
+    private JButton order_count;
+    private JButton loyalty_customer;
     //panels
     private JPanel add_customer_panel;
     private JPanel search_customer_panel;
@@ -35,24 +38,25 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
         attach_items();
         set_frame();
         set_color();
-//        this.startUpDelegate = start;
     }
 
     public void setupDatabase(StartUpDelegate start) {
         this.start = start;
-//        start.databaseSetup();
-
     }
 
 
     private void set_color(){
         this.setBackground(My_Color.MAIN_FRAME_GREY);
-        for (JButton button: Arrays.asList(add_customer_button, search_customer_button,create_order_button,search_order_button)){
+        for (JButton button: Arrays.asList(add_customer_button, search_customer_button,create_order_button,search_order_button, order_count, loyalty_customer)){
             button.setBackground(My_Color.GREEN);
             button.setBorderPainted(false);
             button.setForeground(My_Color.WHITE);
             button.setOpaque(true);
+            button.setFont(new Font("Serif", Font.PLAIN, width /55));
+            button.setFocusPainted(false);
         }
+        order_count.setBackground(My_Color.ALI_BLUE);
+        loyalty_customer.setBackground(My_Color.ALI_BLUE);
     }
 
     private void attach_items() {
@@ -91,16 +95,9 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
         search_customer_button = new JButton("search customer");
         create_order_button = new JButton("create order");
         search_order_button = new JButton("search order");
-        // set font
-        add_customer_button.setFont(new Font("Serif", Font.PLAIN, width /50));
-        search_customer_button.setFont(new Font("Serif", Font.PLAIN, width /50));
-        create_order_button.setFont(new Font("Serif", Font.PLAIN, width /50));
-        search_order_button.setFont(new Font("Serif", Font.PLAIN, width /50));
-        // cancel the focus
-        add_customer_button.setFocusPainted(false);
-        search_customer_button.setFocusPainted(false);
-        create_order_button.setFocusPainted(false);
-        search_order_button.setFocusPainted(false);
+
+        order_count = new JButton("Show Today's Order Count");
+        loyalty_customer = new JButton("Show Loyalty Customers");
 
         //create panels
         add_customer_panel = new Add_Customer_Panel( width, 3*height/4, this);
