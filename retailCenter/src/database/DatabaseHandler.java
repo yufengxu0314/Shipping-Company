@@ -4,6 +4,7 @@ import exception.exception;
 import model.*;
 
 import javax.naming.Name;
+import javax.swing.plaf.nimbus.State;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
@@ -148,15 +149,12 @@ public class DatabaseHandler {
     //Queries: UPDATE Operation
     public void updateCustomer(String PhoneNumber, String Address, String Name) {
         try {
-            PreparedStatement ps = connection.prepareStatement("UPDATE Customer SET Address = ? WHERE PhoneNumber = ?");
-            ps.setString(1, Address);
-            ps.setString(2, PhoneNumber);
-            ps.executeQuery();
-            ps.executeUpdate();
+            Statement s = connection.createStatement();
+            s.executeQuery("UPDATE Customer SET Address = " + "'" +Address+ "'" + "WHERE PhoneNumber = " + "'" + PhoneNumber + "'");
             connection.commit();
-            ps.close();
+            s.close();
         } catch (SQLException e) {
-            System.out.println("ERROR");
+            System.out.println("ERROR: " + e.getMessage());
         }
     }
 
