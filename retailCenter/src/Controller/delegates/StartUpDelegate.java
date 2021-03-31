@@ -17,8 +17,7 @@ import java.sql.SQLException;
  */
 public interface StartUpDelegate {
 	public void addCustomer(Customer customer) throws SQLException;
-	public void addOrders(int TrackingID, String ContentType, String OrderDate,
-						  int Weight, String Size, String ShippingMethod, int Price, String senderPhone);
+	public void addOrders(ShippingOrder s);
 	public void deleteOrder(int TrackingID);
 	public void updateCustomer(String PhoneNumber, String Address,  String Name);
 	public Customer searchCustomer(String PhoneNumber) throws exception;

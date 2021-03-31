@@ -52,8 +52,8 @@ public class Controller implements StartUpDelegate, LoginWindowDelegate {
     }
 
     @Override
-    public void addOrders(int TrackingID, String ContentType, String OrderDate, int Weight, String Size, String ShippingMethod, int Price, String SenderPhone) {
-        databaseHandler.addOrders(TrackingID, ContentType, OrderDate, Weight, Size, ShippingMethod, Price, SenderPhone);
+    public void addOrders(ShippingOrder s) {
+        databaseHandler.addOrders(s);
     }
 
     @Override

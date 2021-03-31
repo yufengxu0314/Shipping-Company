@@ -107,18 +107,17 @@ public class DatabaseHandler {
 
 
     //Queries: INSERT Operation
-    public void addOrders(int TrackingID, String ContentType, String OrderDate,
-                          int Weight, String Size, String ShippingMethod, int Price, String SenderPhoneNumber) {
+    public void addOrders(ShippingOrder s) {
         try {
             PreparedStatement ps = connection.prepareStatement("INSERT INTO shippingorder VALUES (?,?,?,?,?,?,?,?)");
-            ps.setInt(1, TrackingID);
-            ps.setString(2, ContentType);
-            ps.setString(3, OrderDate);
-            ps.setInt(4, Weight);
-            ps.setString(5, Size);
-            ps.setString(6, ShippingMethod);
-            ps.setInt(7, Price);
-            ps.setString(8, SenderPhoneNumber);
+            ps.setInt(1, s.getTrackingID());
+            ps.setString(2, s.getContentType());
+            ps.setString(3, s.getOrderDate());
+            ps.setInt(4, s.getWeight());
+            ps.setString(5, s.getSize());
+            ps.setString(6, s.getShippingMethod());
+            ps.setInt(7, s.getPrice());
+            ps.setString(8, s.getSenderPhoneNumber());
             System.out.print("Success");
             ps.executeUpdate();
             connection.commit();
