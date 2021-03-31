@@ -9,7 +9,6 @@ import model.ShippingOrder;
 import ui.main_frame.*;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class Controller implements StartUpDelegate, LoginWindowDelegate {
     private DatabaseHandler databaseHandler;
@@ -63,12 +62,12 @@ public class Controller implements StartUpDelegate, LoginWindowDelegate {
     }
 
     @Override
-    public void updateCustomer(String Name, String PhoneNumber, String Address) {
-        databaseHandler.updateCustomer(Name, PhoneNumber, Address);
+    public void updateCustomer(String PhoneNumber, String Address, String Name) {
+        databaseHandler.updateCustomer(PhoneNumber, Address, Name);
     }
 
     @Override
-    public ArrayList<String> searchCustomer(String PhoneNumber) throws exception {
+    public Customer searchCustomer(String PhoneNumber) throws exception {
         return databaseHandler.searchCustomer(PhoneNumber);
     }
 

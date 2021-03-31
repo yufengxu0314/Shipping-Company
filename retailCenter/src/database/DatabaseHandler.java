@@ -2,6 +2,8 @@ package database;
 
 import exception.exception;
 import model.*;
+
+import javax.naming.Name;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,6 +18,8 @@ public class DatabaseHandler {
 
     public Connection connection = null;
     public PreparedStatement ps = null;
+
+
 
     public DatabaseHandler() {
         try {
@@ -148,20 +152,13 @@ public class DatabaseHandler {
     }
 
 
-
     //Queries: UPDATE Operation
-    public void updateCustomer(String Name, String PhoneNumber, String Address) {
+    public void updateCustomer(String PhoneNumber, String Address, String Name) {
         try {
-            getCustomer();
-            PreparedStatement ps = connection.prepareStatement("UPDATE customer SET PhoneNumber = ?, Name = ? WHERE Address = ?");
-            ps.setString(1, PhoneNumber);
-            ps.setString(2, Name);
-            ps.setString(3, Address);
-
-            int rowCount = ps.executeUpdate();
-            if (rowCount == 0) {
-                System.out.println("ERROR" + " Customer with address " + Address + " does not exist!");
-            }
+            PreparedStatement ps = connection.prepareStatement("UPDATE customer SET Address = ? WHERE PhoneNumber = ?");
+            ps.setString(1, Address);
+            ps.setString(2, PhoneNumber);
+            ps.executeUpdate();
             connection.commit();
             ps.close();
             getCustomer();
@@ -174,26 +171,21 @@ public class DatabaseHandler {
 
 
     //Queries: PROJECTION Operation
-    //return customer's Name, PhoneNumber and Address with given PhoneNumber
-    public ArrayList<String> searchCustomer(String PhoneNumber) throws exception {
-        ArrayList<String>  a = new ArrayList<>();
+    //return customer's Name and Address with given PhoneNumber
+    public Customer searchCustomer(String PhoneNumber) throws exception {
+        Customer a = null;
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT Name, PhoneNumber, Address FROM customer WHERE PhoneNumber = " + PhoneNumber);
+            ResultSet rs = stmt.executeQuery("SELECT Name, Address FROM customer WHERE PhoneNumber = " + PhoneNumber);
             while(rs.next()) {
-                a.add(rs.getString("Name"));
-                a.add(rs.getString("PhoneNumber"));
-                a.add(rs.getString("Address"));
+                a = new Customer(PhoneNumber, rs.getString("Name"), rs.getString("Address"));
             }
             rs.close();
             stmt.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
-        if (a.isEmpty()) {
-            throw new exception("Customer with given phone number is not found");
-        }
+        System.out.println(a);
         return a;
     }
 
@@ -221,8 +213,8 @@ public class DatabaseHandler {
         return s;
     }
 
-    //Queries: JOIN Operation
 
+    //Queries: JOIN Operation
 
 
     //Queries: Aggregation with Group By
@@ -238,23 +230,6 @@ public class DatabaseHandler {
 
 
 
-    // return number of orders received today
-    public int countOrder() {
-        int i = 0;
-        try {
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM ShippingOrder WHERE OrderDate LIKE '2021/03/02'");
-            while (rs.next()) {
-                i++;
-            }
-            rs.close();
-            stmt.close();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println("The number of orders received today is " + i);
-        return i;
-    }
 
     public ArrayList<Customer> getCustomer() {
         ArrayList<Customer> customer = new ArrayList<>();

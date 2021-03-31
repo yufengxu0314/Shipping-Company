@@ -90,6 +90,7 @@ public class Add_Customer_Panel extends JPanel{
             address = address_field.getText();
             rc.start.addCustomer(phoneNumber,name,address);
             JOptionPane.showMessageDialog(null, "Successful");
+
         } catch (Exception exception) {
             exception.printStackTrace();
             JOptionPane.showMessageDialog(null,"Error");
