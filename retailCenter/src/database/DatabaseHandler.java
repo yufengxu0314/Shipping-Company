@@ -184,7 +184,7 @@ public class DatabaseHandler {
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM shippingorder WHERE TrackingID = " + id);
-            System.out.print("Success");
+            //System.out.print("Success");
             while(rs.next()) {
                 s = new ShippingOrder(rs.getInt("TrackingID"), rs.getString("ContentType"),
                         rs.getString("OrderDate"), rs.getInt("Weight"),rs.getString("PacelSize"), rs.getString("ShippingMethod"),rs.getInt("Price") , rs.getString("PhoneNumber"));
@@ -201,11 +201,42 @@ public class DatabaseHandler {
 
     //Queries: JOIN Operation
     // Find a customer who shipped on a given date
-
+    public ArrayList<ShippingOrderCombined> findSender(String date) {
+        ArrayList<ShippingOrderCombined> ret = new ArrayList<>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT shippingorder.*, customer.name FROM shippingorder INNER JOIN customer ON shippingorder.PhoneNumber = customer.PhoneNumber WHERE OrderDate LIKE " + "'%" + date + "%'");
+            while(rs.next()) {
+                ShippingOrderCombined soc = new ShippingOrderCombined(rs.getInt("TrackingID"), rs.getString("ContentType"),
+                        rs.getString("OrderDate"), rs.getInt("Weight"),rs.getString("PacelSize"), rs.getString("ShippingMethod"),rs.getInt("Price") , rs.getString("PhoneNumber"),rs.getString("NAME"));
+                ret.add(soc);
+            }
+            connection.commit();
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return ret;
+    }
 
 
     //Queries: Aggregation with Group By (show today's order count)
     // Find number of orders created each day
+    public int getDailyCount(String date) {
+        int ret = 0;
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM shippingorder WHERE shippingorder.OrderDate LIKE" + "'%" + date + "%'" + "GROUP BY shippingorder.OrderDate");
+            ret = rs.getInt("COUNT(*)");
+            connection.commit();
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return ret;
+    }
 
 
 
