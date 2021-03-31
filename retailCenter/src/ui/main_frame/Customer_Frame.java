@@ -26,12 +26,14 @@ public class Customer_Frame extends JFrame implements WindowListener, ActionList
     private JButton finish_button;
     private Font font;
     private Customer customer;
+    private RC_Frame rc;
 
 
-    public Customer_Frame(int width, int height, Customer customer) {
+    public Customer_Frame(int width, int height, RC_Frame rc, Customer customer) {
         this.width = 4 * width / 5;
         this.height = height;
         this.customer = customer;
+        this.rc = rc;
         this.setBounds(screenSize.width / 5 + this.width / 8, screenSize.height / 5 + this.height / 8, this.width, this.height);
         set_panel();
         attach_items();
@@ -85,6 +87,8 @@ public class Customer_Frame extends JFrame implements WindowListener, ActionList
         this.add(address);
         this.add(edit_button);
         this.add(finish_button);
+
+        edit_button.addActionListener(this);
     }
 
     private void set_color() {
@@ -99,13 +103,14 @@ public class Customer_Frame extends JFrame implements WindowListener, ActionList
         this.setResizable(false);
         this.setLayout(null);
         this.setVisible(true);
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton button = (JButton) e.getSource();
         if (button == edit_button) {
-
+            new Edit_Customer_Frame(width,height,rc, customer);
         }
         if (button == finish_button) {
 

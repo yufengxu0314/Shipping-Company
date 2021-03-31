@@ -8,9 +8,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowListener;
 import java.util.Arrays;
 
-public class Search_Customer_Panel extends JPanel {
+public class Search_Customer_Panel extends JPanel{
     private int width;
     private int height;
     private JLabel phone_number_label;
@@ -68,41 +69,42 @@ public class Search_Customer_Panel extends JPanel {
         this.setLayout(null);
     }
 
-    private void setup_edit() {
-        this.edit_label = new JLabel("update: ");
-        this.address_label = new JLabel(customer.getAddress());
-        this.edit_field = new JTextField();
-        this.edit_button = new JButton("edit");
-        for (JLabel jLabel : Arrays.asList(address_label, edit_label)) {
-            jLabel.setFont(new Font("Serif", Font.PLAIN, width /50));
-        }
-        edit_field.setFont(new Font("Serif", Font.PLAIN, width /50));
-        edit_button.setFont(new Font("Serif", Font.PLAIN, width /50));
-        edit_button.setFocusPainted(false);
-    }
-    public void handleEditCustomer(ActionEvent evt) {
-        try {
-            String edit = edit_field.getText();
-            rc.start.updateCustomer(customer.getPhoneNumber(),edit, customer.getName());
-            JOptionPane.showMessageDialog(null, "Customer information is updated");
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            JOptionPane.showMessageDialog(null,"Error");
-        }
-    }
+//    private void setup_edit() {
+//        this.edit_label = new JLabel("update: ");
+//        this.address_label = new JLabel(customer.getAddress());
+//        this.edit_field = new JTextField();
+//        this.edit_button = new JButton("edit");
+//        for (JLabel jLabel : Arrays.asList(address_label, edit_label)) {
+//            jLabel.setFont(new Font("Serif", Font.PLAIN, width /50));
+//        }
+//        edit_field.setFont(new Font("Serif", Font.PLAIN, width /50));
+//        edit_button.setFont(new Font("Serif", Font.PLAIN, width /50));
+//        edit_button.setFocusPainted(false);
+//    }
 
-    private void attach_edit() {
-        this.add(edit_label);
-        this.add(address_label);
-        this.add(edit_field);
-        this.add(edit_button);
-        //set bounds
-        address_label.setBounds(200, 200, width / 6, height / 10);
-        edit_field.setBounds(200, 250, width / 6, height / 10);
-        edit_button.setBounds( 200, 300, width / 6, height / 10);
-        edit_label.setBounds(100, 250, width / 6, height / 10);
+//    public void handleEditCustomer(ActionEvent evt) {
+//        try {
+//            String edit = edit_field.getText();
+//            rc.start.updateCustomer(customer.getPhoneNumber(),edit, customer.getName());
+//            JOptionPane.showMessageDialog(null, "Customer information is updated");
+//        } catch (Exception exception) {
+//            exception.printStackTrace();
+//            JOptionPane.showMessageDialog(null,"Error");
+//        }
+//    }
 
-    }
+//    private void attach_edit() {
+//        this.add(edit_label);
+//        this.add(address_label);
+//        this.add(edit_field);
+//        this.add(edit_button);
+//        //set bounds
+//        address_label.setBounds(200, 200, width / 6, height / 10);
+//        edit_field.setBounds(200, 250, width / 6, height / 10);
+//        edit_button.setBounds( 200, 300, width / 6, height / 10);
+//        edit_label.setBounds(100, 250, width / 6, height / 10);
+//
+//    }
 //    @Override
 //    public void actionPerformed(ActionEvent e) {
 //        if (e.getSource() == enter_button) {
@@ -120,18 +122,17 @@ public class Search_Customer_Panel extends JPanel {
         try {
             String phone_number = phone_number_field.getText();
             this.customer = rc.start.searchCustomer(phone_number);
-            new Customer_Frame(width, height, this.customer);
-            JOptionPane.showMessageDialog(null, "Successful");
+            new Customer_Frame(width, height, rc, this.customer);
+//            JOptionPane.showMessageDialog(null, "Successful");
 //            setup_edit();
 //            attach_edit();
-            edit_button.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    handleEditCustomer(e);
-                }
-            });
-
-        } catch (Exception exception) {
+//            edit_button.addActionListener(new ActionListener() {
+//                @Override
+//                public void actionPerformed(ActionEvent e) {
+//                    handleEditCustomer(e);
+//                }
+            }
+         catch (Exception exception) {
             exception.printStackTrace();
             JOptionPane.showMessageDialog(null,"Error");
         }
