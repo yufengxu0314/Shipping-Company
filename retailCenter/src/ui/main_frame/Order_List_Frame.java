@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
 
 public class Order_List_Frame extends JFrame implements WindowListener, ActionListener {
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -24,20 +25,24 @@ public class Order_List_Frame extends JFrame implements WindowListener, ActionLi
     private JLabel to;
     private JLabel status;
     private Font font;
-
+//    private ArrayList<ShippingOrder> orders;
 
     private ShippingOrder temp_order;
 
-    public Order_List_Frame(int width, int height) {
+    public Order_List_Frame(int width, int height, ArrayList<ShippingOrder> orders ) {
         this.width = 4 * width / 5;
         this.height = height;
+//        this.orders = orders;
         this.setBounds(screenSize.width / 5 + this.width / 8, screenSize.height / 5 + this.height / 8, this.width, this.height);
         set_top();
         set_panel();
         attach_items();
         set_color();
-//        test();
+        for(ShippingOrder order: orders){
+            panel.add_entry(order);
+        }
     }
+
 
     private void set_top() {
         this.font = new Font("Serif", Font.PLAIN, width / 45);
