@@ -8,6 +8,8 @@ import database.DatabaseHandler;
 import model.ShippingOrder;
 
 import java.awt.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -139,16 +141,23 @@ public class Create_Order_Panel extends JPanel {
             int weight = Integer.parseInt(weight_field.getText());
             String methodStr = method_field.getText();
             String size = size_field.getText();
-            String date = "2021/03/29";
+            String date = getDate();
             String senderPhone = sender_phone_field.getText();
             trackingID = (int) (Math.random() * (max - min + 1) + min);
-            rc.start.addOrders(trackingID,type,date,weight,size,methodStr,10, senderPhone);
+            ShippingOrder newOrder = new ShippingOrder(trackingID,type,date,weight,size,methodStr,10,senderPhone);
+            rc.start.addOrders(newOrder);
             JOptionPane.showMessageDialog(null, "Successful");
             JOptionPane.showMessageDialog(null, "Tracking Id for this order is " + trackingID);
         } catch (Exception exception) {
             exception.printStackTrace();
             JOptionPane.showMessageDialog(null,"Error");
         }
+    }
+
+    private String getDate() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        return dtf.format(now);
     }
 
 }

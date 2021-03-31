@@ -2,6 +2,7 @@ package ui.main_frame;
 
 import Controller.Controller;
 import Controller.delegates.StartUpDelegate;
+import model.Customer;
 import utility.My_Color;
 
 import javax.swing.*;
@@ -88,7 +89,8 @@ public class Add_Customer_Panel extends JPanel{
             phoneNumber = phone_number_field.getText();
             name = name_field.getText();
             address = address_field.getText();
-            rc.start.addCustomer(phoneNumber,name,address);
+            Customer c = new Customer(phoneNumber,name,address);
+            rc.start.addCustomer(c);
             JOptionPane.showMessageDialog(null, "Successful");
 
         } catch (Exception exception) {
