@@ -120,9 +120,10 @@ public class Search_Customer_Panel extends JPanel {
         try {
             String phone_number = phone_number_field.getText();
             this.customer = rc.start.searchCustomer(phone_number);
+            new Customer_Frame(width, height, this.customer);
             JOptionPane.showMessageDialog(null, "Successful");
-            setup_edit();
-            attach_edit();
+//            setup_edit();
+//            attach_edit();
             edit_button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
