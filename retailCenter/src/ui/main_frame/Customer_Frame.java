@@ -1,5 +1,6 @@
 package ui.main_frame;
 
+import model.Customer;
 import model.ShippingOrder;
 import utility.My_Color;
 
@@ -24,13 +25,13 @@ public class Customer_Frame extends JFrame implements WindowListener, ActionList
     private JButton edit_button;
     private JButton finish_button;
     private Font font;
+    private Customer customer;
 
 
-    private ShippingOrder temp_order;
-
-    public Customer_Frame(int width, int height) {
+    public Customer_Frame(int width, int height, Customer customer) {
         this.width = 4 * width / 5;
         this.height = height;
+        this.customer = customer;
         this.setBounds(screenSize.width / 5 + this.width / 8, screenSize.height / 5 + this.height / 8, this.width, this.height);
         set_panel();
         attach_items();
@@ -43,9 +44,9 @@ public class Customer_Frame extends JFrame implements WindowListener, ActionList
         this.name_label = new JLabel("Name: ");
         this.phone_label = new JLabel("Phone Number: ");
         this.address_label = new JLabel("Address: ");
-        this.name = new JLabel("todo");
-        this.phone = new JLabel("todo");
-        this.address = new JLabel("todo");
+        this.name = new JLabel(customer.getName());
+        this.phone = new JLabel(customer.getPhoneNumber());
+        this.address = new JLabel(customer.getAddress());
         this.edit_button = new JButton("Edit");
         this.finish_button = new JButton("FINISHED");
 
@@ -92,7 +93,7 @@ public class Customer_Frame extends JFrame implements WindowListener, ActionList
 
 
     private void set_panel() {
-        this.setTitle("Order List");
+        this.setTitle("Customer Result");
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.addWindowListener(this);
         this.setResizable(false);

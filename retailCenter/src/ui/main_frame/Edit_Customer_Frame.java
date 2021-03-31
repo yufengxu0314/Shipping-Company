@@ -10,22 +10,20 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Edit_Customer_Panel extends JPanel {
+public class Edit_Customer_Frame extends JFrame {
+
+    private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private int width;
     private int height;
-    private JLabel phone_number_label;
-    private JLabel name_label;
-    private JLabel address_label;
-    private JButton edit_button;
-    private Search_Customer_Panel search_customer_panel;
     private RC_Frame rc;
     private JLabel edit_label;
     private JTextField edit_field;
+    private JButton edit_button;
     private Customer customer;
 
-    public Edit_Customer_Panel(int width, int height, RC_Frame rc, Customer customer){
+    public Edit_Customer_Frame(int width, int height, RC_Frame rc, Customer customer){
         this.width = width;
-        this.height = height;
+        this.height = height/2;
         this.rc = rc;
         this.customer = customer;
         set_panel();
@@ -39,33 +37,19 @@ public class Edit_Customer_Panel extends JPanel {
     }
 
     private void attach_items() {
-        this.add(phone_number_label);
-        this.add(name_label);
-        this.add(address_label);
-        //set bounds
-        phone_number_label.setBounds(width/8, 4*height/12, width/5, height/6);
-        name_label.setBounds(width/8, 4*height/12, width/5, height/6);
-        address_label.setBounds(width/8, 4*height/12, width/5, height/6);
-        edit_button.setBounds(2*width/3, 4*height/12, width/8, height/6);
-    }
-
-    private void set_panel(){
-        this.setLayout(null);
-    }
-
-    private void setup(){
-        phone_number_label = new JLabel(customer.getPhoneNumber());
-        name_label = new JLabel(customer.getName());
-        address_label = new JLabel(customer.getAddress());
-        edit_label = new JLabel("new address:");
+        edit_label = new JLabel("New Address:");
         edit_field = new JTextField();
-        edit_button = new JButton("edit");
+        edit_button = new JButton("Confirm");
         //set font
-        for (JLabel jLabel : Arrays.asList(name_label, address_label, phone_number_label, edit_label)) {
-            jLabel.setFont(new Font("Serif", Font.PLAIN, width /50));
-        }
+        edit_label.setFont(new Font("Serif", Font.PLAIN, width /50));
         edit_field.setFont(new Font("Serif", Font.PLAIN, width /50));
         edit_button.setFont(new Font("Serif", Font.PLAIN, width /50));
+
+        edit_label.setBounds( 0,height/8, width/5, 3*height/8);
+        edit_field.setBounds( width/4,height/8, 3*width/5, 3*height/8);
+        edit_button.setBounds( 2*width/5,4*height/8, width/5, 3*height/8);
+
+
         edit_button.setFocusPainted(false);
         edit_button.addActionListener(new ActionListener() {
             @Override
@@ -73,6 +57,19 @@ public class Edit_Customer_Panel extends JPanel {
                 handleEditCustomer(e);
             }
         });
+    }
+
+    private void set_panel(){
+        this.setLayout(null);
+    }
+
+    private void setup(){
+        this.setBounds(screenSize.width / 4 + this.width / 6, screenSize.height / 6 + this.height / 10, this.width, this.height);
+        this.setTitle("Edit Address");
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        this.setResizable(false);
+        this.setLayout(null);
+        this.setVisible(true);
     }
 
     public void handleEditCustomer(ActionEvent evt) {
