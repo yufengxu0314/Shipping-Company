@@ -51,6 +51,7 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
             button.setBackground(My_Color.GREEN);
             button.setBorderPainted(false);
             button.setForeground(My_Color.WHITE);
+            button.setOpaque(true);
         }
     }
 
