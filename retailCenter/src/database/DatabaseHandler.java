@@ -150,14 +150,15 @@ public class DatabaseHandler {
     public void updateCustomer(String PhoneNumber, String Address, String Name) {
         try {
             PreparedStatement ps = connection.prepareStatement("UPDATE customer SET Address = ? WHERE PhoneNumber = ?");
+            System.out.print("Success");
             ps.setString(1, Address);
             ps.setString(2, PhoneNumber);
             ps.executeUpdate();
+            System.out.print("Success");
             connection.commit();
             ps.close();
         } catch (SQLException e) {
             System.out.println("ERROR");
-            rollbackConnection();
         }
     }
 
@@ -183,24 +184,21 @@ public class DatabaseHandler {
 
     //Queries: SELECTION Operation
     //Return the full order info with the given TrackingID
-    public ShippingOrder searchTracking(int TrackingID) throws exception {
+    public ShippingOrder searchTracking(int id) throws exception {
         ShippingOrder s = null;
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM shippingorder WHERE TrackingID = " + TrackingID);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM shippingorder WHERE TrackingID = " + id);
+            System.out.print("Success");
             while(rs.next()) {
                 s = new ShippingOrder(rs.getInt("TrackingID"), rs.getString("ContentType"),
-                        rs.getString("OrderDate"), rs.getInt("Weight"),
-                        rs.getString("Size"), rs.getString("ShippingMethod"),rs.getInt("Price") , rs.getString("SenderPhoneNumber"));
+                        rs.getString("OrderDate"), rs.getInt("Weight"),rs.getString("PacelSize"), rs.getString("ShippingMethod"),rs.getInt("Price") , rs.getString("PhoneNumber"));
             }
+            connection.commit();
             rs.close();
             stmt.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        }
-
-        if (s == null) {
-            throw new exception("Order with given tracking ID is not found");
         }
         return s;
     }
