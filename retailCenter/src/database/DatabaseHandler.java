@@ -86,13 +86,13 @@ public class DatabaseHandler {
 //        }
 
     //Queries: INSERT Operation
-    public void addCustomer(String PhoneNumber, String Name, String Address) throws SQLException {
+    public void addCustomer(Customer c) throws SQLException {
         try {
             System.out.print("This line can run");
             ps = connection.prepareStatement("INSERT INTO customer VALUES (?,?,?)");
-            ps.setString(1, PhoneNumber);
-            ps.setString(2, Name);
-            ps.setString(3, Address);
+            ps.setString(1, c.getPhoneNumber());
+            ps.setString(2, c.getName());
+            ps.setString(3, c.getAddress());
             System.out.print("Success");
             ps.executeUpdate();
             connection.commit();
@@ -149,19 +149,17 @@ public class DatabaseHandler {
     //Queries: UPDATE Operation
     public void updateCustomer(String PhoneNumber, String Address, String Name) {
         try {
-            PreparedStatement ps = connection.prepareStatement("UPDATE customer SET Address = ? WHERE PhoneNumber = ?");
-            System.out.print("Success");
+            PreparedStatement ps = connection.prepareStatement("UPDATE Customer SET Address = ? WHERE PhoneNumber = ?");
             ps.setString(1, Address);
             ps.setString(2, PhoneNumber);
+            ps.executeQuery();
             ps.executeUpdate();
-            System.out.print("Success");
             connection.commit();
             ps.close();
         } catch (SQLException e) {
             System.out.println("ERROR");
         }
     }
-
 
     //Queries: PROJECTION Operation
     //return customer's Name and Address with given PhoneNumber

@@ -47,8 +47,8 @@ public class Controller implements StartUpDelegate, LoginWindowDelegate {
 
 
     @Override
-    public void addCustomer(String PhoneNumber, String Name, String Address) throws SQLException {
-        databaseHandler.addCustomer(PhoneNumber, Name, Address);
+    public void addCustomer(Customer customer) throws SQLException {
+        databaseHandler.addCustomer(customer);
     }
 
     @Override
