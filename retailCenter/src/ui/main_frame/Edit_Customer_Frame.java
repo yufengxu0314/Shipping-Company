@@ -45,12 +45,17 @@ public class Edit_Customer_Frame extends JFrame {
         edit_field.setFont(new Font("Serif", Font.PLAIN, width /50));
         edit_button.setFont(new Font("Serif", Font.PLAIN, width /50));
 
-        edit_label.setBounds( 0,height/8, width/5, 3*height/8);
-        edit_field.setBounds( width/4,height/8, 3*width/5, 3*height/8);
-        edit_button.setBounds( 2*width/5,4*height/8, width/5, 3*height/8);
+        edit_label.setBounds( 0,height/8, width/5, 2*height/8);
+        edit_field.setBounds( width/4,height/8, 3*width/5, 2*height/8);
+        edit_button.setBounds( 2*width/5,4*height/8, width/5, 2*height/8);
 
 
         edit_button.setFocusPainted(false);
+
+        edit_label.setHorizontalAlignment(JLabel.CENTER);
+        this.add(edit_label);
+        this.add(edit_field);
+        this.add(edit_button);
         edit_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -64,7 +69,7 @@ public class Edit_Customer_Frame extends JFrame {
     }
 
     private void setup(){
-        this.setBounds(screenSize.width / 4 + this.width / 6, screenSize.height / 6 + this.height / 10, this.width, this.height);
+        this.setBounds(screenSize.width / 3 + this.width / 6, screenSize.height / 6 + this.height / 10, this.width, this.height);
         this.setTitle("Edit Address");
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setResizable(false);
