@@ -2,6 +2,7 @@ package ui.main_frame;
 
 import database.DatabaseHandler;
 import exception.exception;
+import model.Customer;
 import utility.My_Color;
 
 import javax.swing.*;
@@ -10,18 +11,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class Search_Customer_Panel extends JPanel implements ActionListener {
+public class Search_Customer_Panel extends JPanel {
     private int width;
     private int height;
     private JLabel phone_number_label;
     private JTextField phone_number_field;
     private JButton enter_button;
-    private ArrayList<String> customerList;
+    private ArrayList<String> customer;
+    private RC_Frame rc;
 
 
-    public Search_Customer_Panel(int width, int height){
+
+
+    public Search_Customer_Panel(int width, int height, RC_Frame rc){
         this.width = width;
         this.height = height;
+        this.rc = rc;
         set_panel();
         setup();
         attach_items();
@@ -51,22 +56,41 @@ public class Search_Customer_Panel extends JPanel implements ActionListener {
         phone_number_field.setFont(new Font("Serif", Font.PLAIN, width /50));
         enter_button.setFont(new Font("Serif", Font.PLAIN, width /50));
         enter_button.setFocusPainted(false);
+        enter_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                handleSearchCustomer(e);
+            }
+        });
     }
 
     private void set_panel(){
         this.setLayout(null);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == enter_button) {
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        if (e.getSource() == enter_button) {
+//            String phone_number = phone_number_field.getText();
+//            DatabaseHandler dbh = new DatabaseHandler();
+//            try {
+//                this.customerList = dbh.searchCustomer(phone_number);
+//            } catch (exception err) {
+//                System.out.println(err.getMessage());
+//            }
+//        }
+//    }
+
+    public void handleSearchCustomer(ActionEvent evt) {
+        try {
             String phone_number = phone_number_field.getText();
-            DatabaseHandler dbh = new DatabaseHandler();
-            try {
-                this.customerList = dbh.searchCustomer(phone_number);
-            } catch (exception err) {
-                System.out.println(err.getMessage());
-            }
+            this.customer = rc.start.searchCustomer(phone_number);
+            JOptionPane.showMessageDialog(null, "Successful");
+            JOptionPane.showMessageDialog(null, "Customer information: " +
+                    customer);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Error");
         }
     }
 

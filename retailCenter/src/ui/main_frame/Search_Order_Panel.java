@@ -1,5 +1,6 @@
 package ui.main_frame;
 
+import model.ShippingOrder;
 import utility.My_Color;
 
 import javax.swing.*;
@@ -8,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 
-public class Search_Order_Panel extends JPanel implements ActionListener {
+public class Search_Order_Panel extends JPanel {
     private int width;
     private int height;
     private JLabel id_label;
@@ -21,12 +22,15 @@ public class Search_Order_Panel extends JPanel implements ActionListener {
     private JTextField month_field;
     private JTextField day_field;
     private JButton search_button;
+    private RC_Frame rc;
+    private ShippingOrder shippingOrder;
 
 
-    public Search_Order_Panel(int width, int height){
+
+    public Search_Order_Panel(int width, int height, RC_Frame rc){
         this.width = width;
         this.height = height;
-//        this.setBounds(x,y,width,height);
+        this.rc = rc;
         set_panel();
         setup();
         attach_items();
@@ -77,7 +81,6 @@ public class Search_Order_Panel extends JPanel implements ActionListener {
         day_field = new JTextField();
 
         search_button = new JButton("confirm");
-        search_button.addActionListener(this);
         //set font
         for (JLabel jLabel : Arrays.asList(id_label, created_after_label, year_label, month_label, day_label)) {
             jLabel.setFont(new Font("Serif", Font.PLAIN, width /50));
@@ -87,29 +90,49 @@ public class Search_Order_Panel extends JPanel implements ActionListener {
         }
         search_button.setFont(new Font("Serif", Font.PLAIN, width /50));
         search_button.setFocusPainted(false);
+        search_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                handleSearchOrder(e);
+            }
+        });
+
     }
 
     private void set_panel(){
         this.setLayout(null);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        JButton button = (JButton) e.getSource();
-        if (button == search_button) {
-//            int trackingID = Integer.parseInt(id_field.getText());
-//            String day = day_field.getText();
-//            String month = month_field.getText();
-//            String year = year_field.getText();
-//            databaseHandler dbh = new databaseHandler();
-//            try {
-//                ShippingOrder order = dbh.searchTracking(trackingID);
-//            } catch (exception err) {
-//                System.out.println(err.getMessage());
-//            }
-            new Order_List_Frame(width,height);
-        }
-
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        JButton button = (JButton) e.getSource();
+//        if (button == search_button) {
+////            int trackingID = Integer.parseInt(id_field.getText());
+////            String day = day_field.getText();
+////            String month = month_field.getText();
+////            String year = year_field.getText();
+////            databaseHandler dbh = new databaseHandler();
+////            try {
+////                ShippingOrder order = dbh.searchTracking(trackingID);
+////            } catch (exception err) {
+////                System.out.println(err.getMessage());
+////            }
+//            new Order_List_Frame(width,height);
+//        }
+//
+//    }
+public void handleSearchOrder(ActionEvent evt) {
+    try {
+        int trackingID = Integer.parseInt(id_field.getText());
+            shippingOrder = rc.start.searchTracking(trackingID);
+            JOptionPane.showMessageDialog(null, "Order information: " + shippingOrder.getContentType() +
+                    " " + shippingOrder.getOrderDate() + " " + shippingOrder.getShippingMethod() + " " + shippingOrder.getSize()
+                    + " " + shippingOrder.getPrice() + " " + shippingOrder.getTrackingID() + " " + shippingOrder.getWeight() + " " + shippingOrder.getSenderPhoneNumber());
+    } catch (Exception exception) {
+        exception.printStackTrace();
+        JOptionPane.showMessageDialog(null,"Error");
     }
+}
+
 
 }

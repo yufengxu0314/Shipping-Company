@@ -3,7 +3,7 @@ CREATE TABLE customer
     PhoneNumber char(20),
     Name       char(50)    NOT NULL,
     Address     char(100),
-    PRIMARY KEY (PhoneNumber, Name)
+    PRIMARY KEY (PhoneNumber)
 );
 
 INSERT INTO customer (PhoneNumber,Name,Address) VALUES ('7783211111', 'Eddie', 'No.3 road, Mars');
@@ -20,14 +20,16 @@ CREATE TABLE shippingorder (
                                PacelSize			    char(50),
                                ShippingMethod	    char(20),
                                Price             int,
-                               PRIMARY KEY (TrackingID)
+                               PhoneNumber   char(20)           NOT NULL,
+                               PRIMARY KEY (TrackingID),
+                               FOREIGN KEY (PhoneNumber) REFERENCES customer (PhoneNumber)
 );
 
-INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price) VALUES(1000000001, 'normal', '2021/03/02', 0.5, '2x10x6', 'flight', 10);
-INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price) VALUES(1000000002, 'electronic',  '2021/03/01',0.2, '5x12x8', 'flight', 10);
-INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price) VALUES(1000000003, 'normal', '2021/02/28', 0.3, '4x15x2', 'flight', 10);
-INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price) VALUES(1000000004, 'normal', '2021/02/27', 0.9, '5x11x8', 'flight', 10);
-INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price) VALUES(1000000005, 'liquid', '2021/02/26', 0.4,'12x10x10', 'flight',10);
+INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, PhoneNumber) VALUES(1000000001, 'normal', '2021/03/02', 0.5, '2x10x6', 'flight', 10, '7783211111');
+INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, PhoneNumber) VALUES(1000000002, 'electronic',  '2021/03/01',0.2, '5x12x8', 'flight', 10,'7783211111');
+INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, PhoneNumber) VALUES(1000000003, 'normal', '2021/02/28', 0.3, '4x15x2', 'flight', 10, '7783211111');
+INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, PhoneNumber) VALUES(1000000004, 'normal', '2021/02/27', 0.9, '5x11x8', 'flight', 10, '7783211111');
+INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, PhoneNumber) VALUES(1000000005, 'liquid', '2021/02/26', 0.4,'12x10x10', 'flight',10, '7783211111');
 
 CREATE TABLE retailcenter
 (
@@ -98,20 +100,12 @@ INSERT INTO postmanpostwoman (StaffID, PhoneNumber) VALUES (102, '778012347');
 INSERT INTO postmanpostwoman (StaffID, PhoneNumber) VALUES (103, '778012348');
 INSERT INTO postmanpostwoman (StaffID, PhoneNumber) VALUES (104, '778012349');
 
+
 CREATE TABLE sender
 (
-    PhoneNumber char(20),
-    Name        char(50)    NOT NULL,
+    PhoneNumber char(20)  UNIQUE,
+    Name        char(50),
     Address     char(100),
-    PRIMARY KEY (Name, PhoneNumber)
-);
-
-
-CREATE TABLE receiver
-(
-    PhoneNumber			char(20),
-    Name				char(50),
-    Address			    char(100)		NOT NULL,
     PRIMARY KEY (Name, PhoneNumber)
 );
 
@@ -185,7 +179,7 @@ CREATE TABLE schedule
     BranchNumber int,
     TrackingID   int,
     PRIMARY KEY (BranchNumber, TrackingID),
-    FOREIGN KEY (TrackingID) REFERENCES ShippingOrder(TrackingID) ON DELETE CASCADE,
+    FOREIGN KEY (TrackingID) REFERENCES ShippingOrder (TrackingID) ON DELETE CASCADE,
     FOREIGN KEY (BranchNumber) REFERENCES RetailCenter (BranchNumber) ON DELETE CASCADE
 );
 

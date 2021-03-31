@@ -9,6 +9,7 @@ import model.ShippingOrder;
 import ui.main_frame.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Controller implements StartUpDelegate, LoginWindowDelegate {
     private DatabaseHandler databaseHandler;
@@ -52,8 +53,8 @@ public class Controller implements StartUpDelegate, LoginWindowDelegate {
     }
 
     @Override
-    public void addOrders(int TrackingID, String ContentType, String OrderDate, int Weight, String Size, String ShippingMethod, int Price) {
-        databaseHandler.addOrders(TrackingID, ContentType, OrderDate, Weight, Size, ShippingMethod, Price);
+    public void addOrders(int TrackingID, String ContentType, String OrderDate, int Weight, String Size, String ShippingMethod, int Price, String SenderPhone) {
+        databaseHandler.addOrders(TrackingID, ContentType, OrderDate, Weight, Size, ShippingMethod, Price, SenderPhone);
     }
 
     @Override
@@ -67,14 +68,15 @@ public class Controller implements StartUpDelegate, LoginWindowDelegate {
     }
 
     @Override
-    public void searchCustomer(String PhoneNumber) throws exception {
-        databaseHandler.searchCustomer(PhoneNumber);
+    public ArrayList<String> searchCustomer(String PhoneNumber) throws exception {
+        return databaseHandler.searchCustomer(PhoneNumber);
     }
 
     @Override
     public ShippingOrder searchTracking(int TrackingID) throws exception {
         return databaseHandler.searchTracking(TrackingID);
     }
+
 
     public void databaseSetup() {
 //        databaseHandler.databaseSetup();;

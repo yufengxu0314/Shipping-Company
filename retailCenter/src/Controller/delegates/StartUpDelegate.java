@@ -5,6 +5,7 @@ import model.Customer;
 import model.ShippingOrder;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * This interface uses the delegation design pattern where instead of having
@@ -18,10 +19,10 @@ import java.sql.SQLException;
 public interface StartUpDelegate {
 	public void addCustomer(String PhoneNumber, String Name, String Address) throws SQLException;
 	public void addOrders(int TrackingID, String ContentType, String OrderDate,
-						  int Weight, String Size, String ShippingMethod, int Price);
+						  int Weight, String Size, String ShippingMethod, int Price, String senderPhone);
 	public void deleteOrder(int TrackingID);
 	public void updateCustomer(String Name, String PhoneNumber, String Address);
-	public void searchCustomer(String PhoneNumber) throws exception;
+	public ArrayList<String> searchCustomer(String PhoneNumber) throws exception;
 	public ShippingOrder searchTracking(int TrackingID) throws exception;
 	public void databaseSetup();
 	public void finish();

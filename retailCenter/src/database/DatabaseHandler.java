@@ -104,9 +104,9 @@ public class DatabaseHandler {
 
     //Queries: INSERT Operation
     public void addOrders(int TrackingID, String ContentType, String OrderDate,
-                          int Weight, String Size, String ShippingMethod, int Price) {
+                          int Weight, String Size, String ShippingMethod, int Price, String SenderPhoneNumber) {
         try {
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO shippingorder VALUES (?,?,?,?,?,?,?)");
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO shippingorder VALUES (?,?,?,?,?,?,?,?)");
             ps.setInt(1, TrackingID);
             ps.setString(2, ContentType);
             ps.setString(3, OrderDate);
@@ -114,13 +114,16 @@ public class DatabaseHandler {
             ps.setString(5, Size);
             ps.setString(6, ShippingMethod);
             ps.setInt(7, Price);
+            ps.setString(8, SenderPhoneNumber);
+            System.out.print("Success");
             ps.executeUpdate();
             connection.commit();
+            System.out.println("Commit successful");
             ps.close();
-            getCustomer();
         } catch (SQLException e) {
+            e.printStackTrace();
             System.out.println("ERROR");
-            rollbackConnection();
+//            rollbackConnection();
         }
     }
 
@@ -143,6 +146,8 @@ public class DatabaseHandler {
             rollbackConnection();
         }
     }
+
+
 
     //Queries: UPDATE Operation
     public void updateCustomer(String Name, String PhoneNumber, String Address) {
@@ -198,11 +203,11 @@ public class DatabaseHandler {
         ShippingOrder s = null;
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM ShippingOrder WHERE TrackingID = " + TrackingID);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM shippingorder WHERE TrackingID = " + TrackingID);
             while(rs.next()) {
                 s = new ShippingOrder(rs.getInt("TrackingID"), rs.getString("ContentType"),
                         rs.getString("OrderDate"), rs.getInt("Weight"),
-                        rs.getString("Size"), rs.getString("ShippingMethod"),rs.getInt("Price") );
+                        rs.getString("Size"), rs.getString("ShippingMethod"),rs.getInt("Price") , rs.getString("SenderPhoneNumber"));
             }
             rs.close();
             stmt.close();
@@ -230,7 +235,6 @@ public class DatabaseHandler {
 
 
     //Queries: Division
-
 
 
 
@@ -320,7 +324,8 @@ public class DatabaseHandler {
                                                     rs.getInt("Weight"),
                                                     rs.getString("Size"),
                                                     rs.getString("ShippingMethod"),
-                                                    rs.getInt("Price"));
+                                                    rs.getInt("Price"),
+                                                    rs.getString("SenderPhoneNumber"));
                 shippingOrder.add(so);
             }
             rs.close();

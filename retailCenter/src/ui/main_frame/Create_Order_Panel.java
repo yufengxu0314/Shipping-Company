@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Create_Order_Panel extends JPanel implements ActionListener{
+public class Create_Order_Panel extends JPanel {
     private int width;
     private int height;
     private JLabel type_label;
@@ -28,12 +28,16 @@ public class Create_Order_Panel extends JPanel implements ActionListener{
     private JTextField size_field;
     private JTextField receiver_phone_field;
     private JButton confirm_button;
-    private static int trackingID = 10000;
+    private int trackingID;
+    int min = 10000;
+    int max = 10000000;
+    private RC_Frame rc;
 
-    public Create_Order_Panel(int width, int height){
+
+    public Create_Order_Panel(int width, int height, RC_Frame rc){
         this.width = width;
         this.height = height;
-//        this.setBounds(x,y,width,height);
+        this.rc = rc;
         set_panel();
         setup();
         attach_items();
@@ -99,27 +103,51 @@ public class Create_Order_Panel extends JPanel implements ActionListener{
         }
         confirm_button.setFont(new Font("Serif", Font.PLAIN, width /50));
         confirm_button.setFocusPainted(false);
+        confirm_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                handleAddOrder(e);
+            }
+        });
+
     }
+
+
 
     private void set_panel(){
         this.setLayout(null);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == confirm_button) {
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        if (e.getSource() == confirm_button) {
+//            String type = type_field.getText();
+//            int weight = Integer.parseInt(weight_field.getText());
+//            String sender_phone = sender_phone_field.getText();
+//            String methodStr = method_field.getText();
+//            String size = size_field.getText();
+//            String receiver_phone = receiver_phone_field.getText();
+//            String date = "2021/03/29";
+//            rc.start.addOrders(trackingID,type,date,weight,size,methodStr,10);
+//            trackingID++;
+//            JOptionPane.showMessageDialog(null, "Successful");
+//        }
+//    }
+    public void handleAddOrder(ActionEvent evt) {
+        try {
             String type = type_field.getText();
             int weight = Integer.parseInt(weight_field.getText());
-            String sender_phone = sender_phone_field.getText();
             String methodStr = method_field.getText();
             String size = size_field.getText();
-            String receiver_phone = receiver_phone_field.getText();
             String date = "2021/03/29";
-            
-            ShippingOrder newOrder = new ShippingOrder(trackingID,type,date,weight,size,methodStr,10);
-                DatabaseHandler dbh = new DatabaseHandler();
-                dbh.addOrders(trackingID,type,date,weight,size,methodStr,10);
-                trackingID++;
+            String senderPhone = sender_phone_field.getText();
+            trackingID = (int) (Math.random() * (max - min + 1) + min);
+            rc.start.addOrders(trackingID,type,date,weight,size,methodStr,10, senderPhone);
+            JOptionPane.showMessageDialog(null, "Successful");
+            JOptionPane.showMessageDialog(null, "Tracking Id for this order is " + trackingID);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Error");
         }
     }
 
