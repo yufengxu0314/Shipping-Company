@@ -53,8 +53,6 @@ public class DatabaseHandler {
             }
         }
 
-
-
         private void rollbackConnection() {
             try  {
                 connection.rollback();
@@ -135,10 +133,10 @@ public class DatabaseHandler {
     //Queries: DELETE Operation
     public void deleteOrder(int TrackingID) {
         try {
-            PreparedStatement ps = connection.prepareStatement("DELETE FROM shippingorder WHERE TrackingID = " + TrackingID);
-            ps.setInt(1, TrackingID);
-            ps.executeUpdate();
+            Statement s = connection.createStatement();
+            s.executeQuery("DELETE FROM shippingorder WHERE TrackingID = " + TrackingID);
             connection.commit();
+            s.close();
             ps.close();
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
@@ -256,7 +254,23 @@ public class DatabaseHandler {
     }
 
     //Queries: Aggregation with Having
-    //Find the orders created after a specific date.
+    //Find the customers who sends more than 3 orders.
+    public ArrayList<Customer> findMoreThan() {
+        ArrayList<Customer> customer = new ArrayList<>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT CUSTOMER.PHONENUMBER, COUNT(SHIPPINGORDER.SENDER) AS NumberOfOrders FROM (SHIPPINGORDER INNER JOIN CUSTOMER ON SHIPPINGORDER.SENDER = CUSTOMER.PHONENUMBER) GROUP BY PHONENUMBER HAVING COUNT(SHIPPINGORDER.SENDER) > 2");
+            while(rs.next()) {
+                Customer c = new Customer(rs.getString("PhoneNumber"), rs.getString("Name"), rs.getString("Address"));
+                customer.add(c);
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return customer;
+    }
 
 
 
