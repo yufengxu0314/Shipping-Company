@@ -89,6 +89,7 @@ public class DatabaseHandler {
         try {
             System.out.print("This line can run");
             ps = connection.prepareStatement("INSERT INTO customer VALUES (?,?,?)");
+            ps = connection.prepareStatement("INSERT INTO customer VALUES (?,?,?)");
             ps.setString(1, c.getPhoneNumber());
             ps.setString(2, c.getName());
             ps.setString(3, c.getAddress());
@@ -242,8 +243,9 @@ public class DatabaseHandler {
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM shippingorder WHERE shippingorder.OrderDate LIKE " + "'%" + date + "%'" + " GROUP BY shippingorder.OrderDate");
-            rs.next();
-            ret = rs.getInt("COUNT(*)");
+            while(rs.next()) {
+                ret = rs.getInt("COUNT(*)");
+            }
             connection.commit();
             rs.close();
             stmt.close();
