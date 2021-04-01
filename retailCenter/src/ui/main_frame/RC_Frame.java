@@ -27,7 +27,8 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
     private JButton home_button;
 
     private JButton order_count;
-    private JButton loyalty_customer;
+    private JButton All_Method_customer;
+    private JButton VIP_customer;
     //panels
     private JPanel add_customer_panel;
     private JPanel search_customer_panel;
@@ -52,7 +53,7 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
 
     private void set_color(){
         this.setBackground(My_Color.MAIN_FRAME_GREY);
-        for (JButton button: Arrays.asList(add_customer_button, search_customer_button,create_order_button,search_order_button, order_count, loyalty_customer,home_button)){
+        for (JButton button: Arrays.asList(add_customer_button, search_customer_button,create_order_button,search_order_button, order_count, All_Method_customer,home_button)){
             button.setBackground(My_Color.GREEN);
             button.setBorderPainted(false);
             button.setForeground(My_Color.WHITE);
@@ -62,7 +63,8 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
         }
         home_button.setBackground(My_Color.VIP_GREEN);
         order_count.setBackground(My_Color.ALI_BLUE);
-        loyalty_customer.setBackground(My_Color.ALI_BLUE);
+        All_Method_customer.setBackground(My_Color.ALI_BLUE);
+        VIP_customer.setBackground(My_Color.ALI_BLUE);
     }
 
     private void attach_items() {
@@ -77,9 +79,11 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
         this.add(search_order_button);
         search_order_button.setBounds(13*width/16, height/20, 2*width/15, 5* height/40 );
         this.add(order_count);
-        order_count.setBounds(3*width/15, 16*height/20, 4*width/15, 5* height/40 );
-        this.add(loyalty_customer);
-        loyalty_customer.setBounds(9*width/15, 16*height/20, 4*width/15, 5* height/40 );
+        order_count.setBounds(1*width/15, 16*height/20, 4*width/15, 5* height/40 );
+        this.add(All_Method_customer);
+        All_Method_customer.setBounds(5*width/15, 16*height/20, 4*width/15, 5* height/40 );
+        this.add(VIP_customer);
+        VIP_customer.setBounds(9*width/15, 16*height/20, 4*width/15, 5* height/40 );
         //attach panels
         this.add(add_customer_panel);
         this.add(search_customer_panel);
@@ -100,7 +104,7 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
         search_order_button.addActionListener(this);
         home_button.addActionListener(this);
         order_count.addActionListener(this);
-        loyalty_customer.addActionListener(this);
+        All_Method_customer.addActionListener(this);
     }
 
 
@@ -113,7 +117,8 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
         search_order_button = new JButton("Search Order");
 
         order_count = new JButton("Show Today's Order Count");
-        loyalty_customer = new JButton("Show Loyalty Customers");
+        All_Method_customer = new JButton("Show All Methods Customers");
+        VIP_customer = new JButton("Show Loyalty Customers");
 
         //create panels
         add_customer_panel = new Add_Customer_Panel( width, 3*height/4, this);
@@ -147,7 +152,8 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
             search_order_button.setBackground(My_Color.GREEN);
             add_customer_button.setBackground(My_Color.VIP_GREEN);
             order_count.setVisible(false);
-            loyalty_customer.setVisible(false);
+            All_Method_customer.setVisible(false);
+            VIP_customer.setVisible(false);
         }
         else if (button == search_customer_button) {
             add_customer_panel.setVisible(false);
@@ -160,7 +166,8 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
             search_order_button.setBackground(My_Color.GREEN);
             search_customer_button.setBackground(My_Color.VIP_GREEN);
             order_count.setVisible(false);
-            loyalty_customer.setVisible(false);
+            All_Method_customer.setVisible(false);
+            VIP_customer.setVisible(false);
         }
         else if (button == create_order_button) {
             search_order_panel.setVisible(false);
@@ -173,7 +180,8 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
             search_order_button.setBackground(My_Color.GREEN);
             create_order_button.setBackground(My_Color.VIP_GREEN);
             order_count.setVisible(false);
-            loyalty_customer.setVisible(false);
+            All_Method_customer.setVisible(false);
+            VIP_customer.setVisible(false);
         }
         else if (button == search_order_button) {
             add_customer_panel.setVisible(false);
@@ -186,7 +194,8 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
             create_order_button.setBackground(My_Color.GREEN);
             search_order_button.setBackground(My_Color.VIP_GREEN);
             order_count.setVisible(false);
-            loyalty_customer.setVisible(false);
+            All_Method_customer.setVisible(false);
+            VIP_customer.setVisible(false);
         }
         else if (button == home_button){
             add_customer_panel.setVisible(false);
@@ -199,9 +208,23 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
             create_order_button.setBackground(My_Color.GREEN);
             search_order_button.setBackground(My_Color.GREEN);
             order_count.setVisible(true);
-            loyalty_customer.setVisible(true);
+            All_Method_customer.setVisible(true);
+            VIP_customer.setVisible(true);
         }
-        else if (button == loyalty_customer) {
+        else if (button == All_Method_customer) {
+            ArrayList<String> result = start.getLoyaltyCustomer();
+//            String ret = "";
+//            for (int i = 0; i < result.size(); i++) {
+//                ret += result.get(i);
+//            }
+//            JOptionPane.showMessageDialog(null, ret);
+            ArrayList<Customer> customers = new ArrayList<>();
+            for(String s: result){
+                customers.add(start.searchCustomer(s));
+            }
+            new VIP_Frame(width,height,customers,this);
+        }
+        else if (button == VIP_customer) {
             ArrayList<String> result = start.getLoyaltyCustomer();
 //            String ret = "";
 //            for (int i = 0; i < result.size(); i++) {
@@ -217,6 +240,7 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
         else if (button == order_count) {
             JOptionPane.showMessageDialog(null, start.getDailyCount(getDate()));
         }
+
 
 
     }
