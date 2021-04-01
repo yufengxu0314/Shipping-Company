@@ -238,8 +238,6 @@ public class DatabaseHandler {
         return ret;
     }
 
-
-
     //Queries: Aggregation with Having
     //Find the orders created after a specific date.
 
