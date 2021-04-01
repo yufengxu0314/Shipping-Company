@@ -103,7 +103,6 @@ public class Customer_Frame extends JFrame implements WindowListener, ActionList
         this.setResizable(false);
         this.setLayout(null);
         this.setVisible(true);
-
     }
 
     @Override

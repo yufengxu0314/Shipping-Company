@@ -135,7 +135,7 @@ public class DatabaseHandler {
     //Queries: DELETE Operation
     public void deleteOrder(int TrackingID) {
         try {
-            PreparedStatement ps = connection.prepareStatement("DELETE FROM shippingorder WHERE TrackingID = ?");
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM shippingorder WHERE TrackingID = " + TrackingID);
             ps.setInt(1, TrackingID);
             ps.executeUpdate();
             connection.commit();
@@ -212,10 +212,18 @@ public class DatabaseHandler {
         ArrayList<ShippingOrderCombined> ret = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT shippingorder.*, customer.name FROM shippingorder INNER JOIN customer ON shippingorder.PhoneNumber = customer.PhoneNumber WHERE OrderDate LIKE " + "'%" + date + "%'");
+            ResultSet rs = stmt.executeQuery("SELECT SHIPPINGORDER.*, R.ADDRESS, S.ADDRESS FROM ((SHIPPINGORDER INNER JOIN RECEIVER R on SHIPPINGORDER.RECEIVER = R.PHONENUMBER) INNER JOIN SENDER S on SHIPPINGORDER.SENDER = S.PHONENUMBER) WHERE SHIPPINGORDER.ORDERDATE LIKE " + "'%" + date + "%'");
             while(rs.next()) {
-                ShippingOrderCombined soc = new ShippingOrderCombined(rs.getInt("TrackingID"), rs.getString("ContentType"),
-                        rs.getString("OrderDate"), rs.getInt("Weight"),rs.getString("PacelSize"), rs.getString("ShippingMethod"),rs.getInt("Price") , rs.getString("PhoneNumber"),rs.getString("NAME"));
+                ShippingOrderCombined soc = new ShippingOrderCombined(rs.getInt("TrackingID"),
+                                                                      rs.getString("ContentType"),
+                                                                      rs.getString("OrderDate"),
+                                                                      rs.getInt("Weight"),rs.getString("PacelSize"),
+                                                                      rs.getString("ShippingMethod"),
+                                                                      rs.getInt("Price") ,
+                                                                      rs.getString("Sender"),
+                                                                      rs.getString("Receiver"),
+                                                                      rs.getString("SenderAddress"),
+                                                                      rs.getString("ReceiverAddress"));
                 ret.add(soc);
             }
             connection.commit();
@@ -226,6 +234,7 @@ public class DatabaseHandler {
         }
         return ret;
     }
+
 
 
     //Queries: Aggregation with Group By (show today's order count)

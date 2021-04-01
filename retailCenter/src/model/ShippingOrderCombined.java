@@ -9,12 +9,24 @@ public class ShippingOrderCombined {
     private String ShippingMethod;
     private int Price;
     private String SenderPhoneNumber;
-    private String SenderName;
+    private String SenderAddress;
+    private String ReceiverPhoneNumber;
+    private String ReceiverAddress;
 
 
 
-    public ShippingOrderCombined(int TrackingID, String ContentType, String OrderDate,
-                         int Weight, String Size, String ShippingMethod, int Price, String SenderPhoneNumber,String senderName) {
+
+    public ShippingOrderCombined(int TrackingID,
+                                 String ContentType,
+                                 String OrderDate,
+                                 int Weight,
+                                 String Size,
+                                 String ShippingMethod,
+                                 int Price,
+                                 String SenderPhoneNumber,
+                                 String SenderAddress,
+                                 String ReceiverPhoneNumber,
+                                 String ReceiverAddress) {
         this.ContentType = ContentType;
         this.TrackingID = TrackingID;
         this.OrderDate = OrderDate;
@@ -23,7 +35,10 @@ public class ShippingOrderCombined {
         this.Size = Size;
         this.Price = Price;
         this.SenderPhoneNumber = SenderPhoneNumber;
-        this.SenderName = senderName;
+        this.SenderAddress = SenderAddress;
+        this.ReceiverPhoneNumber = ReceiverPhoneNumber;
+        this.ReceiverAddress = ReceiverAddress;
+
     }
 
     public int getPrice() {
@@ -58,7 +73,15 @@ public class ShippingOrderCombined {
         return SenderPhoneNumber;
     }
 
-    public String getSenderName() {
-        return SenderName;
+    public String getSenderAddress() {
+        return SenderAddress;
+    }
+
+    public String getReceiverPhoneNumber() {
+        return ReceiverPhoneNumber;
+    }
+
+    public String getReceiverAddress() {
+        return ReceiverAddress;
     }
 }

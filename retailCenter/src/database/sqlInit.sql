@@ -17,29 +17,29 @@ CREATE TABLE sender
 (
     PhoneNumber char(20)  UNIQUE,
     Name        char(50),
-    Address     char(100),
+    SenderAddress     char(100),
     PRIMARY KEY (Name, PhoneNumber)
 );
 
-INSERT INTO Sender (PhoneNumber,Name,Address) VALUES ('7783211111', 'Eddie', 'No.3 road, Mars');
-INSERT INTO Sender (PhoneNumber,Name,Address) VALUES ('7783212222', 'FAN', 'No.4 road, Mars');
-INSERT INTO Sender (PhoneNumber,Name,Address) VALUES ('7783213333', 'Doris', 'No.5 road, Mars');
-INSERT INTO Sender (PhoneNumber,Name,Address) VALUES ('7783214444', 'Yonas', 'No.6 road, Mars');
-INSERT INTO Sender (PhoneNumber,Name,Address) VALUES ('7783215555', 'Alex', 'No.7 road, Mars');
+INSERT INTO Sender (PhoneNumber,Name,SenderAddress) VALUES ('7783211111', 'Eddie', 'No.3 road, Mars');
+INSERT INTO Sender (PhoneNumber,Name,SenderAddress) VALUES ('7783212222', 'FAN', 'No.4 road, Mars');
+INSERT INTO Sender (PhoneNumber,Name,SenderAddress) VALUES ('7783213333', 'Doris', 'No.5 road, Mars');
+INSERT INTO Sender (PhoneNumber,Name,SenderAddress) VALUES ('7783214444', 'Yonas', 'No.6 road, Mars');
+INSERT INTO Sender (PhoneNumber,Name,SenderAddress) VALUES ('7783215555', 'Alex', 'No.7 road, Mars');
 
 CREATE TABLE receiver
 (
     PhoneNumber char(20)  UNIQUE,
     Name        char(50),
-    Address     char(100),
+    ReceiverAddress     char(100),
     PRIMARY KEY (Name, PhoneNumber)
 );
 
-INSERT INTO receiver (PhoneNumber,Name,Address) VALUES ('7783211111', 'Eddie', 'No.3 road, Mars');
-INSERT INTO receiver (PhoneNumber,Name,Address)  VALUES ('7783212222', 'FAN', 'No.4 road, Mars');
-INSERT INTO receiver (PhoneNumber,Name,Address)  VALUES ('7783213333', 'Doris', 'No.5 road, Mars');
-INSERT INTO receiver (PhoneNumber,Name,Address)  VALUES ('7783214444', 'Yonas', 'No.6 road, Mars');
-INSERT INTO receiver (PhoneNumber,Name,Address)  VALUES ('7783215555', 'Alex', 'No.7 road, Mars');
+INSERT INTO receiver (PhoneNumber,Name,ReceiverAddress) VALUES ('7783211111', 'Eddie', 'No.3 road, Mars');
+INSERT INTO receiver (PhoneNumber,Name,ReceiverAddress)  VALUES ('7783212222', 'FAN', 'No.4 road, Mars');
+INSERT INTO receiver (PhoneNumber,Name,ReceiverAddress)  VALUES ('7783213333', 'Doris', 'No.5 road, Mars');
+INSERT INTO receiver (PhoneNumber,Name,ReceiverAddress)  VALUES ('7783214444', 'Yonas', 'No.6 road, Mars');
+INSERT INTO receiver (PhoneNumber,Name,ReceiverAddress)  VALUES ('7783215555', 'Alex', 'No.7 road, Mars');
 
 CREATE TABLE shippingorder (
                                TrackingID	    int,
