@@ -148,7 +148,7 @@ public class Create_Order_Panel extends JPanel {
     }
 
     private String getDate() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         LocalDateTime now = LocalDateTime.now();
         return dtf.format(now);
     }

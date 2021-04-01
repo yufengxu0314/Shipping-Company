@@ -243,7 +243,8 @@ public class DatabaseHandler {
         int ret = 0;
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM shippingorder WHERE shippingorder.OrderDate LIKE" + "'%" + date + "%'" + "GROUP BY shippingorder.OrderDate");
+            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM shippingorder WHERE shippingorder.OrderDate LIKE " + "'%" + date + "%'" + " GROUP BY shippingorder.OrderDate");
+            rs.next();
             ret = rs.getInt("COUNT(*)");
             connection.commit();
             rs.close();
