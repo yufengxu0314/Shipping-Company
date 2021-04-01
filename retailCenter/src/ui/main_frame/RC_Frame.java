@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -197,6 +198,18 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
             order_count.setVisible(true);
             loyalty_customer.setVisible(true);
         }
+        else if (button == loyalty_customer) {
+            ArrayList<String> result = start.getLoyaltyCustomer();
+            String ret = "";
+            for (int i = 0; i < result.size(); i++) {
+                ret += result.get(i);
+            }
+            JOptionPane.showMessageDialog(null, ret);
+        }
+        else if (button == order_count) {
+            JOptionPane.showMessageDialog(null, start.getDailyCount("2020/03/01"));
+        }
+
 
     }
 

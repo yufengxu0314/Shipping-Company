@@ -6,9 +6,11 @@ import database.DatabaseHandler;
 import exception.exception;
 import model.Customer;
 import model.ShippingOrder;
+import model.ShippingOrderCombined;
 import ui.main_frame.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Controller implements StartUpDelegate, LoginWindowDelegate {
     private DatabaseHandler databaseHandler;
@@ -76,6 +78,18 @@ public class Controller implements StartUpDelegate, LoginWindowDelegate {
         return databaseHandler.searchTracking(TrackingID);
     }
 
+    @Override
+    public ArrayList<String> getLoyaltyCustomer(){
+        return databaseHandler.getLoyaltyCustomer();
+    }
+    @Override
+    public int getDailyCount(String date) {
+        return databaseHandler.getDailyCount(date);
+    }
+    @Override
+    public ArrayList<ShippingOrderCombined> findSender(String date) {
+        return databaseHandler.findSender(date);
+    }
 
     public void databaseSetup() {
 //        databaseHandler.databaseSetup();;
@@ -88,6 +102,7 @@ public class Controller implements StartUpDelegate, LoginWindowDelegate {
 
         System.exit(0);
     }
+
 
     public static void main(String args[]) {
         Controller controller = new Controller();

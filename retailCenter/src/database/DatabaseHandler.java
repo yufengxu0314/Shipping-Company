@@ -265,7 +265,22 @@ public class DatabaseHandler {
 
     //Queries: Division （loyalty customer button）
     //Find a customer who used all types of shipping methods to ship
-
+    public ArrayList<String> getLoyaltyCustomer() {
+        ArrayList<String> ret = new ArrayList<>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT S.PHONENUMBER FROM CUSTOMER S WHERE NOT EXISTS (SELECT C.SHIPPINGMETHOD FROM ALL_METHOD C WHERE NOT EXISTS (SELECT E.SENDER FROM SHIPPINGORDER E WHERE C.SHIPPINGMETHOD =E.SHIPPINGMETHOD AND E.SENDER =S.PHONENUMBER))");
+            while(rs.next()) {
+                ret.add(rs.getString("PHONENUMBER"));
+            }
+            connection.commit();
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return ret;
+    }
 
 
 
