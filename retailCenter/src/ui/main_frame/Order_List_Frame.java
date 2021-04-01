@@ -28,7 +28,7 @@ public class Order_List_Frame extends JFrame implements WindowListener, ActionLi
     private Font font;
 //    private ArrayList<ShippingOrder> orders;
 
-    private ShippingOrder temp_order;
+//    private ShippingOrder temp_order;
 
     public Order_List_Frame(int width, int height, ArrayList<ShippingOrder> orders, RC_Frame rc ) {
         this.width = 4 * width / 5;

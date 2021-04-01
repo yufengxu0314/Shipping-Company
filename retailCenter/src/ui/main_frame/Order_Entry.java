@@ -129,7 +129,7 @@ public class Order_Entry extends JPanel implements ActionListener, FocusListener
         JButton button = (JButton) e.getSource();
         if (button == delete) {
             rc.start.deleteOrder(order.getTrackingID());
-            this.setEnabled(false);
+            this.setVisible(false);
         }
 
     }
