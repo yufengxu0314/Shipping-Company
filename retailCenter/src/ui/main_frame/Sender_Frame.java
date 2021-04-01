@@ -1,21 +1,18 @@
 package ui.main_frame;
 
 import model.ShippingOrder;
+import model.ShippingOrderCombined;
 import utility.My_Color;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
-public class Order_List_Frame extends JFrame  {
+public class Sender_Frame extends JFrame {
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private int width;
     private int height;
-    private Order_List_Panel panel;
+    private Sender_Panel panel;
     private JScrollPane scroll;
     private RC_Frame rc;
 
@@ -30,7 +27,7 @@ public class Order_List_Frame extends JFrame  {
 
 //    private ShippingOrder temp_order;
 
-    public Order_List_Frame(int width, int height, ArrayList<ShippingOrder> orders, RC_Frame rc ) {
+    public Sender_Frame(int width, int height, ArrayList<ShippingOrderCombined> orders, RC_Frame rc ) {
         this.width = 4 * width / 5;
         this.height = height;
 //        this.orders = orders;
@@ -40,7 +37,7 @@ public class Order_List_Frame extends JFrame  {
         attach_items();
         set_color();
         this.rc = rc;
-        for(ShippingOrder order: orders){
+        for(ShippingOrderCombined order: orders){
             panel.add_entry(order);
         }
     }
@@ -93,7 +90,7 @@ public class Order_List_Frame extends JFrame  {
 
     private void attach_items() {
 
-        panel = new Order_List_Panel(width, 7 * height / 8, rc);
+        panel = new Sender_Panel(width, 7 * height / 8, rc);
 
         scroll = new JScrollPane(panel);
         scroll.setBounds(0, height / 10, width, 9 * height / 10);
@@ -114,22 +111,3 @@ public class Order_List_Frame extends JFrame  {
 
 
 }
-//    private void test(){
-//        this.temp_order = new ShippingOrder(12345667, "type", "2019", 12, "szie", "fly", 500);
-//        panel.add_entry(temp_order);
-//        panel.add_entry(temp_order);
-//        panel.add_entry(temp_order);
-//        panel.add_entry(temp_order);
-//        panel.add_entry(temp_order);
-//        panel.add_entry(temp_order);
-//        panel.add_entry(temp_order);
-//        panel.add_entry(temp_order);
-//        panel.add_entry(temp_order);
-//        panel.add_entry(temp_order);
-//        panel.add_entry(temp_order);
-//        panel.add_entry(temp_order);
-//
-//
-//
-//    }
-//}
