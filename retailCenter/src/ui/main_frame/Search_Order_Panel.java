@@ -134,7 +134,8 @@ public class Search_Order_Panel extends JPanel implements ActionListener{
         else if(button == after_button){
             try {
                 orders.clear();
-                ArrayList<String> ids = rc.start.getCreateAfter("2021/02/26");
+                String date = year_field.getText() + "/" + month_field.getText() + "/" + day_field.getText();
+                ArrayList<String> ids = rc.start.getCreateAfter(date);
                 for (int i = 0; i < ids.size(); i++) {
                     orders.add(rc.start.searchTracking(Integer.parseInt(ids.get(i))));
                 }

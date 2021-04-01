@@ -205,7 +205,7 @@ public class DatabaseHandler {
 
 
     //Queries: JOIN Operation
-    // Find a customer who shipped on a given date
+    // Find customers who shipped on a given date
     public ArrayList<ShippingOrderCombined> findSender(String date) {
         ArrayList<ShippingOrderCombined> ret = new ArrayList<>();
         try {
