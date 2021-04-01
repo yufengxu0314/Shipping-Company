@@ -99,6 +99,10 @@ public class Controller implements StartUpDelegate, LoginWindowDelegate {
     public void databaseSetup() {
 //        databaseHandler.databaseSetup();;
     }
+    @Override
+    public ArrayList<String> getCreateAfter(String date) {
+        return databaseHandler.getCreateAfter(date);
+    }
 
     @Override
     public void finish() {

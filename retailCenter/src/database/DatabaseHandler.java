@@ -276,6 +276,23 @@ public class DatabaseHandler {
 
     //Queries: Nested Aggregation with Group By
     ///Find the orders created after a specific date.
+    public ArrayList<String> getCreateAfter(String date){
+        ArrayList<String> ret = new ArrayList<>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("select * from (  select TRACKINGID,ORDERDATE from SHIPPINGORDER group by ORDERDATE, TRACKINGID)where  ORDERDATE > '" + date + "'");
+            while(rs.next()) {
+                String s = rs.getString("TrackingID");
+                ret.add(s);
+            }
+            connection.commit();
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return ret;
+    }
 
 
     //Queries: Division （loyalty customer button）

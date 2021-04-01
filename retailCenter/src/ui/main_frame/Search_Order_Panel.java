@@ -132,7 +132,17 @@ public class Search_Order_Panel extends JPanel implements ActionListener{
             orders.clear();
         }
         else if(button == after_button){
-            orders.clear();
+            try {
+                orders.clear();
+                ArrayList<String> ids = rc.start.getCreateAfter("2021/02/26");
+                for (int i = 0; i < ids.size(); i++) {
+                    orders.add(rc.start.searchTracking(Integer.parseInt(ids.get(i))));
+                }
+                new Order_List_Frame(width, height, orders, rc);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                JOptionPane.showMessageDialog(null,"Error");
+            }
         }
 
     }
