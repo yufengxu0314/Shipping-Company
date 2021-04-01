@@ -62,6 +62,8 @@ INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize
 INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, Sender, Receiver) VALUES(1000000004, 'normal', '2021/02/27', 0.9, '5x11x8', 'sea', 10, '7783211111','7783212222');
 INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, Sender, Receiver) VALUES(1000000005, 'liquid', '2021/02/26', 0.4,'12x10x10', 'air',10, '7783211111','7783212222');
 
+CREATE TABLE All_METHOD AS SELECT DISTINCT SHIPPINGMETHOD FROM SHIPPINGORDER;
+
 CREATE TABLE retailcenter
 (
     BranchNumber int PRIMARY KEY,

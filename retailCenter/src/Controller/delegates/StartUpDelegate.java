@@ -3,8 +3,10 @@ package Controller.delegates;
 import exception.exception;
 import model.Customer;
 import model.ShippingOrder;
+import model.ShippingOrderCombined;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * This interface uses the delegation design pattern where instead of having
@@ -24,4 +26,7 @@ public interface StartUpDelegate {
 	public ShippingOrder searchTracking(int TrackingID) throws exception;
 	public void databaseSetup();
 	public void finish();
+	public ArrayList<String> getLoyaltyCustomer();
+	public int getDailyCount(String date);
+	public ArrayList<ShippingOrderCombined> findSender(String date);
 }
