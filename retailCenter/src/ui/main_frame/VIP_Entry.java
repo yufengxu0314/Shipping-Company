@@ -68,9 +68,9 @@ public class VIP_Entry extends JPanel implements ActionListener, FocusListener {
 
 
     private void set_bounds() {
-        name.setBounds(0, 0, width / 4, height / 10);
-        phone.setBounds(1 * width / 4, 0, width / 4, height / 10);
-        address.setBounds(2 * width / 4, 0, width / 2, height / 10);
+        name.setBounds(0, height/10, width / 4, 8*height / 10);
+        phone.setBounds(1 * width / 4, height/10, width / 4, 8*height / 10);
+        address.setBounds(2 * width / 4, height/10, width / 2, 8*height / 10);
 
     }
 

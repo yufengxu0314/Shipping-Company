@@ -44,7 +44,7 @@ public class Sender_Panel extends JPanel {
 
 
     public void add_entry (ShippingOrderCombined order) {
-        Sender_Entry entry = new Sender_Entry(width, height/10,order, rc);
+        Sender_Entry entry = new Sender_Entry(width, height/6,order, rc);
         entries.add(entry);
         this.add(entry);
         this.layout.putConstraint(SpringLayout.NORTH,entry,height * (entries.size() - 1)/ENTRIES_PER_VIEW,SpringLayout.NORTH,this);
