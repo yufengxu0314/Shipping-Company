@@ -12,6 +12,35 @@ INSERT INTO customer (PhoneNumber,Name,Address) VALUES ('7783213333', 'Doris', '
 INSERT INTO customer (PhoneNumber,Name,Address) VALUES ('7783214444', 'Yonas','No.6 road, Mars');
 INSERT INTO customer (PhoneNumber,Name,Address) VALUES ('7783215555', 'Alex', 'No.7 road, Mars');
 
+
+CREATE TABLE sender
+(
+    PhoneNumber char(20)  UNIQUE,
+    Name        char(50),
+    Address     char(100),
+    PRIMARY KEY (Name, PhoneNumber)
+);
+
+INSERT INTO Sender (PhoneNumber,Name,Address) VALUES ('7783211111', 'Eddie', 'No.3 road, Mars');
+INSERT INTO Sender (PhoneNumber,Name,Address) VALUES ('7783212222', 'FAN', 'No.4 road, Mars');
+INSERT INTO Sender (PhoneNumber,Name,Address) VALUES ('7783213333', 'Doris', 'No.5 road, Mars');
+INSERT INTO Sender (PhoneNumber,Name,Address) VALUES ('7783214444', 'Yonas', 'No.6 road, Mars');
+INSERT INTO Sender (PhoneNumber,Name,Address) VALUES ('7783215555', 'Alex', 'No.7 road, Mars');
+
+CREATE TABLE receiver
+(
+    PhoneNumber char(20)  UNIQUE,
+    Name        char(50),
+    Address     char(100),
+    PRIMARY KEY (Name, PhoneNumber)
+);
+
+INSERT INTO receiver (PhoneNumber,Name,Address) VALUES ('7783211111', 'Eddie', 'No.3 road, Mars');
+INSERT INTO receiver (PhoneNumber,Name,Address)  VALUES ('7783212222', 'FAN', 'No.4 road, Mars');
+INSERT INTO receiver (PhoneNumber,Name,Address)  VALUES ('7783213333', 'Doris', 'No.5 road, Mars');
+INSERT INTO receiver (PhoneNumber,Name,Address)  VALUES ('7783214444', 'Yonas', 'No.6 road, Mars');
+INSERT INTO receiver (PhoneNumber,Name,Address)  VALUES ('7783215555', 'Alex', 'No.7 road, Mars');
+
 CREATE TABLE shippingorder (
                                TrackingID	    int,
                                ContentType		    char(50)	NOT NULL,
@@ -27,11 +56,11 @@ CREATE TABLE shippingorder (
                                FOREIGN KEY (Receiver) REFERENCES receiver (PhoneNumber)
 );
 
-INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, Sender, Receiver) VALUES(1000000001, 'normal', '2021/03/02', 0.5, '2x10x6', 'flight', 10, '7783211111','7783212222' );
-INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, Sender, Receiver) VALUES(1000000002, 'electronic',  '2021/03/01',0.2, '5x12x8', 'flight', 10,'7783211111','7783212222');
-INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, Sender, Receiver) VALUES(1000000003, 'normal', '2021/02/28', 0.3, '4x15x2', 'flight', 10, '7783211111','7783212222');
-INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, Sender, Receiver) VALUES(1000000004, 'normal', '2021/02/27', 0.9, '5x11x8', 'flight', 10, '7783211111','7783212222');
-INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, Sender, Receiver) VALUES(1000000005, 'liquid', '2021/02/26', 0.4,'12x10x10', 'flight',10, '7783211111','7783212222');
+INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, Sender, Receiver) VALUES(1000000001, 'normal', '2021/03/02', 0.5, '2x10x6', 'sea', 10, '7783211111','7783212222' );
+INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, Sender, Receiver) VALUES(1000000002, 'electronic',  '2021/03/01',0.2, '5x12x8', 'air', 10,'7783211111','7783212222');
+INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, Sender, Receiver) VALUES(1000000003, 'normal', '2021/02/28', 0.3, '4x15x2', 'land', 10, '7783211111','7783212222');
+INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, Sender, Receiver) VALUES(1000000004, 'normal', '2021/02/27', 0.9, '5x11x8', 'sea', 10, '7783211111','7783212222');
+INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, Sender, Receiver) VALUES(1000000005, 'liquid', '2021/02/26', 0.4,'12x10x10', 'air',10, '7783211111','7783212222');
 
 CREATE TABLE retailcenter
 (
@@ -103,33 +132,6 @@ INSERT INTO postmanpostwoman (StaffID, PhoneNumber) VALUES (103, '778012348');
 INSERT INTO postmanpostwoman (StaffID, PhoneNumber) VALUES (104, '778012349');
 
 
-CREATE TABLE sender
-(
-    PhoneNumber char(20)  UNIQUE,
-    Name        char(50),
-    Address     char(100),
-    PRIMARY KEY (Name, PhoneNumber)
-);
-
-INSERT INTO Sender (PhoneNumber,Name,Address) VALUES ('7783211111', 'Eddie', 'No.3 road, Mars');
-INSERT INTO Sender (PhoneNumber,Name,Address) VALUES ('7783212222', 'FAN', 'No.4 road, Mars');
-INSERT INTO Sender (PhoneNumber,Name,Address) VALUES ('7783213333', 'Doris', 'No.5 road, Mars');
-INSERT INTO Sender (PhoneNumber,Name,Address) VALUES ('7783214444', 'Yonas', 'No.6 road, Mars');
-INSERT INTO Sender (PhoneNumber,Name,Address) VALUES ('7783215555', 'Alex', 'No.7 road, Mars');
-
-CREATE TABLE receiver
-(
-    PhoneNumber char(20)  UNIQUE,
-    Name        char(50),
-    Address     char(100),
-    PRIMARY KEY (Name, PhoneNumber)
-);
-
-INSERT INTO receiver (PhoneNumber,Name,Address) VALUES ('7783211111', 'Eddie', 'No.3 road, Mars');
-INSERT INTO receiver (PhoneNumber,Name,Address)  VALUES ('7783212222', 'FAN', 'No.4 road, Mars');
-INSERT INTO receiver (PhoneNumber,Name,Address)  VALUES ('7783213333', 'Doris', 'No.5 road, Mars');
-INSERT INTO receiver (PhoneNumber,Name,Address)  VALUES ('7783214444', 'Yonas', 'No.6 road, Mars');
-INSERT INTO receiver (PhoneNumber,Name,Address)  VALUES ('7783215555', 'Alex', 'No.7 road, Mars');
 
 CREATE TABLE parcel (
                         SenderPhoneNumber   char(20),
@@ -228,7 +230,3 @@ INSERT INTO receivedby (BranchNumber, ReceiveTime, PhoneNumber)  VALUES(8002, '2
 INSERT INTO receivedby (BranchNumber, ReceiveTime, PhoneNumber)  VALUES(8003, '2021/02/28', '7783213333');
 INSERT INTO receivedby (BranchNumber, ReceiveTime, PhoneNumber)  VALUES(8004,  '2021/02/27', '7783214444');
 INSERT INTO receivedby (BranchNumber, ReceiveTime, PhoneNumber)  VALUES(8001, '2021/02/26', '7783215555');
-
-
-
-

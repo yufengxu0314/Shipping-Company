@@ -33,17 +33,17 @@ public class Order_Entry extends JPanel implements ActionListener, FocusListener
 
 
     private void setup(ShippingOrder order) {
-        this.id = new JLabel(String.valueOf(order.TrackingID));
+        this.id = new JLabel(String.valueOf(order.getTrackingID()));
         this.from = new JLabel("from");
-        this.sender = new JLabel("7764535756");
-        this.receiver = new JLabel("654654645");
+        this.sender = new JLabel(order.getSender());
+        this.receiver = new JLabel(order.getReceiver());
         this.to = new JLabel("to");
         this.status = new JLabel(String.format("unknown"));
 
         this.id.setHorizontalAlignment(JButton.CENTER);
         this.from.setHorizontalAlignment(JButton.CENTER);
-        this.sender.setHorizontalAlignment(JButton.CENTER);
-        this.receiver.setHorizontalAlignment(JButton.CENTER);
+        this.sender.setHorizontalAlignment(JButton.LEFT);
+        this.receiver.setHorizontalAlignment(JButton.LEFT);
         this.to.setHorizontalAlignment(JButton.CENTER);
         this.status.setHorizontalAlignment(JButton.CENTER);
 
