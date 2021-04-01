@@ -28,7 +28,7 @@ public interface StartUpDelegate {
 	public void finish();
 	public ArrayList<String> getLoyaltyCustomer();
 	public int getDailyCount(String date);
-	public ArrayList getCreateAfter(String date);
+	public ArrayList<String> getCreateAfter(String date);
 	public ArrayList<ShippingOrderCombined> findSender(String date);
 }
 
