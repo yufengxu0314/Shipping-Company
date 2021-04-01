@@ -20,16 +20,18 @@ CREATE TABLE shippingorder (
                                PacelSize			    char(50),
                                ShippingMethod	    char(20),
                                Price             int,
-                               PhoneNumber   char(20)           NOT NULL,
+                               Sender  char(20)           NOT NULL,
+                               Receiver  char(20)           NOT NULL,
                                PRIMARY KEY (TrackingID),
-                               FOREIGN KEY (PhoneNumber) REFERENCES customer (PhoneNumber)
+                               FOREIGN KEY (Sender) REFERENCES sender (PhoneNumber),
+                               FOREIGN KEY (Receiver) REFERENCES receiver (PhoneNumber)
 );
 
-INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, PhoneNumber) VALUES(1000000001, 'normal', '2021/03/02', 0.5, '2x10x6', 'flight', 10, '7783211111');
-INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, PhoneNumber) VALUES(1000000002, 'electronic',  '2021/03/01',0.2, '5x12x8', 'flight', 10,'7783211111');
-INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, PhoneNumber) VALUES(1000000003, 'normal', '2021/02/28', 0.3, '4x15x2', 'flight', 10, '7783211111');
-INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, PhoneNumber) VALUES(1000000004, 'normal', '2021/02/27', 0.9, '5x11x8', 'flight', 10, '7783211111');
-INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, PhoneNumber) VALUES(1000000005, 'liquid', '2021/02/26', 0.4,'12x10x10', 'flight',10, '7783211111');
+INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, Sender, Receiver) VALUES(1000000001, 'normal', '2021/03/02', 0.5, '2x10x6', 'flight', 10, '7783211111','7783212222' );
+INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, Sender, Receiver) VALUES(1000000002, 'electronic',  '2021/03/01',0.2, '5x12x8', 'flight', 10,'7783211111','7783212222');
+INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, Sender, Receiver) VALUES(1000000003, 'normal', '2021/02/28', 0.3, '4x15x2', 'flight', 10, '7783211111','7783212222');
+INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, Sender, Receiver) VALUES(1000000004, 'normal', '2021/02/27', 0.9, '5x11x8', 'flight', 10, '7783211111','7783212222');
+INSERT INTO shippingorder (TrackingID, ContentType, OrderDate, Weight, PacelSize, ShippingMethod, Price, Sender, Receiver) VALUES(1000000005, 'liquid', '2021/02/26', 0.4,'12x10x10', 'flight',10, '7783211111','7783212222');
 
 CREATE TABLE retailcenter
 (

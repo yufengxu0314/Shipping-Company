@@ -120,31 +120,24 @@ public class Create_Order_Panel extends JPanel {
         this.setLayout(null);
     }
 
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        if (e.getSource() == confirm_button) {
-//            String type = type_field.getText();
-//            int weight = Integer.parseInt(weight_field.getText());
-//            String sender_phone = sender_phone_field.getText();
-//            String methodStr = method_field.getText();
-//            String size = size_field.getText();
-//            String receiver_phone = receiver_phone_field.getText();
-//            String date = "2021/03/29";
-//            rc.start.addOrders(trackingID,type,date,weight,size,methodStr,10);
-//            trackingID++;
-//            JOptionPane.showMessageDialog(null, "Successful");
-//        }
-//    }
+
     public void handleAddOrder(ActionEvent evt) {
         try {
-            String type = type_field.getText();
-            int weight = Integer.parseInt(weight_field.getText());
-            String methodStr = method_field.getText();
-            String size = size_field.getText();
-            String date = getDate();
-            String senderPhone = sender_phone_field.getText();
+//            String type = type_field.getText();
+//            int weight = Integer.parseInt(weight_field.getText());
+//            String methodStr = method_field.getText();
+//            String size = size_field.getText();
+//            String date = getDate();
             trackingID = (int) (Math.random() * (max - min + 1) + min);
-            ShippingOrder newOrder = new ShippingOrder(trackingID,type,date,weight,size,methodStr,10,senderPhone);
+            ShippingOrder newOrder = new ShippingOrder(
+                    trackingID,
+                    type_field.getText(),getDate(),
+                    Integer.parseInt(weight_field.getText()),
+                    size_field.getText(),method_field.getText(),
+                    10,
+                    sender_phone_field.getText(),
+                    receiver_phone_field.getText()
+            );
             rc.start.addOrders(newOrder);
             JOptionPane.showMessageDialog(null, "Successful");
             JOptionPane.showMessageDialog(null, "Tracking Id for this order is " + trackingID);

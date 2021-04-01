@@ -110,7 +110,7 @@ public class DatabaseHandler {
     //Queries: INSERT Operation
     public void addOrders(ShippingOrder s) {
         try {
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO shippingorder VALUES (?,?,?,?,?,?,?,?)");
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO shippingorder VALUES (?,?,?,?,?,?,?,?,?)");
             ps.setInt(1, s.getTrackingID());
             ps.setString(2, s.getContentType());
             ps.setString(3, s.getOrderDate());
@@ -118,7 +118,8 @@ public class DatabaseHandler {
             ps.setString(5, s.getSize());
             ps.setString(6, s.getShippingMethod());
             ps.setInt(7, s.getPrice());
-            ps.setString(8, s.getSenderPhoneNumber());
+            ps.setString(8, s.getSender());
+            ps.setString(9, s.getReceiver());
             System.out.print("Success");
             ps.executeUpdate();
             connection.commit();
@@ -187,7 +188,13 @@ public class DatabaseHandler {
             //System.out.print("Success");
             while(rs.next()) {
                 s = new ShippingOrder(rs.getInt("TrackingID"), rs.getString("ContentType"),
-                        rs.getString("OrderDate"), rs.getInt("Weight"),rs.getString("PacelSize"), rs.getString("ShippingMethod"),rs.getInt("Price") , rs.getString("PhoneNumber"));
+                        rs.getString("OrderDate"),
+                        rs.getInt("Weight"),
+                        rs.getString("PacelSize"),
+                        rs.getString("ShippingMethod"),
+                        rs.getInt("Price") ,
+                        rs.getString("Sender"),
+                        rs.getString("Receiver") );
             }
             connection.commit();
             rs.close();
@@ -322,7 +329,8 @@ public class DatabaseHandler {
                                                     rs.getString("Size"),
                                                     rs.getString("ShippingMethod"),
                                                     rs.getInt("Price"),
-                                                    rs.getString("SenderPhoneNumber"));
+                                                    rs.getString("SenderPhoneNumber"),
+                                                    rs.getString("ReceiverPhoneNumber") );
                 shippingOrder.add(so);
             }
             rs.close();
