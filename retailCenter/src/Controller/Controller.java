@@ -95,6 +95,10 @@ public class Controller implements StartUpDelegate, LoginWindowDelegate {
     public ArrayList<ShippingOrderCombined> findSender(String date) {
         return databaseHandler.findSender(date);
     }
+    @Override
+    public ArrayList<Customer> findMoreThan(){
+        return databaseHandler.findMoreThan();
+    }
 
     public void databaseSetup() {
 //        databaseHandler.databaseSetup();;

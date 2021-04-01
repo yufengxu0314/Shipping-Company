@@ -30,5 +30,6 @@ public interface StartUpDelegate {
 	public int getDailyCount(String date);
 	public ArrayList<String> getCreateAfter(String date);
 	public ArrayList<ShippingOrderCombined> findSender(String date);
+	public ArrayList<Customer> findMoreThan();
 }
 

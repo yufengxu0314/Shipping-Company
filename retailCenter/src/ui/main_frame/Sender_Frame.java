@@ -15,7 +15,7 @@ public class Sender_Frame extends JFrame {
     private Sender_Panel panel;
     private JScrollPane scroll;
     private RC_Frame rc;
-
+    
     private JLabel id;
     private JLabel from;
     private JLabel sender;

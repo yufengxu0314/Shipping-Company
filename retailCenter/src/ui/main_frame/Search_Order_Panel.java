@@ -1,6 +1,7 @@
 package ui.main_frame;
 
 import model.ShippingOrder;
+import model.ShippingOrderCombined;
 import utility.My_Color;
 
 import javax.swing.*;
@@ -129,7 +130,15 @@ public class Search_Order_Panel extends JPanel implements ActionListener{
             }
         }
         else if(button == equal_button){
-            orders.clear();
+            try {
+                orders.clear();
+                String date = year_field.getText() + "/" + month_field.getText() + "/" + day_field.getText();
+                ArrayList<ShippingOrderCombined> result = rc.start.findSender(date);
+                new Sender_Frame(width, height, result, rc);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                JOptionPane.showMessageDialog(null,"Error");
+            }
         }
         else if(button == after_button){
             try {

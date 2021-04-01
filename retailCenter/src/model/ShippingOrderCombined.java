@@ -9,9 +9,9 @@ public class ShippingOrderCombined {
     private String ShippingMethod;
     private int Price;
     private String SenderPhoneNumber;
-    private String SenderAddress;
+    private String SenderName;
     private String ReceiverPhoneNumber;
-    private String ReceiverAddress;
+    //private String ReceiverAddress;
 
 
 
@@ -24,9 +24,8 @@ public class ShippingOrderCombined {
                                  String ShippingMethod,
                                  int Price,
                                  String SenderPhoneNumber,
-                                 String SenderAddress,
-                                 String ReceiverPhoneNumber,
-                                 String ReceiverAddress) {
+                                 String SenderName,
+                                 String ReceiverPhoneNumber) {
         this.ContentType = ContentType;
         this.TrackingID = TrackingID;
         this.OrderDate = OrderDate;
@@ -35,9 +34,9 @@ public class ShippingOrderCombined {
         this.Size = Size;
         this.Price = Price;
         this.SenderPhoneNumber = SenderPhoneNumber;
-        this.SenderAddress = SenderAddress;
+        this.SenderName = SenderName;
         this.ReceiverPhoneNumber = ReceiverPhoneNumber;
-        this.ReceiverAddress = ReceiverAddress;
+        //this.ReceiverAddress = ReceiverAddress;
 
     }
 
@@ -73,15 +72,15 @@ public class ShippingOrderCombined {
         return SenderPhoneNumber;
     }
 
-    public String getSenderAddress() {
-        return SenderAddress;
+    public String getSenderName() {
+        return SenderName;
     }
 
     public String getReceiverPhoneNumber() {
         return ReceiverPhoneNumber;
     }
 
-    public String getReceiverAddress() {
-        return ReceiverAddress;
-    }
+    //public String getReceiverAddress() {
+        //return ReceiverAddress;
+    //}
 }

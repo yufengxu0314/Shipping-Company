@@ -210,18 +210,18 @@ public class DatabaseHandler {
         ArrayList<ShippingOrderCombined> ret = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT SHIPPINGORDER.*, R.ADDRESS, S.ADDRESS FROM ((SHIPPINGORDER INNER JOIN RECEIVER R on SHIPPINGORDER.RECEIVER = R.PHONENUMBER) INNER JOIN SENDER S on SHIPPINGORDER.SENDER = S.PHONENUMBER) WHERE SHIPPINGORDER.ORDERDATE LIKE " + "'%" + date + "%'");
+            ResultSet rs = stmt.executeQuery("SELECT SHIPPINGORDER.*, S.Name FROM ((SHIPPINGORDER INNER JOIN RECEIVER R on SHIPPINGORDER.RECEIVER = R.PHONENUMBER) INNER JOIN SENDER S on SHIPPINGORDER.SENDER = S.PHONENUMBER) WHERE SHIPPINGORDER.ORDERDATE LIKE " + "'%" + date + "%'");
             while(rs.next()) {
                 ShippingOrderCombined soc = new ShippingOrderCombined(rs.getInt("TrackingID"),
                                                                       rs.getString("ContentType"),
                                                                       rs.getString("OrderDate"),
-                                                                      rs.getInt("Weight"),rs.getString("PacelSize"),
+                                                                      rs.getInt("Weight"),
+                                                                      rs.getString("PacelSize"),
                                                                       rs.getString("ShippingMethod"),
                                                                       rs.getInt("Price") ,
                                                                       rs.getString("Sender"),
                                                                       rs.getString("Receiver"),
-                                                                      rs.getString("SenderAddress"),
-                                                                      rs.getString("ReceiverAddress"));
+                                                                      rs.getString("Name"));
                 ret.add(soc);
             }
             connection.commit();
@@ -259,7 +259,7 @@ public class DatabaseHandler {
         ArrayList<Customer> customer = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT CUSTOMER.PHONENUMBER, COUNT(SHIPPINGORDER.SENDER) AS NumberOfOrders FROM (SHIPPINGORDER INNER JOIN CUSTOMER ON SHIPPINGORDER.SENDER = CUSTOMER.PHONENUMBER) GROUP BY PHONENUMBER HAVING COUNT(SHIPPINGORDER.SENDER) > 2");
+            ResultSet rs = stmt.executeQuery("SELECT CUSTOMER.PHONENUMBER, COUNT(SHIPPINGORDER.SENDER) AS NumberOfOrders FROM (SHIPPINGORDER INNER JOIN CUSTOMER ON SHIPPINGORDER.SENDER = CUSTOMER.PHONENUMBER) GROUP BY PHONENUMBER HAVING COUNT(SHIPPINGORDER.SENDER) > 3");
             while(rs.next()) {
                 Customer c = new Customer(rs.getString("PhoneNumber"), rs.getString("Name"), rs.getString("Address"));
                 customer.add(c);
@@ -275,7 +275,7 @@ public class DatabaseHandler {
 
 
     //Queries: Nested Aggregation with Group By
-    ///Find the orders created after a specific date.
+    //Find the orders created after a specific date.
     public ArrayList<String> getCreateAfter(String date){
         ArrayList<String> ret = new ArrayList<>();
         try {

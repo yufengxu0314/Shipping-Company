@@ -105,6 +105,7 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
         home_button.addActionListener(this);
         order_count.addActionListener(this);
         All_Method_customer.addActionListener(this);
+        VIP_customer.addActionListener(this);
     }
 
 
@@ -225,17 +226,8 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
             new VIP_Frame(width,height,customers,this);
         }
         else if (button == VIP_customer) {
-            ArrayList<String> result = start.getLoyaltyCustomer();
-//            String ret = "";
-//            for (int i = 0; i < result.size(); i++) {
-//                ret += result.get(i);
-//            }
-//            JOptionPane.showMessageDialog(null, ret);
-            ArrayList<Customer> customers = new ArrayList<>();
-            for(String s: result){
-                customers.add(start.searchCustomer(s));
-            }
-            new VIP_Frame(width,height,customers,this);
+            ArrayList<Customer> result = start.findMoreThan();
+            new VIP_Frame(width,height,result,this);
         }
         else if (button == order_count) {
             JOptionPane.showMessageDialog(null, start.getDailyCount(getDate()));
