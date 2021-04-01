@@ -8,24 +8,15 @@ public class ShippingOrderCombined {
     private String Size;
     private String ShippingMethod;
     private int Price;
-    private String SenderPhoneNumber;
-    private String SenderName;
-    private String ReceiverPhoneNumber;
-    //private String ReceiverAddress;
+    private String Sender_phoneNum;
+    private String Receiver_phoneNum;
+    private String Sender_name;
 
 
 
 
-    public ShippingOrderCombined(int TrackingID,
-                                 String ContentType,
-                                 String OrderDate,
-                                 int Weight,
-                                 String Size,
-                                 String ShippingMethod,
-                                 int Price,
-                                 String SenderPhoneNumber,
-                                 String SenderName,
-                                 String ReceiverPhoneNumber) {
+    public ShippingOrderCombined(int TrackingID, String ContentType, String OrderDate,
+                                 int Weight, String Size, String ShippingMethod, int Price, String Sender_phoneNum, String Receiver_phoneNum, String SenderName) {
         this.ContentType = ContentType;
         this.TrackingID = TrackingID;
         this.OrderDate = OrderDate;
@@ -33,11 +24,9 @@ public class ShippingOrderCombined {
         this.ShippingMethod = ShippingMethod;
         this.Size = Size;
         this.Price = Price;
-        this.SenderPhoneNumber = SenderPhoneNumber;
-        this.SenderName = SenderName;
-        this.ReceiverPhoneNumber = ReceiverPhoneNumber;
-        //this.ReceiverAddress = ReceiverAddress;
-
+        this.Sender_phoneNum = Sender_phoneNum;
+        this.Receiver_phoneNum = Receiver_phoneNum;
+        this.Sender_name = SenderName;
     }
 
     public int getPrice() {
@@ -68,16 +57,16 @@ public class ShippingOrderCombined {
         return Size;
     }
 
-    public String getSenderPhoneNumber() {
-        return SenderPhoneNumber;
+    public String getSender_phoneNum() {
+        return Sender_phoneNum;
     }
 
-    public String getSenderName() {
-        return SenderName;
+    public String getReceiver_phoneNum() {
+        return Receiver_phoneNum;
     }
 
-    public String getReceiverPhoneNumber() {
-        return ReceiverPhoneNumber;
+    public String getSender_name() {
+        return Sender_name;
     }
 
     //public String getReceiverAddress() {

@@ -41,9 +41,9 @@ public class Sender_Entry extends JPanel implements ActionListener{
     private void setup(ShippingOrderCombined order) {
         this.id = new JLabel(String.valueOf(order.getTrackingID()));
         this.temp1 = new JLabel("");
-        this.name = new JLabel(order.getSenderName());
+        this.name = new JLabel(order.getSender_name());
         this.temp2 = new JLabel("");
-        this.phone_number = new JLabel(order.getSenderPhoneNumber());
+        this.phone_number = new JLabel(order.getSender_phoneNum());
         this.delete = new JButton("Delete");
 
         this.id.setHorizontalAlignment(JButton.CENTER);

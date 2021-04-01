@@ -213,16 +213,7 @@ public class DatabaseHandler {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT SHIPPINGORDER.*, S.Name FROM ((SHIPPINGORDER INNER JOIN RECEIVER R on SHIPPINGORDER.RECEIVER = R.PHONENUMBER) INNER JOIN SENDER S on SHIPPINGORDER.SENDER = S.PHONENUMBER) WHERE SHIPPINGORDER.ORDERDATE LIKE " + "'%" + date + "%'");
             while(rs.next()) {
-                ShippingOrderCombined soc = new ShippingOrderCombined(rs.getInt("TrackingID"),
-                                                                      rs.getString("ContentType"),
-                                                                      rs.getString("OrderDate"),
-                                                                      rs.getInt("Weight"),
-                                                                      rs.getString("PacelSize"),
-                                                                      rs.getString("ShippingMethod"),
-                                                                      rs.getInt("Price") ,
-                                                                      rs.getString("Sender"),
-                                                                      rs.getString("Receiver"),
-                                                                      rs.getString("Name"));
+                ShippingOrderCombined soc = new ShippingOrderCombined(rs.getInt("TRACKINGID"),rs.getString("CONTENTTYPE"),rs.getString("ORDERDATE"),rs.getInt("weight"),rs.getString("PACELSIZE"),rs.getString("SHIPPINGMETHOD"),rs.getInt("PRICE"),rs.getString("SENDER"),rs.getString("RECEIVER"),rs.getString("NAME"));
                 ret.add(soc);
             }
             connection.commit();
