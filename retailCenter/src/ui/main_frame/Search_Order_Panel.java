@@ -7,11 +7,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowListener;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Search_Order_Panel extends JPanel {
+public class Search_Order_Panel extends JPanel implements ActionListener{
     private int width;
     private int height;
     private JLabel id_label;
@@ -24,6 +25,8 @@ public class Search_Order_Panel extends JPanel {
     private JTextField month_field;
     private JTextField day_field;
     private JButton search_button;
+    private JButton equal_button;
+    private JButton after_button;
     private RC_Frame rc;
     private ArrayList<ShippingOrder> orders ;
 
@@ -51,11 +54,13 @@ public class Search_Order_Panel extends JPanel {
             this.add(jTextField);
         }
         this.add(search_button);
+        this.add(equal_button);
+        this.add(after_button);
 
         //set bounds
         id_label.setBounds(width/6, height/8, width/4, height/8);
         id_field.setBounds(2*width/6, height/8, width/3, height/8);
-
+        search_button.setBounds(9*width/12, height/8, width/6, height/8);
 
         created_after_label.setBounds(width/14, 2*height/5, 2*width/13, height/8);
 
@@ -68,13 +73,15 @@ public class Search_Order_Panel extends JPanel {
         day_label.setBounds(10*width/14, 2*height/5, width/13, height/8);
         day_field.setBounds(11*width/14, 2*height/5, width/13, height/8);
 
-        search_button.setBounds(5*width/12, 3*height/5, width/6, height/8);
+
+        equal_button.setBounds(width/3, 3*height/5, width/6, height/8);
+        after_button.setBounds(2*width/3, 3*height/5, width/6, height/8);
     }
 
     private void setup(){
         orders = new ArrayList<>();
         id_label = new JLabel("Enter Tracking ID:");
-        created_after_label = new JLabel("Created After:");
+        created_after_label = new JLabel("By Date:");
         year_label = new JLabel("Year:");
         month_label = new JLabel("Month:");
         day_label = new JLabel("Day:");
@@ -83,7 +90,10 @@ public class Search_Order_Panel extends JPanel {
         month_field = new JTextField();
         day_field = new JTextField();
 
-        search_button = new JButton("confirm");
+        search_button = new JButton("By ID");
+        equal_button = new JButton("Equal");
+        after_button = new JButton("After");
+
         //set font
         for (JLabel jLabel : Arrays.asList(id_label, created_after_label, year_label, month_label, day_label)) {
             jLabel.setFont(new Font("Serif", Font.PLAIN, width /50));
@@ -93,12 +103,9 @@ public class Search_Order_Panel extends JPanel {
         }
         search_button.setFont(new Font("Serif", Font.PLAIN, width /50));
         search_button.setFocusPainted(false);
-        search_button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                handleSearchOrder(e);
-            }
-        });
+        search_button.addActionListener(this);
+        equal_button.addActionListener(this);
+        after_button.addActionListener(this);
 
     }
 
@@ -106,46 +113,30 @@ public class Search_Order_Panel extends JPanel {
         this.setLayout(null);
     }
 
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        JButton button = (JButton) e.getSource();
-//        if (button == search_button) {
-//            int trackingID = Integer.parseInt(id_field.getText());
-//            String day = day_field.getText();
-//            String month = month_field.getText();
-//            String year = year_field.getText();
-//            databaseHandler dbh = new databaseHandler();
-//            try {
-//                ShippingOrder order = dbh.searchTracking(trackingID);
-//            } catch (exception err) {
-//                System.out.println(err.getMessage());
-//            }
-//            new Order_List_Frame(width,height);
-//        }
-//
-//    }
-public void handleSearchOrder(ActionEvent evt) {
-    try {
-        orders.clear();
-        // case 1
-        int trackingID = Integer.parseInt(id_field.getText());
-        ShippingOrder shippingOrder = rc.start.searchTracking(trackingID);
-        orders.add(shippingOrder);
-            //case2
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        JButton button = (JButton) e.getSource();
+        if (button == search_button) {
+            try {
+                orders.clear();
+                int trackingID = Integer.parseInt(id_field.getText());
+                ShippingOrder shippingOrder = rc.start.searchTracking(trackingID);
+                orders.add(shippingOrder);
+                new Order_List_Frame(width, height, orders, rc);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                JOptionPane.showMessageDialog(null,"Error");
+            }
+        }
+        else if(button == equal_button){
+            orders.clear();
+        }
+        else if(button == after_button){
+            orders.clear();
+        }
 
-
-
-
-
-        new Order_List_Frame(width, height, orders, rc);
-//            JOptionPane.showMessageDialog(null, "Order information: " + shippingOrder.getContentType() +
-//                    " " + shippingOrder.getOrderDate() + " " + shippingOrder.getShippingMethod() + " " + shippingOrder.getSize()
-//                    + " " + shippingOrder.getPrice() + " " + shippingOrder.getTrackingID() + " " + shippingOrder.getWeight() + " " + shippingOrder.getSenderPhoneNumber());
-    } catch (Exception exception) {
-        exception.printStackTrace();
-        JOptionPane.showMessageDialog(null,"Error");
     }
-}
+
 
 
 }

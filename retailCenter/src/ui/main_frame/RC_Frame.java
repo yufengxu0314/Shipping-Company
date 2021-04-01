@@ -1,6 +1,7 @@
 package ui.main_frame;
 
 import Controller.delegates.StartUpDelegate;
+import model.Customer;
 import utility.My_Color;
 
 import javax.swing.*;
@@ -202,11 +203,16 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
         }
         else if (button == loyalty_customer) {
             ArrayList<String> result = start.getLoyaltyCustomer();
-            String ret = "";
-            for (int i = 0; i < result.size(); i++) {
-                ret += result.get(i);
+//            String ret = "";
+//            for (int i = 0; i < result.size(); i++) {
+//                ret += result.get(i);
+//            }
+//            JOptionPane.showMessageDialog(null, ret);
+            ArrayList<Customer> customers = new ArrayList<>();
+            for(String s: result){
+                customers.add(start.searchCustomer(s));
             }
-            JOptionPane.showMessageDialog(null, ret);
+            new VIP_Frame(width,height,customers,this);
         }
         else if (button == order_count) {
             JOptionPane.showMessageDialog(null, start.getDailyCount(getDate()));

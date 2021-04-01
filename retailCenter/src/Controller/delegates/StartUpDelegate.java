@@ -22,7 +22,7 @@ public interface StartUpDelegate {
 	public void addOrders(ShippingOrder s);
 	public void deleteOrder(int TrackingID);
 	public void updateCustomer(String PhoneNumber, String Address,  String Name);
-	public Customer searchCustomer(String PhoneNumber) throws exception;
+	public Customer searchCustomer(String PhoneNumber);
 	public ShippingOrder searchTracking(int TrackingID) throws exception;
 	public void databaseSetup();
 	public void finish();

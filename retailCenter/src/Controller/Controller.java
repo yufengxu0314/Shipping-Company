@@ -69,8 +69,13 @@ public class Controller implements StartUpDelegate, LoginWindowDelegate {
     }
 
     @Override
-    public Customer searchCustomer(String PhoneNumber) throws exception {
-        return databaseHandler.searchCustomer(PhoneNumber);
+    public Customer searchCustomer(String PhoneNumber){
+        try {
+            return databaseHandler.searchCustomer(PhoneNumber);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     @Override
