@@ -89,6 +89,7 @@ public class DatabaseHandler {
         try {
             System.out.print("This line can run");
             ps = connection.prepareStatement("INSERT INTO customer VALUES (?,?,?)");
+            ps = connection.prepareStatement("INSERT INTO customer VALUES (?,?,?)");
             ps.setString(1, c.getPhoneNumber());
             ps.setString(2, c.getName());
             ps.setString(3, c.getAddress());
@@ -242,8 +243,9 @@ public class DatabaseHandler {
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM shippingorder WHERE shippingorder.OrderDate LIKE " + "'%" + date + "%'" + " GROUP BY shippingorder.OrderDate");
-            rs.next();
-            ret = rs.getInt("COUNT(*)");
+            while(rs.next()) {
+                ret = rs.getInt("COUNT(*)");
+            }
             connection.commit();
             rs.close();
             stmt.close();
@@ -261,12 +263,11 @@ public class DatabaseHandler {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT CUSTOMER.PHONENUMBER, COUNT(SHIPPINGORDER.SENDER) AS NumberOfOrders FROM (SHIPPINGORDER INNER JOIN CUSTOMER ON SHIPPINGORDER.SENDER = CUSTOMER.PHONENUMBER) GROUP BY PHONENUMBER HAVING COUNT(SHIPPINGORDER.SENDER) > 3");
             while(rs.next()) {
-                Customer c = new Customer(rs.getString("PhoneNumber"), rs.getString("Name"), rs.getString("Address"));
-                customer.add(c);
+                customer.add(this.searchCustomer(rs.getString("PHONENUMBER")));
             }
             rs.close();
             stmt.close();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return customer;
