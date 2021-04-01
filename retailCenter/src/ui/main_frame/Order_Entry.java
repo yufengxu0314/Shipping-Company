@@ -6,8 +6,9 @@ import utility.My_Color;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLOutput;
 
-public class Order_Entry extends JPanel implements ActionListener, FocusListener {
+public class Order_Entry extends JPanel implements ActionListener {
     private int width;
     private int height;
     private Font font;
@@ -18,13 +19,13 @@ public class Order_Entry extends JPanel implements ActionListener, FocusListener
     private JLabel to;
     private JButton delete;
     private RC_Frame rc;
-    ShippingOrder order;
+    private ShippingOrder order;
 
-    public Order_Entry (int width, int height, ShippingOrder order, RC_Frame rc) {
+    public Order_Entry (int width, int height, ShippingOrder order, RC_Frame rc2) {
         this.font = new Font("Serif", Font.PLAIN, width / 45);
         this.width = width;
         this.height = height;
-        this.rc = rc;
+        this.rc = rc2;
         this.order = order;
         setup(order);
         set_font();
@@ -119,7 +120,7 @@ public class Order_Entry extends JPanel implements ActionListener, FocusListener
         this.setBorder(null);
         this.setLayout(null);
         this.setPreferredSize(new Dimension(width,height));
-        this.addFocusListener(this);
+//        this.addFocusListener(this);
     }
 
 
@@ -128,23 +129,15 @@ public class Order_Entry extends JPanel implements ActionListener, FocusListener
     public void actionPerformed(ActionEvent e) {
         JButton button = (JButton) e.getSource();
         if (button == delete) {
-//            rc.start.deleteOrder(order.getTrackingID());
-            this.setVisible(false);
+            try {
+                this.setVisible(false);
+                rc.start.deleteOrder(order.getTrackingID());
+//            System.out.println("successful11111");
+            } catch (Exception e2){
+                System.out.println("still have unhandled exception");
+            }
         }
 
     }
 
-    @Override
-    public void focusGained(FocusEvent e) {
-//        set_color(My_Color.DARK_GREEN);
-//        set_foreground_color(My_Color.WHITE);
-//        this.setBackground(My_Color.DARK_GREEN);
-    }
-
-    @Override
-    public void focusLost(FocusEvent e) {
-//        setBackground(My_Color.PANEL_BACKGROUND);
-//        set_foreground_color(My_Color.LETTER_GREY);
-//        Object o = e.getSource();
-    }
 }

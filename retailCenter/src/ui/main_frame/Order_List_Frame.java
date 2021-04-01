@@ -11,13 +11,13 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
-public class Order_List_Frame extends JFrame  {
+public class Order_List_Frame extends JFrame implements WindowListener, ActionListener {
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private int width;
     private int height;
-    private Order_List_Panel panel;
-    private JScrollPane scroll;
-    private RC_Frame rc;
+//    private Order_List_Panel panel;
+//    private JScrollPane scroll;
+//    private RC_Frame rc;
 
     private JLabel id;
     private JLabel from;
@@ -37,12 +37,11 @@ public class Order_List_Frame extends JFrame  {
         this.setBounds(screenSize.width / 5 + this.width / 8, screenSize.height / 5 + this.height / 8, this.width, this.height);
         set_top();
         set_panel();
-        attach_items();
+//        this.rc = rc;
+        attach_items(orders, rc);
         set_color();
-        this.rc = rc;
-        for(ShippingOrder order: orders){
-            panel.add_entry(order);
-        }
+
+
     }
 
 
@@ -91,28 +90,69 @@ public class Order_List_Frame extends JFrame  {
         this.setBackground(My_Color.PANEL_BACKGROUND);
     }
 
-    private void attach_items() {
+    private void attach_items(ArrayList<ShippingOrder> orders, RC_Frame rc) {
 
-        panel = new Order_List_Panel(width, 7 * height / 8, rc);
+        Order_List_Panel panel = new Order_List_Panel(width, 7 * height / 8, rc);
 
-        scroll = new JScrollPane(panel);
+        JScrollPane scroll = new JScrollPane(panel);
         scroll.setBounds(0, height / 10, width, 9 * height / 10);
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         this.add(scroll);
+        for(ShippingOrder order: orders){
+            panel.add_entry(order);
+        }
     }
 
 
     private void set_panel() {
         this.setTitle("Order List");
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-//        this.addWindowListener(this);
+        this.addWindowListener(this);
         this.setResizable(false);
         this.setLayout(null);
         this.setVisible(true);
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
 
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
+    }
 }
 //    private void test(){
 //        this.temp_order = new ShippingOrder(12345667, "type", "2019", 12, "szie", "fly", 500);
