@@ -261,12 +261,11 @@ public class DatabaseHandler {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT CUSTOMER.PHONENUMBER, COUNT(SHIPPINGORDER.SENDER) AS NumberOfOrders FROM (SHIPPINGORDER INNER JOIN CUSTOMER ON SHIPPINGORDER.SENDER = CUSTOMER.PHONENUMBER) GROUP BY PHONENUMBER HAVING COUNT(SHIPPINGORDER.SENDER) > 3");
             while(rs.next()) {
-                Customer c = new Customer(rs.getString("PhoneNumber"), rs.getString("Name"), rs.getString("Address"));
-                customer.add(c);
+                customer.add(this.searchCustomer(rs.getString("PHONENUMBER")));
             }
             rs.close();
             stmt.close();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return customer;
