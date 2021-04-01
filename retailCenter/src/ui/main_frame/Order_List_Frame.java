@@ -17,6 +17,7 @@ public class Order_List_Frame extends JFrame implements WindowListener, ActionLi
     private int height;
     private Order_List_Panel panel;
     private JScrollPane scroll;
+    private RC_Frame rc;
 
     private JLabel id;
     private JLabel from;
@@ -29,7 +30,7 @@ public class Order_List_Frame extends JFrame implements WindowListener, ActionLi
 
     private ShippingOrder temp_order;
 
-    public Order_List_Frame(int width, int height, ArrayList<ShippingOrder> orders ) {
+    public Order_List_Frame(int width, int height, ArrayList<ShippingOrder> orders, RC_Frame rc ) {
         this.width = 4 * width / 5;
         this.height = height;
 //        this.orders = orders;
@@ -38,6 +39,7 @@ public class Order_List_Frame extends JFrame implements WindowListener, ActionLi
         set_panel();
         attach_items();
         set_color();
+        this.rc = rc;
         for(ShippingOrder order: orders){
             panel.add_entry(order);
         }
@@ -52,7 +54,7 @@ public class Order_List_Frame extends JFrame implements WindowListener, ActionLi
         this.sender = new JLabel("Sender Phone");
         this.receiver = new JLabel("Receiver Phone");
         this.to = new JLabel("To");
-        this.status = new JLabel("Status");
+        this.status = new JLabel("");
 
         this.id.setHorizontalAlignment(JButton.CENTER);
         this.from.setHorizontalAlignment(JButton.CENTER);
@@ -91,7 +93,7 @@ public class Order_List_Frame extends JFrame implements WindowListener, ActionLi
 
     private void attach_items() {
 
-        panel = new Order_List_Panel(width, 7 * height / 8);
+        panel = new Order_List_Panel(width, 7 * height / 8, rc);
 
         scroll = new JScrollPane(panel);
         scroll.setBounds(0, height / 10, width, 9 * height / 10);

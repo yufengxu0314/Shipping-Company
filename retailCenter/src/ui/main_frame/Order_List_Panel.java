@@ -15,15 +15,16 @@ public class Order_List_Panel extends JPanel {
     private SpringLayout layout;
     private ArrayList<Order_Entry> entries;
     private ArrayList<ShippingOrder> orders;
+    private RC_Frame rc;
 
-    public Order_List_Panel(int width, int height) {
+    public Order_List_Panel(int width, int height, RC_Frame rc) {
         super(new SpringLayout());
         this.layout = (SpringLayout) this.getLayout();
         this.width = width;
         this.height = height;
         this.entries = new ArrayList<>();
         set_preferred_size(0);
-
+        this.rc = rc;
         set_font();
         set_color();
         set_bounds();
@@ -41,7 +42,7 @@ public class Order_List_Panel extends JPanel {
 
 
     public void add_entry (ShippingOrder order) {
-        Order_Entry entry = new Order_Entry(width, height/10,order);
+        Order_Entry entry = new Order_Entry(width, height/10,order, rc);
         entries.add(entry);
         this.add(entry);
         this.layout.putConstraint(SpringLayout.NORTH,entry,height * (entries.size() - 1)/ENTRIES_PER_VIEW,SpringLayout.NORTH,this);

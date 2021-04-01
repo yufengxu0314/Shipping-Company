@@ -137,7 +137,7 @@ public void handleSearchOrder(ActionEvent evt) {
 
 
 
-        new Order_List_Frame(width, height, orders);
+        new Order_List_Frame(width, height, orders, rc);
 //            JOptionPane.showMessageDialog(null, "Order information: " + shippingOrder.getContentType() +
 //                    " " + shippingOrder.getOrderDate() + " " + shippingOrder.getShippingMethod() + " " + shippingOrder.getSize()
 //                    + " " + shippingOrder.getPrice() + " " + shippingOrder.getTrackingID() + " " + shippingOrder.getWeight() + " " + shippingOrder.getSenderPhoneNumber());
