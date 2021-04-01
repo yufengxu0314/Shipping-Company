@@ -20,6 +20,7 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
     private JButton search_customer_button;
     private JButton create_order_button;
     private JButton search_order_button;
+    private JButton home_button;
 
     private JButton order_count;
     private JButton loyalty_customer;
@@ -47,27 +48,34 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
 
     private void set_color(){
         this.setBackground(My_Color.MAIN_FRAME_GREY);
-        for (JButton button: Arrays.asList(add_customer_button, search_customer_button,create_order_button,search_order_button, order_count, loyalty_customer)){
+        for (JButton button: Arrays.asList(add_customer_button, search_customer_button,create_order_button,search_order_button, order_count, loyalty_customer,home_button)){
             button.setBackground(My_Color.GREEN);
             button.setBorderPainted(false);
             button.setForeground(My_Color.WHITE);
             button.setOpaque(true);
-            button.setFont(new Font("Serif", Font.PLAIN, width /55));
+            button.setFont(new Font("Serif", Font.PLAIN, width /70));
             button.setFocusPainted(false);
         }
+        home_button.setBackground(My_Color.VIP_GREEN);
         order_count.setBackground(My_Color.ALI_BLUE);
         loyalty_customer.setBackground(My_Color.ALI_BLUE);
     }
 
     private void attach_items() {
+        this.add(home_button);
+        home_button.setBounds(width/16, height/20, 2*width/15, 5* height/40 );
         this.add(add_customer_button);
-        add_customer_button.setBounds(width/13, height/20, 2*width/13, 5* height/40 );
+        add_customer_button.setBounds(4*width/16, height/20, 2*width/15, 5* height/40 );
         this.add(search_customer_button);
-        search_customer_button.setBounds(4*width/13, height/20, 2*width/13, 5* height/40 );
+        search_customer_button.setBounds(7*width/16, height/20, 2*width/15, 5* height/40 );
         this.add(create_order_button);
-        create_order_button.setBounds(7*width/13, height/20, 2*width/13, 5* height/40 );
+        create_order_button.setBounds(10*width/16, height/20, 2*width/15, 5* height/40 );
         this.add(search_order_button);
-        search_order_button.setBounds(10*width/13, height/20, 2*width/13, 5* height/40 );
+        search_order_button.setBounds(13*width/16, height/20, 2*width/15, 5* height/40 );
+        this.add(order_count);
+        order_count.setBounds(3*width/15, 16*height/20, 4*width/15, 5* height/40 );
+        this.add(loyalty_customer);
+        loyalty_customer.setBounds(9*width/15, 16*height/20, 4*width/15, 5* height/40 );
         //attach panels
         this.add(add_customer_panel);
         this.add(search_customer_panel);
@@ -86,15 +94,19 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
         search_customer_button.addActionListener(this);
         create_order_button.addActionListener(this);
         search_order_button.addActionListener(this);
+        home_button.addActionListener(this);
+        order_count.addActionListener(this);
+        loyalty_customer.addActionListener(this);
     }
 
 
 
     private void setup() {
-        add_customer_button = new JButton("add customer");
-        search_customer_button = new JButton("search customer");
-        create_order_button = new JButton("create order");
-        search_order_button = new JButton("search order");
+        home_button = new JButton("Home");
+        add_customer_button = new JButton("Add Customer");
+        search_customer_button = new JButton("Search Customer");
+        create_order_button = new JButton("Create Order");
+        search_order_button = new JButton("Search Order");
 
         order_count = new JButton("Show Today's Order Count");
         loyalty_customer = new JButton("Show Loyalty Customers");
@@ -125,40 +137,65 @@ public class RC_Frame extends JFrame implements WindowListener, ActionListener {
             create_order_panel.setVisible(false);
             search_order_panel.setVisible(false);
             add_customer_panel.setVisible(true);
+            home_button.setBackground(My_Color.GREEN);
             search_customer_button.setBackground(My_Color.GREEN);
             create_order_button.setBackground(My_Color.GREEN);
             search_order_button.setBackground(My_Color.GREEN);
             add_customer_button.setBackground(My_Color.VIP_GREEN);
+            order_count.setVisible(false);
+            loyalty_customer.setVisible(false);
         }
         else if (button == search_customer_button) {
             add_customer_panel.setVisible(false);
             create_order_panel.setVisible(false);
             search_order_panel.setVisible(false);
             search_customer_panel.setVisible(true);
+            home_button.setBackground(My_Color.GREEN);
             add_customer_button.setBackground(My_Color.GREEN);
             create_order_button.setBackground(My_Color.GREEN);
             search_order_button.setBackground(My_Color.GREEN);
             search_customer_button.setBackground(My_Color.VIP_GREEN);
+            order_count.setVisible(false);
+            loyalty_customer.setVisible(false);
         }
         else if (button == create_order_button) {
             search_order_panel.setVisible(false);
             add_customer_panel.setVisible(false);
             search_customer_panel.setVisible(false);
             create_order_panel.setVisible(true);
+            home_button.setBackground(My_Color.GREEN);
             add_customer_button.setBackground(My_Color.GREEN);
             search_customer_button.setBackground(My_Color.GREEN);
             search_order_button.setBackground(My_Color.GREEN);
             create_order_button.setBackground(My_Color.VIP_GREEN);
+            order_count.setVisible(false);
+            loyalty_customer.setVisible(false);
         }
         else if (button == search_order_button) {
             add_customer_panel.setVisible(false);
             search_customer_panel.setVisible(false);
             create_order_panel.setVisible(false);
             search_order_panel.setVisible(true);
+            home_button.setBackground(My_Color.GREEN);
             add_customer_button.setBackground(My_Color.GREEN);
             add_customer_button.setBackground(My_Color.GREEN);
             create_order_button.setBackground(My_Color.GREEN);
             search_order_button.setBackground(My_Color.VIP_GREEN);
+            order_count.setVisible(false);
+            loyalty_customer.setVisible(false);
+        }
+        else if (button == home_button){
+            add_customer_panel.setVisible(false);
+            search_customer_panel.setVisible(false);
+            create_order_panel.setVisible(false);
+            search_order_panel.setVisible(false);
+            home_button.setBackground(My_Color.VIP_GREEN);
+            add_customer_button.setBackground(My_Color.GREEN);
+            add_customer_button.setBackground(My_Color.GREEN);
+            create_order_button.setBackground(My_Color.GREEN);
+            search_order_button.setBackground(My_Color.GREEN);
+            order_count.setVisible(true);
+            loyalty_customer.setVisible(true);
         }
 
     }

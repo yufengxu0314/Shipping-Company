@@ -78,7 +78,7 @@ public class Create_Order_Panel extends JPanel {
         receiver_phone_field.setBounds(15 *width/24, 7*height/12, width/6, height/8);
 
 
-        confirm_button.setBounds(10*width/12, 7*height/12, width/8, height/8);
+        confirm_button.setBounds(10*width/12, 7*height/12, width/10, height/8);
     }
 
     private void setup(){
